@@ -69,38 +69,48 @@ class HTML_DOCUMENTATIONMigration extends Migration {
     $row->title = htmlqp($row->filedata)->find('#cn-centre-col-inner h1#cn-cont')->text();  
     $text_body = htmlqp($row->filedata)->find('#cn-centre-col-inner');
     
-    
     //Remove DOM Elements
     $text_body->branch('h1#cn-cont')->remove();
     $text_body->branch('#cn-doc-dates')->remove();
     $text_body->attr('id','documentation');
     
+    //Branch Query
     $branch_query = $text_body->branch('img[src^="images/"]');
     foreach ($branch_query as $item) {
       $string_temp = $item->attr('src');
-      $string_temp2 = '/' . variable_get('file_public_path', conf_path() . '/files/') . _fixLink($row->sourceid)  . '/' . $string_temp;
+      $string_temp2 = '/' . variable_get('file_public_path', conf_path() . '/files/images/') . _fixLink($row->sourceid)  . '/' . $string_temp;
       $item->attr('src', $string_temp2);
     }
     
+    //Branch Query2
     $branch_query2 = $text_body->branch('img[src^="../../../../../"]');
     foreach ($branch_query2 as $item) {
       $string_temp = $item->attr('src');
-      $string_temp2 = '/' . variable_get('file_public_path', conf_path() . '/files/') . _fixLink($row->sourceid)  . '/' . substr($string_temp, 15);
+      $string_temp2 = '/' . variable_get('file_public_path', conf_path() . '/files/images/') . _fixLink($row->sourceid)  . '/' . substr($string_temp, 15);
       $item->attr('src', $string_temp2);
     }
     
+    //Assignments
     $row->body = $text_body->html();
     $row->language = $language_val;
     $row->path = _fixPath($row->sourceid);    
   }
 
   public function postImport(){
-    $mlid = _add_custom_menu_item_depth('documentation/styleguide/css-e', 'CSS Styles', NULL, 'menu-documentation', 0, 'en', 1);
-    _add_custom_menu_item_depth('<front>', 'CSS snapshot', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
-    _add_custom_menu_item_depth('<front>', 'Basic Styles', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
-    _add_custom_menu_item_depth('<front>', 'Grids', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
-    _add_custom_menu_item_depth('<front>', 'Speciality effects', NULL, 'menu-documentation', 0,'en', 0, $mlid);
-    _add_custom_menu_item_depth('<front>', 'Modules', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
+    //Generate The Menu
+    
+    //CSS StyleGuide
+    $mlid = _add_custom_menu_item_depth('documentation/styleguide/css-e', 'CSS Styles', NULL, 'menu-documentation', 0, 'en', 1, 0);
+    _add_custom_menu_item_depth('documentation/styleguide/css/snpsht-eng', 'CSS snapshot', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
+    _add_custom_menu_item_depth('documentation/styleguide/css/bscs-eng', 'Basic Styles', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
+    _add_custom_menu_item_depth('documentation/styleguide/css/grds-eng', 'Grids', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
+    _add_custom_menu_item_depth('documentation/styleguide/css/spclt-eng', 'Speciality effects', NULL, 'menu-documentation', 0,'en', 0, $mlid);
+    _add_custom_menu_item_depth('documentation/styleguide/css/mdl-eng', 'Modules', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
+    
+    //Default Design
+    $mlid = _add_custom_menu_item_depth('documentation/styleguide/dflt-e', 'Default Design', NULL, 'menu-documentation', 0, 'en', 1, 0);
+    _add_custom_menu_item_depth('documentation/styleguide/dflt/pprnc-eng', 'Default appearance of elements', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
+    _add_custom_menu_item_depth('documentation/styleguide/dflt/clr-eng', 'Default colour scheme', NULL, 'menu-documentation', 0, 'en', 0, $mlid);
   }
   
   public function postRollback() {

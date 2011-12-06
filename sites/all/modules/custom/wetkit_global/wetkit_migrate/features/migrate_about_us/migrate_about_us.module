@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Migrate About Us feature.
- */
-
-include_once('migrate_about_us.features.inc');
