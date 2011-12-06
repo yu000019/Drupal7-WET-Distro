@@ -1,0 +1,8 @@
+/* Token CSS Fix */
+.token-group span.expander {
+  margin-left: 0px !important;
+}
+
+body.admin-menu {
+margin-top: 0px !important;
+}

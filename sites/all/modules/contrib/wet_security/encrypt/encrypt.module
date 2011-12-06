@@ -1,0 +1,179 @@
+<?php
+
+/**
+ * @defgroup encrypt Encrypt: Provides an API for two-way encryption
+ *
+ * Provides an API for two-way encryption.  Drupal has no native way
+ * to do two-way encryption.  PHP's ability to do two-way encryption
+ * is a little more involved than most people care to get into.  This
+ * module provides an easy way to encrypt() and decrypt().
+ */
+
+/**
+ * @file
+ * Main Encrypt Drupal File
+ *
+ * This file holds the main Drupal hook functions,
+ * and API functions.
+ *
+ * @ingroup encrypt
+ */
+
+/**
+ * Encrypt Default name
+ */
+define('ENCRYPT_DEFAULT_METHOD', 'default');
+
+/**
+ * Encrypt default key name
+ */
+define('ENCRYPT_DEFAULT_KEY', 'default');
+
+/**
+ * Encrypt secure key type
+ */
+define('ENCRYPT_DEFAULT_KEY_FILE', 'secure_file_key');
+
+/**
+ * Encrypt default key db name
+ */
+define('ENCRYPT_DEFAULT_KEY_DB', 'drupal_private_key');
+
+/**
+ * Encrypt default key none
+ */
+define('ENCRYPT_DEFAULT_KEY_NONE', 'no_key');
+
+/**
+ * Encrypt secure key filename
+ */
+define('ENCRYPT_SECURE_KEY_FILE', 'encrypt_key.key');
+
+
+/**
+ * Implementation of hook_help().
+ */
+function encrypt_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#encrypt':
+      $output = '<p>'. t('The encrypt module Provides an API for two-way encryption. Drupal has no native way to do two-way encryption. PHP\'s ability to do two-way encryption is a little more involved than most people care to get into.  This module provides an easy way to encrypt() and decrypt().') .'</p>';
+      
+      if (!function_exists('mcrypt_encrypt')) {
+        $output .= '<p>' . t('MCrypt is currently not installed or configured properly on your server. If you would like to use the "MCrypt AES 256" method for encryption (highly recommended), follow the instructions for installing MCrypt !link.', array('!link' => l('here', 'http://www.php.net/manual/en/mcrypt.setup.php'))) . '</p>';
+      }
+
+      return $output;
+  }
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function encrypt_menu() {
+  $items = array();
+
+  $items['admin/config/system/encrypt'] = array(
+    'title' => 'Encrypt',
+    'description' => 'Main settings for encryption.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('encrypt_admin_settings'),
+    'access arguments' => array('administer encrypt'),
+    'file' => 'includes/encrypt.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function encrypt_theme($existing, $type, $theme, $path) {
+  return array(
+    'encrypt_admin_list' => array(
+      'arguments' => array(
+        'methods' => array(),
+      ),
+      'file' => 'includes/encrypt.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_permission().
+ */
+function encrypt_permission() {
+  return array(
+    'administer encrypt' => array(
+      'title' => t('Administer encryption settings'),
+    ),
+  );
+}
+
+/**
+ * Initilize Encrypt
+ *
+ * Get necessary includes.
+ */
+function encrypt_initialize() {
+  module_load_include('inc', 'encrypt', 'includes/encrypt.crypt');
+
+  // Include any files that modules want to include
+  // TODO: Some sort of version checking
+  foreach (module_implements('encrypt_api') as $module) {
+    $info = module_invoke($module, 'encrypt_api');
+    if (is_array($info) && !empty($info['file'])) {
+      require_once $info['file'];
+    }
+  }
+}
+
+/**
+ * Encrypt
+ *
+ * Encrypt text.
+ *
+ * @param $text
+ *   Text to encrypt
+ * @param $options
+ *   Array of options for encryption
+ * @param $method
+ *   String name of method to use.  Uses setting
+ *   default if NULL
+ * @return
+ *   A serialized array containing the encrypted text and encryption method.
+ */
+function encrypt($text = '', $options = array(), $method = NULL, $key_name = NULL) {
+  encrypt_initialize();
+  return _encrypt_decrypt('encrypt', $text, $options, $method, $key_name);
+}
+
+/**
+ * Decrypt
+ *
+ * Decrypt text.
+ *
+ * @param $text
+ *   Text to decrypt
+ * @param $options
+ *   Array of options for decryption
+ * @param $method
+ *   String name of method to use.  Uses setting
+ *   default if NULL
+ * @return
+ *   Decrypted text
+ */
+function decrypt($text = '', $options = array(), $method = NULL, $key_name = NULL) {
+  encrypt_initialize();
+  return _encrypt_decrypt('decrypt', $text, $options, $method, $key_name);
+}
+
+/**
+ * Implementation of hook_encrypt_api().
+ */
+function encrypt_encrypt_api() {
+  return array(
+    'file' => drupal_get_path('module', 'encrypt') . '/includes/encrypt.encrypt.inc',
+    'api version' => '1.0',
+  );
+}

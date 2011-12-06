@@ -1,0 +1,74 @@
+<?php
+
+/*
+ * You must implement hook_migrate_api(), setting the API level to 2, for
+ * your migration classes to be recognized by the Migrate module.
+ */
+function wetkit_migrate_migrate_api() {
+  $api = array(
+    'api' => 2,
+  );
+  return $api;
+}
+
+/* Misc Helper Function(s) */
+function _fixPath($fileName) {
+ $file = substr($fileName, 6); 
+ $file = substr($file, 0, strrpos($file, '.')); 
+ return $file;
+}
+
+function _fixLink($fileName) {
+ $file = substr($fileName, 6); 
+ $file = substr($file, 0, strrpos($file, '/')); 
+ return $file;
+}
+
+function _add_custom_menu_item_depth($link, $title, $desc, $menu, $weight, $language, $expanded, $depth = 0) {
+  $options = array();
+  $options += array(
+    'attributes' => array(
+      'title' => $desc,
+    ), 
+  );
+  
+  $item = array(
+    'link_path' => drupal_get_normal_path($link, $language),
+    'link_title' => $title,
+    'menu_name' => $menu,
+    'weight' => $weight,
+    'language' => $language,
+    'customized' => 1,
+    'options' => $options,
+    'expanded' => $expanded,
+    'plid' => $depth,
+  );
+  return menu_link_save($item);
+}
+
+function _delete_menu_docs($menu_name) {
+  db_query('DELETE FROM {menu_links} WHERE menu_name = :menu_name', 
+             array( ':menu_name' => $menu_name,));
+}
+
+/* Misc Helper Function(s) */
+function fixPath($fileName) {
+ $file = substr($fileName, 6); 
+ $file = substr($file, 0, strrpos($file, '.')); 
+ return $file;
+}
+
+function _menulinks_generate($linkpath, $menuname, $linktitle) {
+  db_query('UPDATE {menu_links} SET link_path = :linkpath WHERE menu_name = :menuname AND link_title = :linktitle', 
+             array( ':linkpath' => drupal_get_normal_path($linkpath), 
+                    ':menuname' => $menuname, 
+                    ':linktitle' => $linktitle ));
+}
+//drupal_get_normal_path($linkpath);
+
+function _file_realpath($uri) {
+  $scheme = file_uri_scheme($uri);
+  $wrapper = file_stream_wrapper_get_instance_by_scheme($scheme);
+  return $_SERVER['DOCUMENT_ROOT'] . '/' . $wrapper->getDirectoryPath() . '/' . file_uri_target($uri);
+}
+

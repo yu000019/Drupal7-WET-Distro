@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<tt xml:lang="en" xmlns="http://www.w3.org/2006/10/ttaf1" xmlns:tts="http://www.w3.org/2006/10/ttaf1#style">
+	<head>
+		<styling>
+			<style id="defaultSpeaker" tts:fontSize="12" tts:fontFamily="Arial" tts:fontWeight="normal" tts:fontStyle="normal" tts:textDecoration="none" tts:color="white" tts:backgroundColor="black" tts:textAlign="center" /> 
+			<style id="defaultCaption" tts:fontSize="12" tts:fontFamily="Arial" tts:fontWeight="normal" tts:fontStyle="normal" tts:textDecoration="none" tts:color="white" tts:backgroundColor="black" tts:textAlign="center" /> 
+		</styling>
+	</head>
+	<body style="defaultCaption" id="thebody" xml:id="b1">
+		<div begin="4.00s" dur="2.00s">
+			<p>Okay, stop.</p> 
+		</div>
+		<div begin="6.00s" dur="2.00s">
+			<p>We know lots of places out there</p> 
+		</div>
+		<div begin="8.00s" dur="2.00s">
+			<p>are looking for the best and the brightest minds.</p> 
+		</div>
+		<div begin="10.00s" dur="4.00s">
+			<p>We understand that. And guess what? So are we.</p> 
+		</div>
+		<div begin="14.00s" dur="3.00s">
+			<p>We'd like to present our case to you. Calmly, quietly,</p> 
+		</div>
+		<div begin="17.00s" dur="3.00s">
+			<p>and without a whole lot of bells and whistles.</p> 
+		</div>
+		<div begin="20.00s" dur="2.00s">
+			<p>Well, maybe one tiny bell.</p> 
+		</div>
+		<div begin="22.00s" dur="3.00s">
+			<p>We are Statistics Canada</p> 
+		</div>
+		<div begin="25.00s" dur="4.00s">
+			<p>providing Canadians access to a trusted source of information.</p> 
+		</div>
+		<div begin="29.00s" dur="3.00s">
+			<p>Information, data, and numbers are our passion.</p> 
+		</div>
+		<div begin="32.00s" dur="3.00s">
+			<p>We collect them. We analyze them. And we share our findings</p> 
+		</div>
+		<div begin="35.00s" dur="3.00s">
+			<p>with Canadians, governments, institutions, and business.</p> 
+		</div>
+		<div begin="38.00s" dur="2.00s">
+			<p>So, what's this got to do with you?</p> 
+		</div>
+		<div begin="40.00s" dur="5.00s">
+			<p>We're looking for the next generation of economists, systems programmers, sociologists,</p> 
+		</div>
+		<div begin="45.00s" dur="4.00s">
+			<p>mathematicians, health scientists, accountants, geographers, statisticians</p> 
+		</div>
+		<div begin="49.00s" dur="4.00s">
+			<p>to help us put together the numbers Canada needs to succeed.</p> 
+		</div>
+		<div begin="53.00s" dur="4.00s">
+			<p>We need new people in dozens of specialties who will help us to</p> 
+		</div>
+		<div begin="57.00s" dur="2.00s">
+			<p>design great survey instruments,</p> 
+		</div>
+		<div begin="59.00s" dur="3.00s">
+			<p>get them out, get the data in, analyze and interpret it</p> 
+		</div>
+		<div begin="62.00s" dur="4.00s">
+			<p>and get it into the hands of Canadians so they can make informed decisions.</p> 
+		</div>
+		<div begin="66.00s" dur="4.00s">
+			<p>We need good people to help us generate good numbers.</p> 
+		</div>
+		<div begin="70.00s" dur="3.00s">
+			<p>You see, good numbers, properly interpreted and analyzed,</p> 
+		</div>
+		<div begin="73.00s" dur="3.00s">
+			<p>translate to human impact on a major scale.</p> 
+		</div>
+		<div begin="76.00s" dur="4.00s">
+			<p>Statistics don't just record, statistics inform decisions.</p> 
+		</div>
+		<div begin="80.00s" dur="3.00s">
+			<p>They are used to make decisions on salaries, tuition,</p> 
+		</div>
+		<div begin="83.00s" dur="3.00s">
+			<p>the environment, housing, employment programs,</p> 
+		</div>
+		<div begin="86.00s" dur="5.00s">
+			<p>social programs, interest rates – every aspect of our society and economy.</p> 
+		</div>
+		<div begin="91.00s" dur="4.00s">
+			<p>It's huge. It requires talent. It requires innovation and high standards.</p> 
+		</div>
+		<div begin="95.00s" dur="2.00s">
+			<p>And you can be a part of it.</p> 
+		</div>
+		<div begin="97.00s" dur="4.00s">
+			<p>Still with us? Good. Here's where it gets even more interesting.</p> 
+		</div>
+		<div begin="101.00s" dur="3.00s">
+			<p>We've been recognized as one of Canada's top 100 employers,</p> 
+		</div>
+		<div begin="104.00s" dur="3.00s">
+			<p>as one of Canada's best Diversity Employers,</p> 
+		</div>
+		<div begin="107.00s" dur="4.00s">
+			<p>and as one of the top statistical agencies in the world.</p> 
+		</div>
+		<div begin="111.00s" dur="3.00s">
+			<p>Our headquarters is located on a single, campus-style community</p> 
+		</div>
+		<div begin="114.00s" dur="3.00s">
+			<p>in one of the most amazing locations in the country.</p> 
+		</div>
+		<div begin="117.00s" dur="3.00s">
+			<p>If you do anything, you can do it here.</p> 
+		</div>
+		<div begin="120.00s" dur="3.00s">
+			<p>Speaking of amazing, we also have regional offices across the country</p> 
+		</div>
+		<div begin="123.00s" dur="4.00s">
+			<p>offering tremendous opportunity from coast to coast.</p> 
+		</div>
+		<div begin="127.00s" dur="2.00s">
+			<p>The word “career” has meaning here.</p> 
+		</div>
+		<div begin="129.00s" dur="2.00s">
+			<p>You work with some of the best minds in the world,</p> 
+		</div>
+		<div begin="131.00s" dur="3.00s">
+			<p>and they are the folks who are your mentors and coaches.</p> 
+		</div>
+		<div begin="134.00s" dur="2.00s">
+			<p>You'll have access to all senior managers</p> 
+		</div>
+		<div begin="136.00s" dur="3.00s">
+			<p>including the Chief Statistician. That's just how we work.</p> 
+		</div>
+		<div begin="139.00s" dur="2.00s">
+			<p>You can stay in your specialty area</p> 
+		</div>
+		<div begin="141.00s" dur="3.00s">
+			<p>or move around and learn new expertise as you go.</p> 
+		</div>
+		<div begin="144.00s" dur="4.00s">
+			<p>We support the idea of you letting your talents and interests shine,</p> 
+		</div>
+		<div begin="148.00s" dur="3.00s">
+			<p>and even helping discover and grow new ones.</p> 
+		</div>
+		<div begin="151.00s" dur="4.00s">
+			<p>Now, if you were reading an old-fashioned brochure right now,</p> 
+		</div>
+		<div begin="155.00s" dur="2.00s">
+			<p>this would be the part where it would say:</p> 
+		</div>
+		<div begin="157.00s" dur="2.00s">
+			<p>"We offer stable employment,</p> 
+		</div>
+		<div begin="159.00s" dur="2.00s">
+			<p>competitive packages, and a management team</p> 
+		</div>
+		<div begin="161.00s" dur="3.00s">
+			<p>that fosters a positive environment."</p> 
+		</div>
+		<div begin="164.00s" dur="4.00s">
+			<p>Thing is, it's true.  We do offer all that stuff, plus we offer flex time;</p> 
+		</div>
+		<div begin="168.00s" dur="4.00s">
+			<p>we have on-site day care at our headquarters in Ottawa-Gatineau;</p> 
+		</div>
+		<div begin="172.00s" dur="2.00s">
+			<p>we have a variety of strategies to help you fit in,</p> 
+		</div>
+		<div begin="174.00s" dur="2.00s">
+			<p>learning and development programs,</p> 
+		</div>
+		<div begin="176.00s" dur="3.00s">
+			<p>and people to help you get what you need.</p> 
+		</div>
+		<div begin="179.00s" dur="2.00s">
+			<p>And from fitness and sports opportunities</p> 
+		</div>
+		<div begin="181.00s" dur="2.00s">
+			<p>to activities at lunch and a place for meditation</p> 
+		</div>
+		<div begin="183.00s" dur="3.00s">
+			<p>well, we take our little community pretty seriously.</p> 
+		</div>
+		<div begin="186.00s" dur="2.00s">
+			<p>So here's what we really want.</p> 
+		</div>
+		<div begin="188.00s" dur="2.00s">
+			<p>We want you to come and work here.</p> 
+		</div>
+		<div begin="190.00s" dur="3.00s">
+			<p>The work you do at Statistics Canada has real meaning,</p> 
+		</div>
+		<div begin="193.00s" dur="3.00s">
+			<p>with output that doesn't just disappear into thin air,</p> 
+		</div>
+		<div begin="196.00s" dur="2.00s">
+			<p>or into some chamber of records.</p> 
+		</div>
+		<div begin="198.00s" dur="3.00s">
+			<p>Yes, we're all about good numbers – and good people, too.</p> 
+		</div>
+		<div begin="201.00s" dur="4.00s">
+			<p>We are passionate about being our nation's trusted source of information,</p> 
+		</div>
+		<div begin="205.00s" dur="3.00s">
+			<p>helping Canada make good decisions, each and every day.</p> 
+		</div>
+		<div begin="208.00s" dur="4.00s">
+			<p>That takes teamwork, imagination, creativity,</p> 
+		</div>
+		<div begin="212.00s" dur="3.00s">
+			<p>high standards, talent, and passion.</p> 
+		</div>
+		<div begin="215.00s" dur="3.00s">
+			<p>That's why we've been talking to you.</p> 
+		</div>
+		<div begin="218.00s" dur="4.00s">
+			<p>Now it's your turn. If you think you've got what it takes,</p> 
+		</div>
+		<div begin="222.00s" dur="3.00s">
+			<p>then talk to us before you talk to anyone else</p> 
+		</div>
+		<div begin="225.00s" dur="3.00s">
+			<p>because as the best, we want the best.</p> 
+		</div>
+		<div begin="228.00s" dur="4.00s">
+			<p>Join a world leader. Statistics Canada.</p> 
+		</div>
+	</body>
+</tt>		

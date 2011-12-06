@@ -1,0 +1,16 @@
+name = Workflow
+description = "Allows the creation and assignment of arbitrary workflows to node types."
+package = Workflow
+core = 7.x
+configure = admin/config/workflow/workflow
+files[] = includes/workflow.views.inc
+files[] = includes/workflow.views_default.inc
+files[] = includes/workflow_views_handler_filter_sid.inc
+files[] = includes/workflow_views_handler_field_sid.inc
+files[] = includes/workflow_views_handler_argument_state.inc
+; Information added by drupal.org packaging script on 2011-11-12
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "workflow"
+datestamp = "1321059647"
+

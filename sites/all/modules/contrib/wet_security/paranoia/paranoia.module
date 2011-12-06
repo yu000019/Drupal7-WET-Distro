@@ -1,0 +1,69 @@
+<?php
+/**
+ * @file
+ * - Disables PHP block visibility permission and gives status error if a role
+ *   has this permission.
+ * - Disables the PHP module.
+ * - Hides the PHP and paranoia modules from the modules page.
+ * - Prevents user/1 editing which could give access to abitrary contrib module
+ *   php execution.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Hide Paranoia and PHP modules from module admin form.
+ */
+function paranoia_form_system_modules_alter(&$form, &$form_state) {
+  $hidden_modules = module_invoke_all('paranoia_hide');
+  foreach ($hidden_modules as $module => $package) {
+    // Unset instead of using #access because #access => FALSE shows an empty
+    // table row.
+    unset($form['modules'][$package][$module]);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function paranoia_form_user_profile_form_alter(&$form, &$form_state) {
+  if ($form_state['user']->uid === '1') {
+    global $user;
+    // Allow user/1 to edit own details.
+    if ($user->uid != 1) {
+      drupal_set_message(t('You must login as this user (user/1) to modify the email address and password for this account.'), 'warning');
+      $form['account']['mail']['#access'] = FALSE;
+      $form['account']['pass']['#access'] = FALSE;
+      $form['account']['current_pass']['#access'] = FALSE;
+
+    }
+  }
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function paranoia_requirements($phase) {
+  $requirements = array();
+  if ($phase == 'runtime') {
+    // Ensure the PHP module is not enabled.
+    if (module_exists('php')) {
+      $requirements['paranoia_php'] = array(
+        'title' => t('Paranoia'),
+        'description' => t('The PHP module is enabled. This module should be disabled (but paranoia module prevents it from showing in the module admin form).  It may have been enabled in the database, circumventing the effectiveness of paranoia module.'),
+        'severity' => REQUIREMENT_ERROR,
+        );
+    }
+  }
+  return $requirements;
+}
+
+/**
+ * Implements hook_paranoia_hide().
+ */
+function paranoia_paranoia_hide() {
+  return array(
+    'php' => 'Core',
+    'paranoia' => 'Other',
+  );
+}

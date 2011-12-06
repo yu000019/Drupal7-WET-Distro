@@ -1,0 +1,11 @@
+name = Paranoia
+description = Protects the site from insecure configurations.
+core = 7.x
+
+
+; Information added by drupal.org packaging script on 2011-12-02
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "paranoia"
+datestamp = "1322786696"
+

@@ -1,0 +1,260 @@
+
+/**********************************************************
+ *                 Custom Styles
+ **********************************************************/
+/**
+ * Here you can add custom stles for your theme that do not fit
+ * into one if the modular stylesheets.
+ */
+ 
+ /* Possibly Bad Classes */
+footer.submitted {
+   margin-left: 10px;
+   margin-bottom: 10px;
+}
+
+menu.node-links {
+    padding: 0px;
+}
+
+menu.node-links ul.links {
+    margin: 0px 0px 0px 10px;
+}
+
+label {
+  display: inline;
+  font-weight: normal;
+}
+
+code {
+  margin-right: 5px;
+}
+
+#sidebar-first ul.menu li.leaf {
+    list-style-type: none !important;
+    list-style-image: none !important;
+}
+
+/* Skinr */
+
+#edit-skinr-settings-block-type-genesis-clf-groups-general-stylingcss div {
+   float: left !important;
+   width: 200px !important;
+ }
+ 
+ .skinr-form .fieldset-wrapper div.description {
+   float: left;
+ }
+ 
+/* Admin Menu */
+
+#admin-menu li li.expandable ul {
+margin: -20px 0 0 160px !important;
+}
+
+
+/* Workaround for Admin menu bar shadow */
+
+#cn-banner {
+z-index: 500 !important;
+}
+
+#cn-psnb .wet-boew-megamenu{
+  z-index: 499 !important;
+}
+
+/* Main Menu */
+
+#main-menu-wrapper {
+margin: 0px;
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+/* Flash Object Video */
+
+.mediaplayer object {
+  width: 339px !important;
+  height: 191px !important;
+}
+
+.wet-boew-toolbar {
+  width: 339px !important;
+}
+
+/* Override grid medium css file */
+#cn-body-inner-1col #cn-centre-col-inner {
+width: 960px;
+}
+
+#cn-centre-col-inner {
+  left: 0px !important;
+}
+
+
+/* Override grid module css file */
+
+#diff-node-revisions {
+    margin-left: 0px;
+}
+
+table.diff {
+    width: 95%;
+}
+
+ul.primary li a {
+  padding: 0.3em 0.5em;
+}
+ul.drupaltabs {
+  margin: 0px 0px 0px 10px !important;
+  padding: 0px !important;
+  border-bottom: none;
+}
+
+ul.drupaltabs.secondary {
+  margin: 20px 0px 0px 0px !important;
+  padding: 0px !important;
+  border-bottom: none;
+}
+
+ul.drupaltabs li a, ul.drupaltabs li.active a{
+  border-bottom: 1px solid #BBB;
+}
+
+ul.drupaltabs li a:hover{ 
+    border-bottom: 1px solid #ccc;
+}
+
+legend {
+  border-right: none;
+  border-bottom: none;
+  background: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Workbench */
+
+.workbench-moderation-moderate-form select {
+  vertical-align: baseline;
+  margin: 0px;
+}
+
+.workbench-moderation-moderate-form input {
+  margin: 0px;
+}
+
+.workbench-info-block {
+  margin: 0px 10px 0px 10px !important;
+}
+
+/* Block Styling */
+
+.block-region {
+  background-color: #B4D7F0;
+}
+
+.block-menu ul li {
+  list-style-type: none;
+  list-style-image: none;
+}
+
+/* Node Styling */
+
+
+.node-type-main-slider #main-content img {
+  width: 500px;
+}
+
+/* Panels */
+
+#cn-left-col-inner .pane-content li {
+    list-style-type: none;
+    list-style-image: none;
+}
+
+.pane-page-tabs {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+div.panels-ipe-placeholder h3 {
+    background: #898AAB;
+    padding: 10px 0px 10px 10px;
+    font-weight: bold;
+}
+
+.panels_enabled #block-workbench-block {
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+}
+
+div.panels-ipe-draghandle {
+    background-color: #146094;
+    cursor: move;
+    height: 24px;
+}
+
+.panels-ipe-editing .panels-ipe-region {
+    width: 98%;
+}
+
+/* Government Header */
+
+#cn-gcnb-lang ul {
+    float: none !important;
+}
+
+/* Apache Solr */
+
+.block-facetapi ul li.leaf {
+    list-style-type: none;
+    list-style-image: none;
+}
+
+#cn-search-submit {
+    margin-top: 0px !important;
+}
+
+.page-search-site .search-form {
+    margin-top: 20px; 
+}
+
+#cn-centre-col section #content #search-form {
+  margin-top: 20px;
+}
+
+#cn-centre-col section #content #search-form fieldset {
+  margin-top: 20px;
+}
+
+/* CLF Overrides */
+
+.allSides {
+    list-style-type: none;
+}
+
+/* Status Messages */
+
+.messages.status {
+  margin: 20px;
+}
+
+/* Language Switcher */
+
+#menu_goc_nav_bar #cn-gcnb-lang .active {
+    display: none;
+}
+
+#cn-gcnb-lang span {
+  color: white;
+  display: block;
+  padding: 0 1em;
+  border: none;
+  padding-right: 1px;
+}
+
+.cn-left-col-default .language-switcher-locale-url li span {
+  display: block;
+  padding: 4px 5px;
+}

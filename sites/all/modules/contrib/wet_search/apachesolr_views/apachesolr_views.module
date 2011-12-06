@@ -1,0 +1,260 @@
+<?php
+
+/**
+ * @file
+ * Provides Views Implementation for the ApacheSolr Search Integration project
+ * drupal.org/project/apachesolr
+ */
+
+/**
+ * Implementation of hook_views_api().
+ */
+function apachesolr_views_views_api() {
+  return array('api' => '3.0-dev');
+}
+
+/**
+ * Implementation of hook_apachesolr_entities().
+ * This is done for apachesolr_search module.
+ */
+function apachesolr_views_apachesolr_entities() {
+  return array(
+    'node' => array(
+      'name' => 'Node',
+      'base_field' => 'nid',
+    ),
+  );
+}
+
+/**
+ * Process a single field within a view.
+ *
+ * This preprocess function isn't normally run, as a function is used by
+ * default, for performance. However, by creating a template, this
+ * preprocess should get picked up.
+ */
+function apachesolr_views_preprocess_views_view_field(&$vars) {
+
+  $field = $vars['field'];
+
+  if ($field->view->name != 'mip_search_apachesolr') {
+    return;
+  }
+
+  $field_name = $field->field;
+  $node = $vars['row']->node;
+
+  $apachesolr_field_name = apachesolr_views_field_names_map($field_name);
+
+  // Customization for Services field.
+  if ($field_name == 'field_mip_services') {
+    $apachesolr_field_name = 'tm_vid_7_names';
+  }
+
+  if (isset($node->{$apachesolr_field_name})) {
+    $vars['output'] = $node->{$apachesolr_field_name};
+  }
+
+  if (is_array($vars['output'])) {
+    $vars['output'] = implode(' ', $vars['output']);
+  }
+
+//  dpm($field_name, 'field_name');
+//  dpm($apachesolr_field_name, 'apachesolr_field_name');
+//  dpm($vars['output'], 'vars output');
+}
+
+/**
+ * Helper. Retugn apachesolr field name by drupal field name.
+ *
+ * @param string $field_name
+ *   Drupal field name.
+ * @return string
+ *   Apachesolr field name.
+ */
+function apachesolr_views_field_names_map($field_name) {
+  $map = &drupal_static(__FUNCTION__, array());
+
+  if (empty($map)) {
+    foreach (apachesolr_entity_fields('node') as $apachesolr_field_name => $apachesolr_field) {
+      $field_name = $apachesolr_field['field']['field_name'];
+      $map[$field_name] = $apachesolr_field_name;
+    }
+  }
+
+  if (isset($map[$field_name])) {
+    return $map[$field_name];
+  }
+}
+
+
+/**
+ * Implements hook_views_pre_execute().
+ *
+ * @param type $view
+ */
+function apachesolr_views_views_post_execute($view) {
+  if (!key_exists('apachesolr_area', $view->header)) {
+    return;
+  }
+
+  $output_string = 'Your search returned @count results';
+  $output_string_singular = 'Your search returned one result';
+  $output_string_arguments = array();
+
+  $apachesolr_params = $view->query->get_params();
+  if (isset($apachesolr_params['q']) && !empty($apachesolr_params['q'])) {
+    $search_string = $apachesolr_params['q'];
+    // Strip wildcards if we used dismax handler. But we cannot determine at
+    // the moment what handler we use.
+//    if (isset($apachesolr_params['defType']) && $apachesolr_params['defType'] == 'dismax') {
+      $search_string_array = explode(' ', $search_string);
+      $search_string_array_stripped = array();
+      foreach ($search_string_array as $element) {
+        $search_string_array_stripped[] = trim($element, '*');
+      }
+      $search_string = implode(' ', $search_string_array_stripped);
+//    }
+    $output_string = 'Your search for \'!search_string\' returned @count results';
+    $output_string_singular = 'Your search for \'!search_string\' returned one result';
+    $output_string_arguments['!search_string'] = $search_string;
+  }
+
+  foreach ($view->header as $key => $header) {
+    if (strpos($key, 'apachesolr_area') !== FALSE) {
+      $view->header[$key]->options['content'] = '<div class="apachesolr-results">' . format_plural($view->total_rows, $output_string_singular, $output_string, $output_string_arguments) . '</div>';
+    }
+  }
+}
+
+/**
+ * Get title and description of the indexed field.
+ *
+ * Used in apachesolr_views_views_data().
+ *
+ * @param type $apachesolr_field_name
+ * @return type
+ */
+function apachesolr_views_field_names($apachesolr_field_name) {
+  $field_names = &drupal_static(__FUNCTION__);
+
+  if (!isset($field_names[$apachesolr_field_name])) {
+
+    $real_field_name = $apachesolr_field_name;
+
+    $field_label = '';
+    $field_help = '';
+
+    // Try to get field labels for standard fields.
+    list($field_label, $field_help) = apachesolr_views_field_names_standard($apachesolr_field_name);
+
+    // Try to get field labels for Field API fields.
+    if (empty($field_label)) {
+      list($field_label, $field_help) = apachesolr_views_field_names_fieldapi($apachesolr_field_name);
+    }
+
+    // Set label to apachesolr_field_name if we don't have better name.
+    if (empty($field_label)) {
+      $field_label = $apachesolr_field_name;
+    }
+
+    $field_names[$apachesolr_field_name] = array(
+      'title' => $field_label,
+      'help' => $apachesolr_field_name . ' ' . $field_help,
+    );
+  }
+
+  return $field_names[$apachesolr_field_name];
+}
+
+/**
+ * Get the title and help texts for apachesolr index fields.
+ *
+ * @param type $field_name
+ * @return array
+ */
+function apachesolr_views_field_names_standard($field_name) {
+  $field_names = array(
+    'label' => array(
+      'title' => t('Title'),
+      'help' => t('The title of the node.'),
+    ),
+    'ds_created' => array(
+      'title' => t('Creation date'),
+      'help' => t('The date the node was created.'),
+    ),
+    'ds_changed' => array(
+      'title' => t('Updated date'),
+      'help' => t('The date the node was last updated.'),
+    ),
+    'bundle' => array(
+      'title' => t('Node Type machine name'),
+      'help' => t('The type of a node (for example, "article", "page" etc).'),
+    ),
+    'bundle_name' => array(
+      'title' => t('Node Type human name'),
+      'help' => t('The type of a node (for example, "Article", "Basic page" etc).'),
+    ),
+    'ss_name' => array(
+      'title' => t('Author'),
+      'help' => t("The node's author."),
+    ),
+    'is_uid' => array(
+      'title' => t('Author Uid'),
+      'help' => t("The node's author user ID."),
+    ),
+    'is_comment_count' => array(
+      'title' => t('Comment count'),
+      'help' => t('The number of comments that were posted to the node.'),
+    ),
+    'url' => array(
+      'title' => t('Node URL'),
+      'help' => t('URL of the node.'),
+    ),
+    'path' => array(
+      'title' => t('Node path'),
+      'help' => t('Path of the node.'),
+    ),
+  );
+
+  drupal_alter('apachesolr_views_field_names', $field_names);
+
+  if (isset($field_names[$field_name])) {
+    return array($field_names[$field_name]['title'], $field_names[$field_name]['help']);
+  }
+
+  return array('', '');
+}
+
+/**
+ * Get the title and help texts from Field API widget settings
+ * for apachesolr index fields.
+ *
+ * @param type $field_name
+ * @return array
+ */
+function apachesolr_views_field_names_fieldapi($apachesolr_field_name) {
+  $real_field_name = $apachesolr_field_name;
+
+  // Parse apachesolr field name. We try to understand what is fieldapi field name to get proper label.
+  $apachesolr_field_name_array = explode('_', $apachesolr_field_name);
+  if (isset($apachesolr_field_name_array[2]) && $apachesolr_field_name_array[2] == 'field') {
+    array_shift($apachesolr_field_name_array);
+    array_shift($apachesolr_field_name_array);
+    $real_field_name = implode('_', $apachesolr_field_name_array);
+  }
+
+  // Go through all fields of node entity and try to find field label.
+  $instances = field_info_instances('node');
+  $field_label = '';
+  $field_help = '';
+  foreach ($instances as $bundle_fields) {
+    // Loop through all fields of bundles.
+    foreach ($bundle_fields as $bundle_field) {
+      // If we found the field, save label and exit the loop.
+      if ($bundle_field['field_name'] == $real_field_name) {
+        return array($bundle_field['label'], $bundle_field['description']);
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ */
+
+// Drupal needs this blank file.
+
+function wetkit_post_install_install() {
+  //add some documentation to assist the end user
+  drupal_flush_all_caches();
+  $migration = Migration::getInstance('XML_Web_Usability_Gov');
+  $result = $migration->processImport();
+  $migration = Migration::getInstance('HTML_Documentation');
+  $result = $migration->processImport();
+}
+
+function wetkit_post_install_uninstall() {
+  //add some documentation to assist the end user
+  $migration = Migration::getInstance('XML_Web_Usability_Gov');
+  $result = $migration->processRollback();
+  $migration = Migration::getInstance('XML_Documentation');
+  $result = $migration->processRollback();
+  cache_clear_all();
+}
+

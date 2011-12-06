@@ -1,0 +1,104 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * This file holds the functions for the installing
+ * and enabling of the encrypt module.
+ *
+ * @ingroup encrypt
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function encrypt_install() {
+  // Check for mcrypt and make default if found
+  if (function_exists('mcrypt_get_iv_size') && function_exists('mcrypt_create_iv') && function_exists('mcrypt_encrypt')) {
+    variable_set('encrypt_default_method', 'mcrypt_rij_256');
+    drupal_set_message(st('Mcrypt functions found, setting as default encryption method.'));
+  }
+  else {
+    drupal_set_message(st('Mcrypt functions not found, setting basic mathematical method as default encryption method.'));
+  }
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function encrypt_uninstall() {
+  // Get module variables
+  $results = db_query("SELECT v.name FROM {variable} AS v WHERE v.name LIKE '%s%%'", 'encrypt_');
+  // Remove variables
+  while ($row = db_fetch_array($results)) {
+    variable_del($row['name']);
+  }
+}
+
+/**
+ * Implementation of hook_requirements().
+ */
+function encrypt_requirements($phase) {
+  $requirements = array();
+
+  // Ensure translations don't break at install time
+  $t = get_t();
+
+  // We do not require key to be secure for module to work.
+  if ($phase == 'runtime') {
+    $error_message = '';
+    $key_found = FALSE;
+    $encrypt_key_path = rtrim(variable_get('encrypt_secure_key_path', ''), '/\\');
+    $encrypt_key_file = $encrypt_key_path . '/' . ENCRYPT_SECURE_KEY_FILE;
+
+    // Check if path is set
+    if ($encrypt_key_path == '') {
+      $error_message = $t('No path set for key.');
+    }
+
+    // Check if path is writable and a dir
+    if (empty($error_message)) {
+      if (!is_writable($encrypt_key_path) || !is_dir($encrypt_key_path)) {
+        $error_message = $t('Path not writable.');
+        $state = 1;
+      }
+    }
+
+    // Check for file
+    if (empty($error_message)) {
+      if (!file_exists($encrypt_key_file) || !is_writable($encrypt_key_file) || !is_readable($encrypt_key_file)) {
+        $error_message = $t('File not found or not writable.');
+        $state = 2;
+      }
+    }
+
+    // Check for contents of file
+    if (empty($error_message)) {
+      $key_contents = file_get_contents($encrypt_key_file);
+      if (!$key_contents) {
+        $error_message = $t('No key found in file.');
+      }
+    }
+
+    // Check if keys found
+    $requirements['encrypt_keys'] = array();
+    $requirements['encrypt_keys']['title'] = $t('Encrypt Key Storage');
+    if (empty($error_message)) {
+      $requirements['encrypt_keys']['value'] = $t('OK');
+      $requirements['encrypt_keys']['severity'] = REQUIREMENT_OK;
+    }
+    else {
+      $requirements['encrypt_keys']['value'] = $error_message;
+      $requirements['encrypt_keys']['severity'] = REQUIREMENT_ERROR;
+      $requirements['encrypt_keys']['description'] = $t('Encrypt is really only secure if you store your key outside the webroot.  Read the %readme file or go to the <a href="@admin">admin settings</a> to find out more.',
+        array(
+          '%settings' => 'settings.php',
+          '%readme' => 'README.txt',
+          '@admin' => url('admin/settings/encrypt'),
+        )
+      );
+    }
+  }
+
+  return $requirements;
+}

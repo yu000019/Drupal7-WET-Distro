@@ -1,0 +1,85 @@
+name = WebExp
+description = MANDATORY: Install Profile created for the Web Experience Toolkit using Drupal 7
+core = 7.x
+
+;CORE
+dependencies[] = block
+dependencies[] = color
+dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = dashboard
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = taxonomy
+dependencies[] = dblog
+dependencies[] = search
+dependencies[] = shortcut
+dependencies[] = toolbar
+dependencies[] = overlay
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = rdf
+dependencies[] = statistics
+dependencies[] = aggregator
+dependencies[] = simpletest
+dependencies[] = trigger
+
+;CONTRIBUTED
+dependencies[] = advanced_help
+dependencies[] = transliteration
+dependencies[] = ctools
+dependencies[] = views
+dependencies[] = views_ui
+dependencies[] = diff
+dependencies[] = features
+dependencies[] = context
+dependencies[] = context_layouts
+dependencies[] = context_ui
+dependencies[] = strongarm
+dependencies[] = variable
+dependencies[] = variable_admin
+dependencies[] = variable_advanced
+dependencies[] = variable_realm
+dependencies[] = variable_store
+dependencies[] = pathauto
+dependencies[] = pathauto_persist
+dependencies[] = libraries
+dependencies[] = module_filter
+dependencies[] = custom_breadcrumbs
+dependencies[] = link
+dependencies[] = facetapi
+dependencies[] = metatag
+dependencies[] = metatag_ui
+dependencies[] = hacked
+dependencies[] = xmlsitemap
+dependencies[] = search404
+dependencies[] = field_collection
+dependencies[] = conditional_styles
+dependencies[] = views_bulk_operations
+dependencies[] = admin_views
+dependencies[] = elements
+dependencies[] = html5_tools
+;dependencies[] = flag
+;dependencies[] = flag_actions
+;dependencies[] = translation_helpers
+
+;custom
+dependencies[] = wetkit
+dependencies[] = wetkit_i18n
+dependencies[] = wetkit_content_types
+dependencies[] = wetkit_metatag
+
+;security
+dependencies[] = security_review
+
+;FILES
+files[] = webexp.install
+files[] = webexp.profile
+
+;CSS
+stylesheets[all][] = css/webexp.css

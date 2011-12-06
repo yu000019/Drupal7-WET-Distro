@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Code for the wetkit_content_types feature.
+ */
+
+include_once('wetkit_content_types.features.inc');
+
+function wetkit_content_types_node_view_alter(&$build)
+{
+  unset($build['language']);
+}
+

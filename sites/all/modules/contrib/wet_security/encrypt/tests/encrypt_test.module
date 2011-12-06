@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Declares a bogus encryption method for testing purposes.
+ */
+
+/**
+ * Implementation of hook_encrypt_api().
+ */
+function encrypt_test_encrypt_api() {
+  return array(
+    'file' => __FILE__,
+    'api version' => '1.0',
+  );
+}
+
+/**
+ * Implementation of hook_encrypt_method_info().
+ */
+function encrypt_test_encrypt_method_info() {
+  $methods = array();
+
+  // Basic methods that dont need any extensions
+  $methods['encrypt_test'] = array(
+    'title' => t('Test Method'),
+    'description' => t('This is just a test encryption method.'),
+    'callback' => 'encrypt_test_encrypt_test',
+  );
+
+  return $methods;
+}
+
+/**
+ * Callback for encryption.
+ * We'll just return the text, since we're not concerned with testing encryption.
+ */
+function encrypt_test_encrypt_test($op = 'encrypt', $text = '', $options = array()) {
+  return $text;
+}

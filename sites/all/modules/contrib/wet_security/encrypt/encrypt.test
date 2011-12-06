@@ -1,0 +1,183 @@
+<?php
+
+/**
+ * @file
+ * Tests for encrypt.module
+ */
+
+/**
+ * Test basic encryption and decryption.
+ */
+class EncryptEncryptDecryptTest extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Encrypt and Decrypt a String',
+      'description' => 'Test basic encrypting and decripting of a string.',
+      'group' => 'Encrypt',
+    );
+  }
+
+  /**
+   * Enable encrypt module.
+   */
+  function setUp() {
+    parent::setUp('encrypt');
+  }
+
+  /**
+   * Test encryption and decryption with the "None" method.
+   */
+  function testNoneEncryptDecrypt() {
+    // First, generate a random string to encrypt.
+    $random = $this->randomName(10);
+
+    // Encrypt the string.
+    $encrypted = encrypt($random, array(), 'none');
+    $this->assertNotEqual($random, $encrypted, t('None: A value, encrypted, does not equal itself.'));
+    $this->assertTrue(strpos($encrypted, 'a:') === 0, t('None: The encrypted value is a serialized array.'));
+
+    // Since no actual encryption is being performed, ensure that the "encrypted" text is the same as the original.
+    $encryptedArray = unserialize($encrypted);
+    $this->assertEqual($random, $encryptedArray['text'], t('None: Initial value equals "encrypted" value.')); 
+
+    // Then, decrypt the encrypted string.
+    $decrypted = decrypt($encrypted, array(), 'none');
+    $this->assertEqual($random, $decrypted, t('None: A value, decrypted, equals itself.'));
+  }
+
+  /**
+   * Test encryption and decryption with the "Basic" method.
+   *
+   * Pretty much the same as the "None" tests. See that method for more detailed comments.
+   */
+  function testBasicEncryptDecrypt() {
+    $random = $this->randomName(10);
+    $encrypted = encrypt($random, array(), 'default');
+
+    // Test that the original value does not equal the encrypted value (i.e. that the data is actually being encrypted).
+    $this->assertTrue(strpos($encrypted, 'a:') === 0, t('Basic: The encrypted value is a serialized array.'));
+    $encryptedArray = unserialize($encrypted);
+    $this->assertNotEqual($random, $encryptedArray['text'], t('Basic: A value, encrypted, does not equal itself.'));
+
+    $decrypted = decrypt($encrypted, array(), 'default');
+    $this->assertEqual($random, $decrypted, t('Basic: A value, decrypted, equals itself.'));
+  }
+
+  /**
+   * Test encryption and decryption with the "MCrypt" method.
+   *
+   * Pretty much the same as the "None" tests. See that method for more detailed comments.
+   */
+  function testMCryptEncryptDecrypt() {
+    if (function_exists('mcrypt_encrypt')) {
+      $random = $this->randomName(10);
+      $encrypted = encrypt($random, array(), 'mcrypt_rij_256');
+
+      // Test that the original value does not equal the encrypted value (i.e. that the data is actually being encrypted).
+      $this->assertTrue(strpos($encrypted, 'a:') === 0, t('MCrypt: The encrypted value is a serialized array.'));
+      $encryptedArray = unserialize($encrypted);
+      $this->assertNotEqual($random, $encryptedArray['text'], t('MCrypt: A value, encrypted, does not equal itself.'));
+
+      $decrypted = decrypt($encrypted, array(), 'mcrypt_rij_256');
+      $this->assertEqual($random, $decrypted, t('MCrypt: A value, decrypted, equals itself.'));
+    } else {
+      debug('MCrypt extension not present. Skipping tests.');
+    }
+  }
+
+}
+
+/**
+ * Test key handling.
+ */
+class EncryptKeyHandling extends DrupalWebTestCase {
+  
+  public static function getInfo() {
+    return array(
+      'name' => 'Key Handling',
+      'description' => 'Make sure keys are handled well.',
+      'group' => 'Encrypt',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('encrypt');
+
+    // First, get rid of the key path if it exists.
+    variable_del('encrypt_secure_key_path');
+  }
+
+  /**
+   * Ensure that, if no key path is set, drupal_private_key is used.
+   */
+  function testDefaultKey() {
+    // Encrypt a value.
+    $text = $this->randomName(10);
+    $encrypted = encrypt($text);
+    $enc_array = unserialize($encrypted);
+
+    $this->assertNotEqual($enc_array['text'], $text, t('The text was encrypted.'));
+    $this->assertEqual($enc_array['key_name'], 'drupal_private_key', t('Drupal private key is used when no file-based key is specified.'));
+  }
+
+  /**
+   * Make sure that the encryption key file is successfully created and used.
+   *
+   * This test will not pass if you are using a VirtualDocumentRoot due to
+   * https://issues.apache.org/bugzilla/show_bug.cgi?id=26052.
+   */
+  function testKeyFileCreation() {
+    // First create an admin user.
+    $adminUser = $this->drupalCreateUser(array('administer encrypt'));
+    $this->drupalLogin($adminUser);
+
+    // So the tests don't balk at us.
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/includes/install.inc');
+
+    // Then, let's set our key path on the encrypt admin page.
+    $key_path = $_SERVER['DOCUMENT_ROOT'] . '/' . variable_get('file_public_path', conf_path() . '/files');
+    $values = array(
+      'encrypt_default_method' => 'default',
+      'encrypt_secure_key_path' => $key_path,
+    );
+    $this->drupalPost('admin/config/system/encrypt', $values, 'Save configuration');
+
+    // Check to see if the key file was created.
+    $this->assertTrue(file_exists($key_path . '/encrypt_key.key'), t('The key file was created.'));
+  }
+
+}
+
+/**
+ * Test encryption method hooks.
+ */
+class EncryptEncryptionMethodHooksTest extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Encryption Method Hook tests',
+      'description' => 'Test encryption method declaration hooks.',
+      'group' => 'Encrypt',
+    );
+  }
+
+  /**
+   * Enable encrypt module.
+   */
+  function setUp() {
+    parent::setUp('encrypt', 'encrypt_test');
+    $adminUser = $this->drupalCreateUser(array('administer encrypt'));
+    $this->drupalLogin($adminUser);
+  }
+
+  /**
+   * Ensure that our declared encryption method appears on the settings page.
+   */
+  function testMethodAppearsInList() {
+    $this->drupalGet('admin/config/system/encrypt');
+    $this->assertText('Test Method', t('Encryption method name is present.'));
+    $this->assertText('This is just a test encryption method.', t('Encryption method description is present.'));
+  }
+
+}

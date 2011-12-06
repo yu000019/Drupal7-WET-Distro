@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentimport>
+  <document>
+    <sourceid>docimport0001</sourceid>
+    <langcode>en</langcode>
+    <path>help</path>
+    <name>Help</name>
+    <description><![CDATA[<p>This is the <strong>Main Help</strong> area</p>]]></description>
+  </document>
+  <document>
+    <sourceid>docimport0002</sourceid>
+    <langcode>fr</langcode>
+    <path>help</path>
+    <name>Aide</name>
+    <description><![CDATA[<p>This is the <strong>Main Help</strong> area</p>]]></description>
+  </document>
+</documentimport>

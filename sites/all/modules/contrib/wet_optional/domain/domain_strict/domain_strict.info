@@ -1,0 +1,13 @@
+name = Domain Strict
+description = Forces users to be assigned to a domain in order to view content on that domain.
+package = Domain Access
+dependencies[] = domain
+core = 7.x
+files[] = domain_strict.module
+
+; Information added by drupal.org packaging script on 2011-09-30
+version = "7.x-2.15"
+core = "7.x"
+project = "domain"
+datestamp = "1317404202"
+

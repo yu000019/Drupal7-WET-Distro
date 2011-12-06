@@ -1,0 +1,20 @@
+
+/**
+ * @file
+ * Encrypt Main CSS
+ *
+ * This file holds the base CSS for the encrypt module
+ *
+ * @ingroup encrypt
+ */
+
+/**
+ * Admin List
+ */
+.encrypt-admin-list-item .encrypt-admin-list-item-label {
+  font-weight: bold;
+}
+
+.encrypt-admin-list-item .encrypt-admin-list-item-description {
+  font-size: .80em;
+}

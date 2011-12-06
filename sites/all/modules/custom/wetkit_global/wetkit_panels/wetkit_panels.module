@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the wetkit_panels feature.
+ */
+
+include_once('wetkit_panels.features.inc');
