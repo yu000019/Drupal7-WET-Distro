@@ -4,7 +4,6 @@ package = "Development"
 core = 7.x
 dependencies[] = migrate
 dependencies[] = migrate_extras
-dependencies[] = migrate_about_us
 
 files[] = wetkit_migrate.module
 files[] = web_usability.inc
