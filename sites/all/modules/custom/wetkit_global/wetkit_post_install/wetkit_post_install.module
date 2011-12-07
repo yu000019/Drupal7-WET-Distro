@@ -7,15 +7,14 @@
 
 function wetkit_post_install_install() {
   //add some documentation to assist the end user
-  drupal_flush_all_caches();
+  //cache_clear_all();
+  migrate_flush_caches();
+  
   $migration = Migration::getInstance('XML_Web_Usability_Gov');
   $result = $migration->processImport();
   $migration = Migration::getInstance('HTML_Documentation');
   $result = $migration->processImport();
   
-  //Update Certain Regions
-  db_query("UPDATE {block} SET region = 'sidebar_first', status = '1' WHERE module = 'menu' AND theme = 'genesis_clf' AND delta = 'menu-documentation'"); 
-
   //revert some features that didn't work as expected during install
   //features_revert(array('wetkit_ckeditor' => array('ckeditor_profile')));
 }
@@ -29,3 +28,13 @@ function wetkit_post_install_uninstall() {
   cache_clear_all();
 }
 
+function wetkit_post_install_init() {
+  if (variable_get('features_set', 0) == 1) {
+    //Update Certain Regions
+    db_query("UPDATE {block} SET region = 'sidebar_first', status = '1' WHERE module = 'menu' AND theme = 'genesis_clf' AND delta = 'menu-documentation'"); 
+
+    drupal_flush_all_caches();
+    features_revert();
+  }
+  variable_set('features_set', 0);
+}

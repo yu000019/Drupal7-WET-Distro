@@ -6,3 +6,8 @@
 body.admin-menu {
 margin-top: 0px !important;
 }
+
+/* Temp Fix for Rules Known Error */
+div.error {
+    display: none;
+}

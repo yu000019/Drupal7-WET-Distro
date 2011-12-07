@@ -56,7 +56,7 @@ function webexp_choices_form() {
   drupal_set_title(st('Web Experience Toolkit'));
   drupal_set_message('This area will assist in adding a more tailored user experience based on business requirements. Configuration will be will further differentiated based on the type of site and whether for governmental use.','status', FALSE);  
   
-  $options = array('1' => t('Internet'), '0' => t('Intranet'));
+  $options = array('1' => t('Internet'), '0' => t('Intranet (still some blocks missing)'));
   $options2 = array('1' => t('Yes'), '0' => t('No'));
    
   //Start setting up the form
@@ -186,6 +186,7 @@ function webexp_setup_form_submit($form, &$form_state) {
     variable_set('radio_clf3', $form_state['values']['webexp_clf3']);
     variable_set('radio_rules', $form_state['values']['webexp_rules']);
     variable_set('views_headline', 1);
+    variable_set('features_set', 1);
 }
 
 /**
@@ -222,6 +223,10 @@ function webexp_final_site_setup() {
   variable_del('radio_nodecontent');
   variable_del('radio_clf3');
   variable_del('radio_rules');
+  //features handling
+  $module_list = array('wetkit_post_install');
+  module_enable($module_list, TRUE);
+
 }
 
 /**

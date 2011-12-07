@@ -191,7 +191,7 @@ function gov_web_usability_init(){
     //Multilingual Variables
     variable_set('i18n_variable_conf', array('site_name'));
     variable_set('i18n_variable_list', array('site_name'));
-    i18n_variable_set('site_name', 'Gouvernement du Canada prototype français', 'fr');
+    i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
     
     cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
     

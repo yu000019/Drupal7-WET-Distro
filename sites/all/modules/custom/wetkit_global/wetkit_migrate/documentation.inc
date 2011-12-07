@@ -55,7 +55,7 @@ class HTML_DOCUMENTATIONMigration extends Migration {
 
   public function prepareRow($row) {
     
-    //require_once drupal_get_path('module', 'wetkit_migrate') . '/libraries/QueryPath/QueryPath.php';
+    require_once drupal_get_path('module', 'querypath') . '/QueryPath/QueryPath.php';
     $language_val = htmlqp($row->filedata)->find('meta[name*="dcterms.language"]')->attr('content');
     if ($language_val == 'eng'){
       $language_val = 'en';
