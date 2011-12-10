@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Install file for the quail api.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function quail_api_requirements($phase) {
+  $requirements = array();
+  $library_path = libraries_get_path('quail');
+  $log_message = "Unable to load the Quail php library. You can download the Quail php library from <a href='@quail_url'>http://quail-lib.org/</a>. Make sure to place the extracted quail library at @quail_lib_path";
+  $log_message_array = array('@quail_url' => "http://quail-lib.org/", '@quail_lib_path' => $library_path);
+
+  $requirements['quail_library_available']['title'] = t("Quail Library Available");
+
+  if (file_exists($library_path . '/quail/quail.php')) {
+    $requirements['quail_library_available']['value'] = t("Passed");
+    $requirements['quail_library_available']['severity'] = REQUIREMENT_OK;
+  }
+  else {
+    $requirements['quail_library_available']['value'] = t("Failed");
+    $requirements['quail_library_available']['severity'] = REQUIREMENT_ERROR;
+    $requirements['quail_library_available']['description'] = t($log_message, $log_message_array);
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function quail_api_schema() {
+  $schema = array();
+
+  $schema['quail_api_tests'] = array(
+    'fields' => array(
+      'id' => array(
+        'description' => st("A numerical primary key that uniquely represents this node type. Any foreign keys should point to this."),
+        'type' => 'serial',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'size' => 'big',
+      ),
+      'severity' => array(
+        'description' => st("This is the numeric representation of the quail test display levels."),
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'machine_name' => array(
+        'description' => st("This is the machine-friendly name used by the quail library that represents the test."),
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'human_name' => array(
+        'description' => st("This is the human-friendly name used by the quail library that represents the test."),
+        'type' => 'text',
+        'size' => 'normal',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'description' => array(
+        'description' => st("This is the description the test that this row represents."),
+        'type' => 'text',
+        'size' => 'medium',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary keys' => array('id'),
+    'unique keys' => array('machine_name' => array('machine_name')),
+  );
+
+  return $schema;
+}

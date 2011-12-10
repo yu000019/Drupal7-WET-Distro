@@ -1,0 +1,13 @@
+name = Common Functionality
+description = "Provides commonly used/needed functions to be called by other modules or inline php scripts."
+core = 7.x
+package = Common Functionality
+dependencies[] = cf_error
+files[] = cf.module
+
+; Information added by drupal.org packaging script on 2011-10-19
+version = "7.x-1.3"
+core = "7.x"
+project = "cf"
+datestamp = "1319034929"
+

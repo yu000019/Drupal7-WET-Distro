@@ -1,0 +1,354 @@
+<?php
+
+
+/**
+ * Implements hook_permission().
+ */
+function cf_permission() {
+  $permissions = array();
+
+  drupal_alter('cf_permission', $permissions);
+
+  return $permissions;
+}
+
+/**
+ * Provide a safe way to get the current user.
+ *
+ * This protects the user global from coding accidents.
+ *
+ * Why:
+ *   This is to easy to accidentally do: 'if ($user->uid = 1){'
+ *
+ *   The global $user data may also not have contrib modules data included, so accessing $user directly is generally not a good idea.
+ *   This function seems rather waseteful given its simplicity.
+ *   It may be better if drupal core would allow $uid to be left empty such that the user_load() function would handle accessing the global $user->id if $uid is empty.
+ *
+ *   See: http://drupal.org/node/57287
+ *   See: http://api.drupal.org/api/drupal/developer--globals.php/global/user/7#comment-7324
+ *
+ * @param $reset
+ *   TRUE to reset the internal cache and load from the database; FALSE (default) to load from the internal cache, if set.
+ * @param $function_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ * @return
+ *   A copy of the global variable $user.
+ *   Changes to this variable will not be retained.
+ */
+function cf_get_user($reset = FALSE, array $function_history = array()){
+  cf_error_append_history($function_history, __FUNCTION__);
+
+  global $user;
+
+  if (!is_object($user) || !property_exists($user, 'uid')){
+    cf_error_invalid_object($function_history, 'user', WATCHDOG_CRITICAL);
+    return FALSE;
+  }
+
+  return user_load($user->uid, $reset);
+}
+
+/**
+ * Check to see if the variable is an array and then if the given key exists in that array.
+ * Returns FALSE when variable is not an array.
+ *
+ * Why:
+ *   According to the PHP documentation: isset() does not return TRUE for array keys that correspond to a NULL value, while array_key_exists() does.
+ *   This means that array_key_exists() should be used to guarantee that a key exists as opposed to isset().
+ *   The problem here is that PHP throws an error when the variable is not an array.
+ *   This means that if (is_array($variable) && array_key_exists($key, $variable)) must be done.
+ *
+ * @param $key
+ *   The key to look for.
+ * @param $variable
+ *   The possible array to search through for the given key.
+ * @param $function_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ * @return
+ *   TRUE if the array key exists.
+ *   FALSE if the array key does not exist or a parameter is invalid.
+ */
+function cf_has_array_key($key, $variable, array $function_history = array()){
+  cf_error_append_history($function_history, __FUNCTION__);
+
+  if (cf_is_empty_or_non_string($function_history, 'key', $key, WATCHDOG_ERROR)){
+    return FALSE;
+  }
+
+  if (is_array($variable)){
+    return array_key_exists($key, $variable);
+  }
+
+  return FALSE;
+}
+
+/**
+ * Converts the passed arguments into a single number.
+ * The passed arguments are booleans.
+ *
+ * The returned crud value works in the same way that linux filesystem permissions tend to:
+ * create = 1
+ * read   = 2
+ * update = 4
+ * delete = 8
+ *
+ * Why:
+ *   For efficiency reasons it may make more sense to store these boolean values into a single database column similar to how the unix permission umask works.
+ *
+ * @param $create
+ *   Boolean that represents whether or not the CREATE flag is set to TRUE or FALSE.
+ * @param $read
+ *   Boolean that represents whether or not the READ flag is set to TRUE or FALSE.
+ * @param $update
+ *   Boolean that represents whether or not the UPDATE flag is set to TRUE or FALSE.
+ * @param delete
+ *   Boolean that represents whether or not the DELETE flag is set to TRUE or FALSE.
+ * @param $function_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ * @return
+ *   A single numerical value that represents all 4 permissions.
+ */
+function cf_convert_to_crud($create, $read, $update, $delete, array $function_history = array()){
+  $crud = 0;
+
+  if ($create){
+    $crud += 1;
+  }
+
+  if ($read){
+    $crud += 2;
+  }
+
+  if ($update){
+    $crud += 4;
+  }
+
+  if ($delete){
+    $crud += 8;
+  }
+
+  return $crud;
+}
+
+/**
+ * Converts the passed argument into an array of multiple booleans.
+ * An array of booleans is returned whose keys are: create, read, update, and delete
+ *
+ * Crud works in the same way that linux filesystem permissions tend to:
+ * - create = 1
+ * - read   = 2
+ * - update = 4
+ * - delete = 8
+ *
+ * Why:
+ *   For efficiency reasons it may make more sense to store these boolean values into a single database column similar to how the unix permission umask works.
+ *
+ * @param $crud
+ *   An integer representing the crud that is to be converted into an array of booleans.
+ * @param $function_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ * @return
+ *   An array containing the following keys:
+ *   - create: A boolean representing create permissions.
+ *   - read: A boolean representing read permissions.
+ *   - update: A boolean representing update permissions.
+ *   - delete: A boolean representing delete permissions.
+ */
+function cf_convert_from_crud($crud, array $function_history = array()){
+  cf_error_append_history($function_history, __FUNCTION__);
+
+  $uncrud = array();
+
+  $uncrud['create'] = FALSE;
+  $uncrud['read']   = FALSE;
+  $uncrud['update'] = FALSE;
+  $uncrud['delete'] = FALSE;
+
+  if (!isset($crud)){
+    cf_error_invalid_variable($function_history, 'crud', 'Not defined', array());
+
+    return $uncrud;
+  }
+
+  if (!is_numeric($crud)){
+    cf_error_not_numeric($function_history, 'crud');
+
+    return $uncrud;
+  }
+
+  if ($crud - 8 >= 0){
+    $uncrud['delete'] = TRUE;
+    $crud -= 8;
+  }
+
+  if ($crud - 4 >= 0){
+    $uncrud['update'] = TRUE;
+    $crud -= 4;
+  }
+
+  if ($crud - 2 >= 0){
+    $uncrud['read'] = TRUE;
+    $crud -= 2;
+  }
+
+  if ($crud - 1 >= 0){
+    $uncrud['create'] = TRUE;
+  }
+
+  return $uncrud;
+}
+
+/**
+ * Returns a standard "This page cannot be accessed" message.
+ *
+ * Why:
+ *   The drupal form api core produces problems when anything other than a form array is returned.
+ *   See: http://drupal.org/node/979758
+ *
+ *  @param $form_state
+ *    The form state.
+ *  @param $id (optional)
+ *    The form id, generally this should be taken from: $form['#id'].
+ * @param $function_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ * @return
+ *   An array that can be safely as a return statement for a page.
+ */
+function cf_page_not_accessible(&$form_state, $id = '', array $function_history = array()){
+  $form = array();
+
+  drupal_set_title("Unable to access page");
+
+  $form['page_not_accessible'] = array(
+    '#type' => 'item',
+    '#title' => t("Unable to access page."),
+    '#description' => t("This page cannot be presented because there was an error loading the page."),
+  );
+
+  $form['#id'] = is_string($id) ? $id : '';
+  $form['#validate'] = array();
+  $form['#submit'] = array();
+  $form['#array_parents'] = array();
+  $form['#tree'] = FALSE;
+
+  $form_state['process_input'] = FALSE;
+
+  return $form;
+}
+
+/**
+ * Checks if a string is empty or not and returns TRUE when empty or not a string and FALSE otherwise.
+ * When there is an error returns TRUE.
+ * The purpose is to validate if a string is not empty.
+ * When that variable is empty then this is considered an error.
+ * This handles reporting if the string is empty.
+ *
+ * Why:
+ *   Checking that a string is empty may also require a check to see if a variable is a string.
+ *   This provides a way to do that two step process in 1 step.
+ *   Do not use this for any other purpose.
+ *
+ * @param $function_history
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ *   Deprecated usage:
+ *     A string that represents the name of the calling function.
+ *     NULL may be passed to avoid appending the function_name in the case that it already exists in $function_history.
+ * @param $argument_name
+ *   The variable name of the argument in question.
+ * @param $variable
+ *   The argument that is to be validated.
+ * @param $severity (optional)
+ *   This is passed directly to watchdog and represents the severity of the report.
+ * deprecated_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *   This is no longer supported, instead use the first parameter: function_history
+ */
+function cf_is_empty_or_non_string($function_history, $argument_name, $variable, $severity = WATCHDOG_WARNING, array $deprecated_history = array()){
+  if (is_string($function_history) || is_null($function_history)){
+    $function_name = $function_history;
+    $function_history = $deprecated_history;
+    $function_history[] = $function_name;
+    watchdog('deprecated', "The old cf_error api of passing function_name directly is deprecated and will be removed in the next release, function history: %function_history", array('%function_history' => print_r($function_history, TRUE)));
+  }
+
+  cf_error_append_history($function_history, __FUNCTION__);
+
+  if ($argument_name == ''){
+    cf_error_empty_string($function_history, 'argument_name');
+  }
+
+  if (!is_string($variable)){
+    cf_error_not_string($function_history, $argument_name, $severity);
+
+    return TRUE;
+  }
+
+  if ($variable == ''){
+    cf_error_empty_string($function_history, $argument_name, $severity);
+
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Checks if the argument is an array with all of the default form_state array keys as defined by form_state_defaults().
+ * This helps ensure that this argument is a valid form state.
+ * This handles reporting if the form state is invalid.
+ *
+ * Why:
+ *   Checking if the form_state is valid on every function call can quickly clutter up the code, reducing readability.
+ *   form state is common enough to have its own cf error checking function.
+ *
+ * @param $function_history
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ *   Deprecated usage:
+ *     A string that represents the name of the calling function.
+ *     NULL may be passed to avoid appending the function_name in the case that it already exists in $function_history.
+ * @param $argument_name
+ *   The variable name of the argument in question.
+ * @param $variable
+ *   The argument that is to be validated.
+ * @param $severity (optional)
+ *   This is passed directly to watchdog and represents the severity of the report.
+ * deprecated_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *   This is no longer supported, instead use the first parameter: function_history.
+ */
+function cf_is_not_form_state($function_history, $argument_name, $variable, $severity = WATCHDOG_WARNING, array $deprecated_history = array()){
+  if (is_string($function_history) || is_null($function_history)){
+    $function_name = $function_history;
+    $function_history = $deprecated_history;
+    $function_history[] = $function_name;
+    watchdog('deprecated', "The old cf_error api of passing function_name directly is deprecated and will be removed in the next release, function history: %function_history", array('%function_history' => print_r($function_history, TRUE)));
+  }
+
+  cf_error_append_history($function_history, __FUNCTION__);
+
+  if ($argument_name == ''){
+    cf_error_empty_string($function_history, 'argument_name');
+  }
+
+  if (!is_array($variable)){
+    cf_error_invalid_array($function_history, 'argument_name', $variable, $severity);
+    return TRUE;
+  }
+
+  foreach (array_keys(form_state_defaults()) as $key){
+    if (!array_key_exists($key, $variable)){
+      cf_error_missing_array_key($function_history, $argument_name, $key, $severity);
+
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}

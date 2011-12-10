@@ -96,6 +96,7 @@ function gov_web_usability_install() {
 */
 function gov_web_usability_page_alter(&$page) {
   global $user;
+  //Hides the toolbar module from adminstrators
   if (in_array("administrator", $user->roles)) {
     unset($page['page_top']['toolbar']);
   }

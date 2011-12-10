@@ -61,7 +61,6 @@ dependencies[] = search404
 dependencies[] = field_collection
 dependencies[] = conditional_styles
 dependencies[] = views_bulk_operations
-dependencies[] = admin_views
 dependencies[] = elements
 dependencies[] = html5_tools
 ;dependencies[] = flag

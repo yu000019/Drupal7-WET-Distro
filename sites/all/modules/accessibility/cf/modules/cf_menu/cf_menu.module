@@ -1,0 +1,77 @@
+<?php
+
+
+
+/**
+ * Implements hook_menu().
+ *
+ * Why:
+ *   There is no catch-all location for content accessibility related tasks.
+ *   Accessibility specific information seems to better fall under the content category than the structure or the configuration categories.
+ */
+function cf_menu_menu() {
+  $items = array();
+
+  $accessibility_page = variable_get('cf_menu_accessibility_page', TRUE);
+
+  if ($accessibility_page){
+    $items['admin/content/accessibility'] = array(
+      'title' => "Accessibility",
+      'description' => "Content accessibility administrative pages.",
+      'page callback' => 'cf_menu_accessibility_page',
+      'type' => MENU_LOCAL_TASK,
+      'file' => 'menu.inc',
+      'file path' => drupal_get_path('module', 'cf_menu') . '/includes',
+      'access callback' => 'user_access',
+      'access arguments' => array('view content accessibility administration page'),
+    );
+  }
+
+  return $items;
+}
+
+/**
+ * Implements hook_cf_permission_alter().
+ *
+ * @see cf_permission()
+ */
+function cf_menu_cf_permission_alter(&$permissions) {
+  if (!is_array($permissions)){
+    $permissions = array();
+  }
+
+  $accessibility_page = variable_get('cf_menu_accessibility_page', TRUE);
+
+  if ($accessibility_page){
+    $permissions['view content accessibility administration page'] = array(
+      'title' => t("View Content Accessibility Administration Page"),
+      'description' => t("Grants permissions to view the content accessibility administration page."),
+    );
+  }
+
+  // see: http://drupal.org/node/460408#comment-4525794
+  $permissions['view unpublished content in menu'] = array(
+    'title' => t("View Unpublished Content in Menu"),
+    'description' => t("Grants permissions to view menu items that is unpublished content. (This requires a patch against drupal core in order to function.)"),
+  );
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ *
+ * Why:
+ *   The drupal menu core prevents administrators from seeing the unpublished nodes in the admin menu.
+ *   See: http://drupal.org/node/460408#comment-4367202
+ *
+ * Errata:
+ *   This requires a patch against drupal core function (drupal-7.x-add_menu_tree_check_access-1.patch).
+ */
+function cf_menu_query_menu_tree_check_access_alter(&$query) {
+  if (user_access('view unpublished content in menu')) {
+    $where =& $query->conditions();
+
+    foreach ($where as $key => &$value){
+      if ($value['field'] == 'n.status') unset($where[$key]);
+    }
+  }
+}

@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * Provide a simple way to get the roles ids for the current or specified user.
+ *
+ * Returns a query object meant to return all rids for a given uid.
+ * This does not call ->execute() on the query object.
+ *
+ * Why:
+ *   The roles stored in the global $user variable are role names and not ids.
+ *   This provides a way to get user role ids without having to load the user data, process each role, and produce an array of role ids.
+ *
+ * @param $uid (optional)
+ *   a uid of the user to get the role ids of if the current user is not to be used.
+ * @param $function_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ * @return
+ *   A SelectQuery database object, this object has not been executed.
+ */
+function cf_user_get_rids($uid = NULL, array $function_history = array()){
+  cf_error_append_history($function_history, __FUNCTION__);
+
+  if ($uid == NULL){
+    $current_user = cf_get_user(FALSE, $function_history);
+    $uid = $current_user->uid;
+  }
+  else if (!is_numeric($uid)){
+    cf_error_not_numeric($function_history, 'uid');
+    return FALSE;
+  }
+
+  $query = db_select('role', 'r');
+
+  $query->innerjoin('users_roles', 'ur', 'r.rid = ur.rid');
+  $query->fields('r');
+  $query->fields('ur');
+
+  $and = db_and();
+  $and->condition('uid', $uid, '=');
+
+  $query->condition($and);
+
+  return $query;
+}
+
+/**
+ * Provide a simple way to confirm whether or not a user is in a given role by the role id.
+ *
+ * Why:
+ *   The roles stored in the global $user variable are role names and not ids.
+ *   This provides a way to get user role ids without having to load the user data, process each role, and produce an array of role ids.
+ *
+ * @param $rid
+ *   a rid of the role to check to see if a user has the given permission.
+ * @param $uid (optional)
+ *   a uid of the user to get the role ids of if the current user is not to be used.
+ * @param $function_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ * @return
+ *   FALSE on error, FALSE if not in role, and TRUE if in role.
+ */
+function cf_user_has_role($rid, $uid = NULL, array $function_history = array()){
+  cf_error_append_history($function_history, __FUNCTION__);
+
+  if (!is_numeric($rid)){
+    cf_error_not_numeric($function_history, 'rid');
+    return FALSE;
+  }
+
+  $query = cf_user_get_rids($uid, $function_history);
+
+  if (is_object($query)){
+    $and = db_and();
+    $and->condition('r.rid', $rid, '=');
+
+    $query->condition($and);
+
+    try {
+      $query_execute = $query->execute();
+
+      if ($query_execute->rowCount() == 1){
+        return TRUE;
+      }
+    }
+    catch (Exception $e) {
+      cf_error_on_query_execution($function_history, $e);
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Provide a simple way to load users that have any of the given role ids.
+ *
+ * Why:
+ *   I have not found a way to do this with drupal core functions in a single database transaction.
+ *
+ * @param $rids
+ *   an array rid of the role to check to see if a user has the given permission.
+ * @param $function_history (optional)
+ *   An array of function names, ie: array('0' => 'my_function_name').
+ *
+ * @return
+ *   A SelectQuery database object, this object has not been executed.
+ */
+function cf_user_get_users_by_rids($rids, array $function_history = array()){
+  cf_error_append_history($function_history, __FUNCTION__);
+
+  if (!is_array($rids) || empty($rids)){
+    cf_error_invalid_array($function_history, 'rids');
+    return FALSE;
+  }
+
+  $query = db_select('role', 'r');
+
+  $query->innerjoin('users_roles', 'ur', 'r.rid = ur.rid');
+  $query->innerjoin('users', 'u', 'u.uid = ur.uid');
+  $query->fields('r');
+  $query->fields('ur');
+  $query->fields('u');
+
+  $or = db_or();
+
+  foreach ($rids as $rid){
+    $or->condition('ur.rid', $rid, '=');
+  }
+
+  $query->condition($or);
+
+  return $query;
+}

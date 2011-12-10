@@ -264,7 +264,7 @@ function webexp_addmodules() {
   }
   if (variable_get('radio_clf3', 0) == 1)
   {
-    $module_list = array('gov_web_usability','gov_clf2','admin_menu');
+    $module_list = array('gov_web_usability','gov_clf2','admin');
     module_enable($module_list, TRUE);
     drupal_add_css(drupal_get_path('module', 'webexp') . '/css/adminmenu.css', array('group' => CSS_THEME, 'every_page' => TRUE));
 
