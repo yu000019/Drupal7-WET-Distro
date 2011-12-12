@@ -16,11 +16,15 @@ CONTENTS
 ----
 1.  Contributor(s)
 
-William Hearn <william.hearn@statcan.gc.ca> - Initial Development of Code
+There are a wide range of contributors to this project. However for specific concerns
+please consider contacting:
 
-For assistance from the greater Open Source Community and the WET 
+William Hearn <william.hearn@statcan.gc.ca> - Initial Development of Code and Distribution
+
+For more assistance from the greater Open Source Community and the WET 
 Drupal Framework Variant team please post issues at: 
 http://tbs-sct.ircan-rican.gc.ca/projects/gcwwwdrupal-git
+https://github.com/Web-Experience-Toolkit/Drupal7-WET-Distro
 
 ----
 2.  Introduction
