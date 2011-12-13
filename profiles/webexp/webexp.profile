@@ -185,8 +185,6 @@ function webexp_setup_form_submit($form, &$form_state) {
     variable_set('radio_nodecontent', $form_state['values']['webexp_nodecontent']);
     variable_set('radio_clf3', $form_state['values']['webexp_clf3']);
     variable_set('radio_rules', $form_state['values']['webexp_rules']);
-    variable_set('views_headline', 1);
-    variable_set('features_set', 1);
 }
 
 /**

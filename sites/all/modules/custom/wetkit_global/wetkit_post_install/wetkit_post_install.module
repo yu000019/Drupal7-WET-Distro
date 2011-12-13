@@ -6,6 +6,9 @@
 // Drupal needs this blank file.
 
 function wetkit_post_install_install() {
+    
+  variable_set('features_set', 1);
+  
   //add some documentation to assist the end user
   //cache_clear_all();
   migrate_flush_caches();
@@ -14,12 +17,13 @@ function wetkit_post_install_install() {
   $result = $migration->processImport();
   $migration = Migration::getInstance('HTML_Documentation');
   $result = $migration->processImport();
-  
-  //revert some features that didn't work as expected during install
-  //features_revert(array('wetkit_ckeditor' => array('ckeditor_profile')));
+
 }
 
 function wetkit_post_install_uninstall() {
+  
+  variable_del('features_set');
+  
   //add some documentation to assist the end user
   $migration = Migration::getInstance('XML_Web_Usability_Gov');
   $result = $migration->processRollback();

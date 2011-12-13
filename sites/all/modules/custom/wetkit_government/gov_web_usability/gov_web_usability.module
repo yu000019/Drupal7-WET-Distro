@@ -11,6 +11,8 @@ include_once('gov_web_usability.features.inc');
 */
 function gov_web_usability_install() {
   
+  variable_set('views_headline', 1);
+  
   /* Add Main Menu */
   _add_custom_menu_item_desc('<front>', 'Home', NULL, 'main-menu', 0, 'en');
   _add_custom_menu_item_desc('<front>', 'Help', NULL,'main-menu', 1, 'en');
@@ -89,6 +91,13 @@ function gov_web_usability_install() {
   
   //Clears all menu caches
   menu_cache_clear_all();
+}
+
+/**
+* Implements hook_uninstall().
+*/
+function gov_web_usability_uninstall() {
+  variable_del('views_headline');
 }
 
 /**
