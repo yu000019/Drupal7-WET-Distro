@@ -231,7 +231,7 @@ function gov_web_usability_strongarm() {
 		<li>
 			<img alt="Image 2 (220x70)" height="70" src="' . drupal_get_path('theme', 'genesis_clf') . '/css/theme-gcwu-fegc/images/priorities-image2.JPG" title="Image 2 (220x70)" width="220" /></li>
 		<li>
-			<img alt="Image 3 (220x70)" height="70" src="' . drupal_get_path('theme', 'genesis_clf') . '/theme-gcwu-fegc/images/priorities-image3.JPG" title="Image 3 (220x70)" width="220" /></li>
+			<img alt="Image 3 (220x70)" height="70" src="' . drupal_get_path('theme', 'genesis_clf') . '/css/theme-gcwu-fegc/images/priorities-image3.JPG" title="Image 3 (220x70)" width="220" /></li>
 	</ul>
 </div>
 
