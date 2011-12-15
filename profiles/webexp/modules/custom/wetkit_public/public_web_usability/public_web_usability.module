@@ -1,0 +1,630 @@
+<?php
+/**
+ * @file
+ * Code for the global clf3 feature.
+ */
+
+include_once('public_web_usability.features.inc');
+
+
+/**
+* Implements hook_install().
+*/
+function public_web_usability_install() {
+  
+  //variable_set('views_headline', 1);
+  
+  /* Add Main Menu */
+  _add_custom_menu_item_desc('<front>', 'Home', NULL, 'main-menu', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Help', NULL,'main-menu', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Contact Us', NULL, 'main-menu', 2,'en');
+  _add_custom_menu_item_desc('search', 'Search', NULL, 'main-menu', 3, 'en');
+  _add_custom_menu_item_desc('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'en');
+  _add_custom_menu_item_desc('<front>', 'Accueil', NULL, 'main-menu', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Aide', NULL, 'main-menu', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Nous Contacter', NULL, 'main-menu', 2, 'fr');
+  _add_custom_menu_item_desc('search', 'Recherche', NULL, 'main-menu', 3, 'fr');
+  _add_custom_menu_item_desc('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'fr');
+  
+  /* Add Menu Items to Gov Nav Bar */
+  _add_custom_menu_item('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', 'menu-goc-nav-bar', 'en');
+  _add_custom_menu_item('http://www.servicecanada.gc.ca/eng/home.shtml', 'Services', 'menu-goc-nav-bar', 'en');
+  _add_custom_menu_item('http://www.canada.gc.ca/depts/major/depind-eng.html', 'Departments', 'menu-goc-nav-bar', 'en');
+  _add_custom_menu_item('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', 'menu-goc-nav-bar', 'fr');
+  _add_custom_menu_item('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Services', 'menu-goc-nav-bar', 'fr');
+  _add_custom_menu_item('http://www.canada.gc.ca/depts/major/depind-fra.html', 'Ministères', 'menu-goc-nav-bar', 'fr');
+  
+  /* Add Menu Items to Gov Footer Bar */
+  _add_custom_menu_item_desc('http://healthycanadians.gc.ca/index-eng.php', 'Health', 'healthycanadians.gc.ca', 'menu-goc-footer-bar', 0, 'en');
+  _add_custom_menu_item_desc('http://www.voyage.gc.ca/index-eng.asp', 'Travel', 'travel.gc.ca', 'menu-goc-footer-bar', 1, 'en');
+  _add_custom_menu_item_desc('http://www.servicecanada.gc.ca/eng/home.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-goc-footer-bar', 2, 'en');
+  _add_custom_menu_item_desc('http://www.jobbank.gc.ca/intro-eng.aspx', 'Jobs', 'jobbank.gc.ca', 'menu-goc-footer-bar', 3, 'en');
+  _add_custom_menu_item_desc('http://actionplan.gc.ca/eng/index.asp', 'Economy', 'actionplan.gc.ca', 'menu-goc-footer-bar', 4, 'en');
+  _add_custom_menu_item_desc('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', NULL, 'menu-goc-footer-bar', 5, 'en');
+  _add_custom_menu_item_desc('http://canadiensensante.gc.ca/index-fra.php', 'Santé', 'canadiensensante.gc.ca', 'menu-goc-footer-bar', 0, 'fr');
+  _add_custom_menu_item_desc('http://voyage.gc.ca/index-fra.asp', 'Voyage', 'voyage.gc.ca', 'menu-goc-footer-bar', 1, 'fr');
+  _add_custom_menu_item_desc('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-goc-footer-bar', 2, 'fr');
+  _add_custom_menu_item_desc('http://www.guichetemplois.gc.ca/Intro-fra.aspx', 'Emplois', 'guichetemplois.gc.ca', 'menu-goc-footer-bar', 3, 'fr');
+  _add_custom_menu_item_desc('http://www.plandaction.gc.ca/', 'Économie', 'plandaction.gc.ca', 'menu-goc-footer-bar', 4, 'fr');
+  _add_custom_menu_item_desc('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', NULL, 'menu-goc-footer-bar', 5, 'fr');
+  
+  /* Add Menu Items to Gov About Us Bar */
+  _add_custom_menu_item_desc('<front>', 'About Us', NULL, 'menu-goc-about-us-bar', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Our Mandate', NULL, 'menu-goc-about-us-bar', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Our Minister', NULL, 'menu-goc-about-us-bar', 2, 'en');
+  _add_custom_menu_item_desc('<front>', 'À propos de nous', NULL, 'menu-goc-about-us-bar', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Notre mandat', NULL, 'menu-goc-about-us-bar', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Le ministre', NULL, 'menu-goc-about-us-bar', 2, 'fr');
+  
+  /* Add Menu Items to Gov News Bar */
+  _add_custom_menu_item_desc('<front>', 'News', NULL, 'menu-goc-news-bar', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'News Releases', NULL, 'menu-goc-news-bar', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Media Advisories', NULL, 'menu-goc-news-bar', 2, 'en');
+  _add_custom_menu_item_desc('<front>', 'Multimedia', NULL, 'menu-goc-news-bar', 3, 'en');
+  _add_custom_menu_item_desc('<front>', 'Média', NULL, 'menu-goc-news-bar', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Communiqués', NULL, 'menu-goc-news-bar', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Avis aux médias', NULL, 'menu-goc-news-bar', 2, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Multimedia', NULL, 'menu-goc-news-bar', 3, 'fr');
+  
+  /* Add Menu Items to Gov Contact Us Bar */
+  _add_custom_menu_item_desc('<front>', 'Contact Us', NULL, 'menu-goc-contact-bar', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Phone Numbers', NULL, 'menu-goc-contact-bar', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Find an Employee', NULL, 'menu-goc-contact-bar', 2, 'en');
+  _add_custom_menu_item_desc('<front>', 'Contactez-nous', NULL, 'menu-goc-contact-bar', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Numéros de téléphone', NULL, 'menu-goc-contact-bar', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Trouvez un(e) employé(e)', NULL, 'menu-goc-contact-bar', 2, 'fr');
+  
+  /* Add Menu Items to Gov Stay Connected Bar */
+  _add_custom_menu_item_desc('<front>', 'Stay Connected', NULL, 'menu-goc-connected-bar', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Youtube', NULL, 'menu-goc-connected-bar', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Twitter', NULL, 'menu-goc-connected-bar', 2, 'en');
+  _add_custom_menu_item_desc('<front>', 'Feeds', NULL, 'menu-goc-connected-bar', 3, 'en');
+  _add_custom_menu_item_desc('<front>', 'Restez branchés', NULL, 'menu-goc-connected-bar', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Youtube', NULL, 'menu-goc-connected-bar', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Twitter', NULL, 'menu-goc-connected-bar', 2, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Fils de nouvelles', NULL, 'menu-goc-connected-bar', 3, 'fr');
+  
+  /* Add Menu Items to Gov Terms + Trans Bar */
+  _add_custom_menu_item_desc('<front>', 'Terms and Conditions', NULL, 'menu-goc-terms-bar', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Transparency', NULL, 'menu-goc-terms-bar', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Avis', NULL, 'menu-goc-terms-bar', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Transparence', NULL, 'menu-goc-terms-bar', 1, 'fr');
+  
+  //Clears all menu caches
+  menu_cache_clear_all();
+}
+
+/**
+* Implements hook_uninstall().
+*/
+function public_web_usability_uninstall() {
+  variable_del('views_headline');
+}
+
+/**
+* Implements hook_page_alter().
+*/
+function public_web_usability_page_alter(&$page) {
+  global $user;
+  //Hides the toolbar module from adminstrators
+  if (in_array("administrator", $user->roles)) {
+    unset($page['page_top']['toolbar']);
+  }
+}
+
+/**
+* Implements hook_enable().
+*/
+function public_web_usability_init(){
+  
+  //Temporary If Statement to run commands below one time
+  if (variable_get('views_headline', 1) == 1) {
+    
+    //Update Certain Regions
+    db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'headlines_front_page-block'"); 
+    db_query("UPDATE {block} SET region = 'slideshow', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'slider-block'"); 
+    
+    // Create managed File object and associate with file field.
+    $file1 = _add_file('parliamenthill_official.png', drupal_get_path('theme', 'genesis_public') . '/images/parliamenthill.png');
+    $file2 = _add_file('canada_official.png', drupal_get_path('theme', 'genesis_public') . '/images/canada.png');
+
+    // Slider Content
+    $field_text_1_en = '<div class="tabs-content-pad">
+      <p>Take Note: <a href="http://news.gc.ca">Recent National News</a><br />
+        Learn more about the <a href="http://canada.gc.ca">Government of Canada</a></p>
+    </div>';
+    
+    $field_text_1_fr = '<div class="tabs-content-pad">
+      <p>Prenez note: <a href="http://news.gc.ca">Dernières Nouvelles nationales</a><br />
+       En savoir plus sur le <a href="http://canada.gc.ca">Gouvernement du Canada</a></p>
+    </div>';
+    
+    //Create Slider English
+    $node = new stdClass();
+    $node->type = 'main_slider';
+    node_object_prepare($node);
+    $node->title = 'FrontPage Slider Official';
+    $node->language = 'en';
+    $node->status = 1;
+    $node->uid = 1;
+    $node->tnid = 3;
+    $node->field_slider_title['und'][0]['value'] = 'First Slide Title';
+    $node->field_slider_title['und'][1]['value'] = 'Second Slide Title';
+    node_save($node);
+   
+    // Create and save field collection for the Slider
+    $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_slider_collection'));
+    $field_collection_item->setHostEntity('node', $node);
+    $field_collection_item->field_slider_photo['und'][0] = (array)$file1;
+    $field_collection_item->field_slider_description['und'][0]['value'] = $field_text_1_en;
+    $field_collection_item->field_slider_description['und'][0]['format'] = 'full_html';
+    $field_collection_item->field_slider_description['und'][0]['safe_value'] = $field_text_1_en;
+    $field_collection_item->save();
+
+    $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_slider_collection'));
+    $field_collection_item->setHostEntity('node', $node);
+    $field_collection_item->field_slider_photo['und'][0] = (array)$file2;
+    $field_collection_item->field_slider_description['und'][0]['value'] = $field_text_1_en;
+    $field_collection_item->field_slider_description['und'][0]['format'] = 'full_html';
+    $field_collection_item->field_slider_description['und'][0]['safe_value'] = $field_text_1_en;
+    $field_collection_item->save(); 
+    
+    //Create Slider French
+    $node = new stdClass();
+    $node->type = 'main_slider';
+    node_object_prepare($node);
+    $node->title = 'FrontPage Curseur officiel';
+    $node->language = 'fr';
+    $node->status = 1;
+    $node->uid = 1;
+    $node->tnid = 3;
+    $node->field_slider_title['und'][0]['value'] = 'Titre Première diapositive';
+    $node->field_slider_title['und'][1]['value'] = 'Titre deuxième diapositive';
+    node_save($node);
+    
+    // Create and save field collection for the Slider
+    $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_slider_collection'));
+    $field_collection_item->setHostEntity('node', $node);
+    $field_collection_item->field_slider_photo['und'][0] = (array)$file1;
+    $field_collection_item->field_slider_description['und'][0]['value'] = $field_text_1_fr;
+    $field_collection_item->field_slider_description['und'][0]['format'] = 'full_html';
+    $field_collection_item->field_slider_description['und'][0]['safe_value'] = $field_text_1_fr;
+    $field_collection_item->save();
+
+    $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_slider_collection'));
+    $field_collection_item->setHostEntity('node', $node);
+    $field_collection_item->field_slider_photo['und'][0] = (array)$file2;
+    $field_collection_item->field_slider_description['und'][0]['value'] = $field_text_1_fr;
+    $field_collection_item->field_slider_description['und'][0]['format'] = 'full_html';
+    $field_collection_item->field_slider_description['und'][0]['safe_value'] = $field_text_1_fr;
+    $field_collection_item->save(); 
+    
+    //Multilingual Variables
+    variable_set('i18n_variable_conf', array('site_name'));
+    variable_set('i18n_variable_list', array('site_name'));
+    i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
+    
+    cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
+    
+    db_insert('i18n_block_language')->fields(array(
+      'module' => 'public_web_usability',
+      'delta' => 'videos_blocks',
+      'language' => 'en',
+    ))->execute();
+    
+    db_insert('i18n_block_language')->fields(array(
+      'module' => 'public_web_usability',
+      'delta' => 'priorities_blocks',
+      'language' => 'en',
+    ))->execute();
+    
+    db_insert('i18n_block_language')->fields(array(
+      'module' => 'public_web_usability',
+      'delta' => 'minister_blocks',
+      'language' => 'en',
+    ))->execute();
+    
+    db_insert('i18n_block_language')->fields(array(
+      'module' => 'public_web_usability',
+      'delta' => 'connected_blocks',
+      'language' => 'en',
+    ))->execute();
+    
+    db_insert('i18n_block_language')->fields(array(
+      'module' => 'public_web_usability',
+      'delta' => 'videos_blocks2',
+      'language' => 'fr',
+    ))->execute();
+    
+    db_insert('i18n_block_language')->fields(array(
+      'module' => 'public_web_usability',
+      'delta' => 'priorities_blocks_fr',
+      'language' => 'fr',
+    ))->execute();
+    
+    db_insert('i18n_block_language')->fields(array(
+      'module' => 'public_web_usability',
+      'delta' => 'minister_blocks_fr',
+      'language' => 'fr',
+    ))->execute();
+    
+    db_insert('i18n_block_language')->fields(array(
+      'module' => 'public_web_usability',
+      'delta' => 'connected_blocks_fr',
+      'language' => 'fr',
+    ))->execute();
+        
+    $languages = array (
+     'language' => 'en',
+     'name' => 'English',
+     'native' => 'English',
+     'direction' => '0',
+     'enabled' => '1',
+     'plurals' => '0',
+     'formula' => '',
+     'domain' => '',
+     'prefix' => 'eng',
+     'weight' => '0',
+     'javascript' => '',
+    );
+    $languages_obj = (object) $languages;
+    variable_set('language_default', $languages_obj);
+    db_update('languages')
+      ->fields(array(
+        'prefix' => 'eng',
+      ))
+      ->condition('language', 'en')
+      ->execute();
+    db_update('languages')
+      ->fields(array(
+        'prefix' => 'fra',
+      ))
+      ->condition('language', 'fr')
+      ->execute();
+  }
+  variable_set('views_headline', 0);
+}
+
+
+/**
+* Implements hook_block_info().
+*/
+function public_web_usability_block_info(){
+  $blocks['videos_blocks'] = array(
+    'info' => t('Videos Block'),
+    'status' => TRUE,
+    'region' => 'videos',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['videos_blocks2'] = array(
+    'info' => t('Bloc Vidéos'),
+    'status' => TRUE,
+    'region' => 'videos',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['priorities_blocks'] = array(
+    'info' => t('Priorities Block'),
+    'status' => TRUE,
+    'region' => 'priorities',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['priorities_blocks_fr'] = array(
+    'info' => t('Bloc Priorités'),
+    'status' => TRUE,
+    'region' => 'priorities',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['minister_blocks'] = array(
+    'info' => t('Minister Block'),
+    'status' => TRUE,
+    'region' => 'minister',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['minister_blocks_fr'] = array(
+    'info' => t('Bloc Ministère'),
+    'status' => TRUE,
+    'region' => 'minister',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['connected_blocks'] = array(
+    'info' => t('Connected Block'),
+    'status' => TRUE,
+    'region' => 'connected',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['connected_blocks_fr'] = array(
+    'info' => t('Bloc Connectés'),
+    'status' => TRUE,
+    'region' => 'connected',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  return $blocks;
+}
+
+/**
+* Implements hook_block_view().
+*/
+function public_web_usability_block_view($delta = '') {
+  global $language;
+  $block = array();
+  switch ($delta) {
+    case 'videos_blocks':
+      $block['subject'] = t('Videos');
+      $block['content'] = public_web_usability_block_contents($delta);
+      break;
+    case 'videos_blocks2':
+      $block['subject'] = t('Vidéos');
+      $block['content'] = public_web_usability_block_contents($delta);
+      break;
+    case 'priorities_blocks':
+      $block['subject'] = t('Priorities');
+      $block['content'] = public_web_usability_block_contents($delta);
+      break;
+    case 'priorities_blocks_fr':
+      $block['subject'] = t('Priorités');
+      $block['content'] = public_web_usability_block_contents($delta);
+      break;
+    case 'minister_blocks':
+      $block['subject'] = t('Minister');
+      $block['content'] = public_web_usability_block_contents($delta);
+      break;
+    case 'minister_blocks_fr':
+      $block['subject'] = t('Ministère');
+      $block['content'] = public_web_usability_block_contents($delta);
+      break;
+    case 'connected_blocks':
+      $block['subject'] = t('Stay Connected');
+      $block['content'] = public_web_usability_block_contents($delta);
+      break;
+    case 'connected_blocks_fr':
+      $block['subject'] = t('Restez connecté');
+      $block['content'] = public_web_usability_block_contents($delta);
+      break;
+  }
+  return $block;
+}
+
+/**
+* Implements hook_block_configure().
+*/
+function public_web_usability_block_configure($delta) {
+  $form = array();
+  switch($delta) {
+  case 'videos_blocks':
+    $form['videos_blocks_content'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Configure Video Block'),
+      '#size' => 255,
+      '#description' => t('Enter the appropriate markup for the Video Region.'),
+      '#default_value' => variable_get('videos_block_content'),
+      '#format' => 'full_html',
+    );
+    break;
+  case 'videos_blocks2':
+    $form['videos_blocks_content_fr'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Configure Video Block'),
+      '#size' => 255,
+      '#description' => t('Enter the appropriate markup for the Video Region.'),
+      '#default_value' => variable_get('videos_block_content_fr'),
+      '#format' => 'full_html',
+    );
+    break;
+  case 'priorities_blocks':
+    $form['priorities_blocks_content'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Configure Priorities Block'),
+      '#size' => 255,
+      '#description' => t('Enter the appropriate markup for the Priorities Region.'),
+      '#default_value' => variable_get('priorities_block_content'),
+      '#format' => 'full_html',
+    );
+    break;
+  case 'priorities_blocks_fr':
+    $form['priorities_blocks_content_fr'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Configure Priorities Block'),
+      '#size' => 255,
+      '#description' => t('Enter the appropriate markup for the Priorities Region.'),
+      '#default_value' => variable_get('priorities_block_content_fr'),
+      '#format' => 'full_html',
+    );
+    break;
+  case 'minister_blocks':
+    $form['minister_blocks_content'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Configure Minister Block'),
+      '#size' => 255,
+      '#description' => t('Enter the appropriate markup for the Minister Region.'),
+      '#default_value' => variable_get('minister_block_content'),
+      '#format' => 'full_html',
+    );
+    break;
+  case 'minister_blocks_fr':
+    $form['minister_blocks_content_fr'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Configure Minister Block'),
+      '#size' => 255,
+      '#description' => t('Enter the appropriate markup for the Minister Region.'),
+      '#default_value' => variable_get('minister_block_content_fr'),
+      '#format' => 'full_html',
+    );
+    break;
+  case 'connected_blocks':
+    $form['connected_blocks_content'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Configure Connected Block'),
+      '#size' => 255,
+      '#description' => t('Enter the appropriate markup for the Connected Region.'),
+      '#default_value' => variable_get('connected_block_content'),
+      '#format' => 'full_html',
+    );
+    break;
+  case 'connected_blocks_fr':
+    $form['connected_blocks_content_fr'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Configure Connected Block'),
+      '#size' => 255,
+      '#description' => t('Enter the appropriate markup for the Connected Region.'),
+      '#default_value' => variable_get('connected_block_content_fr'),
+      '#format' => 'full_html',
+    );
+    break;
+  }
+  return $form;
+}
+
+/**
+* Implements hook_block_save().
+*/
+function public_web_usability_block_save($delta = '', $edit = array()) {
+  //dpm($edit);
+  switch($delta) {
+    case 'videos_blocks':
+      variable_set('videos_block_content', (string)$edit['videos_blocks_content']['value']);
+      break;
+    case 'videos_blocks2':
+      variable_set('videos_block_content_fr', (string)$edit['videos_blocks_content_fr']['value']);
+      break;
+    case 'priorities_blocks':
+      variable_set('priorities_block_content', (string)$edit['priorities_blocks_content']['value']);
+      break;
+    case 'priorities_blocks_fr':
+      variable_set('priorities_block_content_fr', (string)$edit['priorities_blocks_content_fr']['value']);
+      break;
+    case 'minister_blocks':
+      variable_set('minister_block_content', (string)$edit['minister_blocks_content']['value']);
+      break;
+    case 'minister_blocks_fr':
+      variable_set('minister_block_content_fr', (string)$edit['minister_blocks_content_fr']['value']);
+      break;
+    case 'connected_blocks':
+      variable_set('connected_block_content', (string)$edit['connected_blocks_content']['value']);
+      break;
+    case 'connected_blocks_fr':
+      variable_set('connected_block_content_fr', (string)$edit['connected_blocks_content_fr']['value']);
+      break;
+  }
+  return;
+}
+
+/**
+* Implements hook_block_contents().
+*/
+function public_web_usability_block_contents($delta) {
+  $block = array();
+  switch ($delta) {
+    case 'videos_blocks':
+      global $theme;
+      if ($theme == 'genesis_public' || $theme == 'genesis_public_intranet') {
+        $markup_video = variable_get('videos_block_content');
+        return $markup_video;
+      }
+      break;
+    case 'videos_blocks2':
+      global $theme;
+      if ($theme == 'genesis_public' || $theme == 'genesis_public_intranet') {
+        $markup_video = variable_get('videos_block_content_fr');
+        return $markup_video;
+      }
+      break;
+    case 'priorities_blocks':
+      global $theme;
+      if ($theme == 'genesis_public' || $theme == 'genesis_public_intranet') {
+        $markup_priorities = variable_get('priorities_block_content');
+        return $markup_priorities;
+      }
+      break;
+    case 'priorities_blocks_fr':
+      global $theme;
+      if ($theme == 'genesis_public' || $theme == 'genesis_public_intranet') {
+        $markup_priorities = variable_get('priorities_block_content_fr');
+        return $markup_priorities;
+      }
+      break;
+    case 'minister_blocks':
+      global $theme;
+      if ($theme == 'genesis_public' || $theme == 'genesis_public_intranet') {
+        $markup_minister = variable_get('minister_block_content');
+        return $markup_minister;
+      }
+      break;
+    case 'minister_blocks_fr':
+      global $theme;
+      if ($theme == 'genesis_public' || $theme == 'genesis_public_intranet') {
+        $markup_minister = variable_get('minister_block_content_fr');
+        return $markup_minister;
+      }
+      break;
+    case 'connected_blocks':
+      global $theme;
+      if ($theme == 'genesis_public' || $theme == 'genesis_public_intranet') {
+        $markup_connected = variable_get('connected_block_content');
+        return $markup_connected;
+      }
+      break;
+    case 'connected_blocks_fr':
+      global $theme;
+      if ($theme == 'genesis_public' || $theme == 'genesis_public_intranet') {
+        $markup_connected = variable_get('connected_block_content_fr');
+        return $markup_connected;
+      }
+      break;
+  }
+  return $block;
+}
+
+function _add_custom_menu_item($link, $title, $menu, $language) {
+  $item = array(
+    'link_path' => $link,
+    'link_title' => $title,
+    'menu_name' => $menu,
+    'language' => $language,
+    'customized' => 1,
+  );
+  menu_link_save($item);
+}
+
+function _add_custom_menu_item_desc($link, $title, $desc, $menu, $weight, $language) {
+  
+  $options = array();
+  $options += array(
+    'attributes' => array(
+      'title' => $desc,
+    ), 
+  );
+  
+  $item = array(
+    'link_path' => $link,
+    'link_title' => $title,
+    'menu_name' => $menu,
+    'weight' => $weight,
+    'language' => $language,
+    'customized' => 1,
+    'options' => $options,
+  );
+  menu_link_save($item);
+}
+
+function _add_file($filename, $filepath) {
+  $file = new StdClass();
+  $file->uid = 6;
+  $file->uri = $filepath;
+  $file->filename = $filename;
+  $file->filemime = file_get_mimetype($file->uri);
+  $file->status = 1;      
+  $dest = file_default_scheme() . '://'.$filename; // Subdirectory name within files directory. ($dest is optional.)
+  $file = file_copy($file, $dest);
+  $file->display = 1;
+  $file->description = ""; 
+  
+  return $file;
+}

@@ -4,7 +4,7 @@
 
 ; Change the name to match your new subthemes name and modify the description.	
   name         = Genesis CLF Internet 3.0 (Web Usability)
-  description  = Government of Canada CLF3 Implementation for Drupal 7
+  description  = Web Experience Toolkit Implementation for Drupal 7
   core         = 7.x
   engine       = phptemplate
   screenshot   = genesis_clf.png

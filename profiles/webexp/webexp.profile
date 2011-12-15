@@ -56,31 +56,31 @@ function webexp_choices_form() {
   drupal_set_title(st('Web Experience Toolkit'));
   drupal_set_message('This area will assist in adding a more tailored user experience based on business requirements. Configuration will be will further differentiated based on the type of site and whether for governmental use.','status', FALSE);  
   
-  $options = array('1' => t('Internet'), '0' => t('Intranet (still some blocks missing)'));
-  $options2 = array('1' => t('Yes'), '0' => t('No'));
+  $options = array('1' => t('Internet'), '0' => t('Intranet (some blocks missing + only government thus far)'));
+  $options2 = array('1' => t('Government'), '0' => t('Public'));
    
   //Start setting up the form
   $form = array();
+  $form['webexp_govern'] = array(
+    '#type' => 'radios',
+    '#title' => st('Is this for Governmental or Public Use?'),
+    '#default_value' =>  variable_get('radio_government', 1),
+    '#options' => $options2,
+    '#description' => st('Please be certain that the wetkit module is included in the base install platform for this operation to succeed.'),
+  );
   $form['webexp_site'] = array(
     '#type' => 'radios',
     '#title' => st('Site intended to be used for which of type of website?'),
-    '#default_value' =>  variable_get('radio_site', 1),
+    '#default_value' =>  variable_get('radio_internet_intranet', 1),
     '#options' => $options,
     '#description' => st('This option will change the default theme that will be used based on the type of site.'),
-  );
-  $form['webexp_govern'] = array(
-    '#type' => 'radios',
-    '#title' => st('Is this for Governmental Use?'),
-    '#default_value' =>  variable_get('radio_govern', 1),
-    '#options' => $options2,
-    '#description' => st('Please be certain that the wetkit module is included in the base install platform for this operation to succeed.'),
   );
   $form[] = array(
     '#type' => 'submit',
     '#value' => st('Save and continue'),
   );
   //Return the form back to parent
-  return $form;
+  return $form; 
 }
 
 /**
@@ -88,17 +88,33 @@ function webexp_choices_form() {
  *
  * Allows the profile to create the form submit.
  */
-function webexp_choices_form_submit($form, &$form_state) { 
-  if (variable_get('webexp_site', 0) == 1)
+function webexp_choices_form_submit($form, &$form_state) {
+  
+  variable_set('radio_government', $form_state['values']['webexp_govern']);
+  variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
+  
+  //If Government Site
+  if (variable_get('radio_government') == 1)
   {
-    theme_disable(array('bartik'));
-    theme_enable(array('genesis_clf_intranet'));
-    variable_set('theme_default', 'genesis_clf_intranet');
+      if (variable_get('radio_internet_intranet') == 1)
+      {
+        theme_disable(array('bartik'));
+        theme_enable(array('genesis_clf'));
+        variable_set('theme_default', 'genesis_clf');
+        
+      }
+      else {
+        theme_disable(array('bartik'));
+        theme_enable(array('genesis_clf_intranet'));
+        variable_set('theme_default', 'genesis_clf_intranet');
+      }
   }
-  else {
-    theme_disable(array('bartik'));
-    theme_enable(array('genesis_clf'));
-    variable_set('theme_default', 'genesis_clf');
+  //If Non-Government Site
+  else if (variable_get('radio_government') == 0) 
+  {
+        theme_disable(array('bartik'));
+        theme_enable(array('genesis_public'));
+        variable_set('theme_default', 'genesis_public');
   }
 }
 
@@ -151,7 +167,7 @@ function webexp_setup_form() {
   $form['webexp_clf3'] = array(
     '#type' => 'radios',
     '#title' => st('Enable CLF3 Prototype'),
-    '#default_value' =>  variable_get('radio_clf3', 1),
+    '#default_value' =>  variable_get('radio_web_usability', 1),
     '#options' => $options,
     '#description' => st('CLF3 Prototype theme integrated with WET (80%).'),
   );
@@ -183,7 +199,7 @@ function webexp_setup_form_submit($form, &$form_state) {
     variable_set('radio_wysiwyg', $form_state['values']['webexp_wysiwyg']);
     variable_set('radio_skinr', $form_state['values']['webexp_skinr']);
     variable_set('radio_nodecontent', $form_state['values']['webexp_nodecontent']);
-    variable_set('radio_clf3', $form_state['values']['webexp_clf3']);
+    variable_set('radio_web_usability', $form_state['values']['webexp_clf3']);
     variable_set('radio_rules', $form_state['values']['webexp_rules']);
 }
 
@@ -196,11 +212,14 @@ function webexp_batch_processing() {
   //Import the French po file and translate the interface;
   //Require once is only added here because too early in the bootstrap
   require_once 'includes/locale.inc';
-	require_once 'includes/form.inc';
+  require_once 'includes/form.inc';
+  
   //Call funtion locale_add_language in locale.inc
-	locale_add_language('fr');
-	//Batch up the process + import existing po files
-	$batch = locale_batch_by_language('fr');
+  locale_add_language('fr');
+  
+  //Batch up the process + import existing po files
+  $batch = locale_batch_by_language('fr');
+  
   return $batch;
 }
 
@@ -211,45 +230,66 @@ function webexp_batch_processing() {
  */
 function webexp_final_site_setup() {
    //Module Selection Screen
+    
+  //Enable Dev Modules
   if (variable_get('radio_development', 0) == 1)
   {
     $module_list = array('devel','devel_generate','coder','coder_review','migrate','migrate_ui','migrate_extras','querypath','qpa','wetkit_migrate');
     module_enable($module_list, TRUE);
   }
+  
+  //Enable Workflow Modules
   if (variable_get('radio_workflow', 0) == 1)
   {
     $module_list = array('workbench','workbench_access','workbench_files','workbench_moderation');
     module_enable($module_list, TRUE);
   }
+  
+  //Enable WYSIWYG Modules
   if (variable_get('radio_wysiwyg', 0) == 1)
   {
     $module_list = array('ckeditor','ckeditor_link','imce','wetkit_ckeditor');
     module_enable($module_list, TRUE);
-    //features_revert(array('wetkit_ckeditor' => array('ckeditor_profile')));
   }
+  
+  //Enable Skinr Modules
   if (variable_get('radio_skinr', 0) == 1)
   {
     $module_list = array('skinr','skinr_ui','wetkit_styles');
     module_enable($module_list, TRUE);
   }
+  
+  //Enable Node Content Modules
   if (variable_get('radio_nodecontent', 0) == 1)
   {
     include_once DRUPAL_ROOT . '/profiles/webexp/includes/webexp.node.inc';
     webexp_nodes();
   }
-  if (variable_get('radio_clf3', 0) == 1)
+  
+  //Enable Government Specific Modules
+  if ((variable_get('radio_web_usability') == 1) && (variable_get('radio_government') == 1))
   {
-    $module_list = array('gov_web_usability','gov_clf2','admin');
+    $module_list = array('gov_web_usability','gov_clf2');
     module_enable($module_list, TRUE);
     drupal_add_css(drupal_get_path('module', 'webexp') . '/css/adminmenu.css', array('group' => CSS_THEME, 'every_page' => TRUE));
-
   }
+  
+  //Enable Non Government Modules
+  if ((variable_get('radio_web_usability') == 1) && (variable_get('radio_government') != 1))
+  {
+    $module_list = array('public_web_usability');
+    module_enable($module_list, TRUE);
+    drupal_add_css(drupal_get_path('module', 'webexp') . '/css/adminmenu.css', array('group' => CSS_THEME, 'every_page' => TRUE));
+  }
+  
+  //Enable Rules Modules
   if (variable_get('radio_rules', 0) == 1)
   {
     $module_list = array('rules','rules_scheduler','rules_admin','wetkit_workflow_rules');
     module_enable($module_list, TRUE);
   }
   
+  //Run Post Install Scripts
   $module_list = array('wetkit_post_install');
   module_enable($module_list, TRUE);
   
@@ -260,16 +300,8 @@ function webexp_final_site_setup() {
   variable_del('radio_wysiwyg');
   variable_del('radio_skinr');
   variable_del('radio_nodecontent');
-  variable_del('radio_clf3');
+  variable_del('radio_web_usability');
   variable_del('radio_rules');
-}
-
-/**
- * Implements hook_install_tasks_alter().
- *
- * Allows the profile to alter the install tasks.
- */
-function webexp_install_tasks_alter(&$tasks, $install_state) {
-  // Replace the "Install Finished" installation task provided by Drupal core
-  //$tasks['install_finished']['function'] = 'webexp_locale_addition';
+  variable_del('radio_government');
+  variable_del('radio_internet_intranet');
 }

@@ -424,6 +424,7 @@ function webexp_install() {
   variable_set('node_admin_theme', '1');
   
   theme_enable(array('genesis_clf'));
+  //theme_enable(array('genesis_public'));
 }
 
 /**

@@ -34,9 +34,19 @@ function wetkit_post_install_uninstall() {
 
 function wetkit_post_install_init() {
   if (variable_get('features_set', 1) == 1) {
+    
     //Update Certain Regions
-    db_query("UPDATE {block} SET region = 'sidebar_first', status = '1' WHERE module = 'menu' AND theme = 'genesis_clf' AND delta = 'menu-documentation'"); 
+    //db_query("UPDATE {block} SET region = 'sidebar_first', status = '1' WHERE module = 'menu' AND theme = 'genesis_clf' AND delta = 'menu-documentation'"); 
 
+    global $theme;
+    db_query('UPDATE {block} SET region = :region, status = :status WHERE module = :module AND theme = :theme AND delta = :delta', 
+         array( ':region' => 'sidebar_first', 
+                ':status' => '1', 
+                ':module' => 'menu',
+                ':theme' => $theme,
+                ':delta' => 'menu-documentation'));
+    
+    
     drupal_flush_all_caches();
     features_revert();
   }
