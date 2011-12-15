@@ -56,7 +56,8 @@
   stylesheets-conditional[IE 6][all][] = css/theme-gcwu-fegc/fip-pcim/css/fip-pcim-ie6.css
 
 ; menubar
-  stylesheets[all][] = ../../libraries/wet-boew-jquery/js/support/menubar/style.css
+  stylesheets[all][] = ../../../../profiles/webexp/libraries/wet-boew-jquery/js/support/menubar/style.css
+  ;stylesheets[all][] = ../../libraries/wet-boew-jquery/js/support/menubar/style.css
 
 ; final chance to do custom overrides
   stylesheets[all][] = css/custom.css

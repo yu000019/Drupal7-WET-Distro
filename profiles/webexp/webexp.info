@@ -63,6 +63,7 @@ dependencies[] = conditional_styles
 dependencies[] = views_bulk_operations
 dependencies[] = elements
 dependencies[] = html5_tools
+dependencies[] = admin
 ;dependencies[] = flag
 ;dependencies[] = flag_actions
 ;dependencies[] = translation_helpers

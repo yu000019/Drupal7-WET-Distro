@@ -25,20 +25,20 @@ function webexp_install_tasks() {
   // installation.
   $webexp_needs_batch_processing = variable_get('webexp_needs_batch_processing', TRUE);
   $tasks = array(
-    'webexp_choices_form' => array(
-      'display_name' => st('Web Experience Toolkit: Selection'), 
-      'type' => 'form',
-    ), 
-    'webexp_setup_form' => array(
-      'display_name' => st('Web Experience Toolkit: Configuration'), 
-      'type' => 'form',
-    ), 
     'webexp_batch_processing' => array(
       'display_name' => st('Import French Language'), 
       'display' => $webexp_needs_batch_processing, 
       'type' => 'batch', 
       'run' => $webexp_needs_batch_processing ? INSTALL_TASK_RUN_IF_NOT_COMPLETED : INSTALL_TASK_SKIP,
     ),
+    'webexp_choices_form' => array(
+      'display_name' => st('Web Experience Toolkit: Branding'), 
+      'type' => 'form',
+    ), 
+    'webexp_setup_form' => array(
+      'display_name' => st('Web Experience Toolkit: Configuration'), 
+      'type' => 'form',
+    ), 
     'webexp_final_site_setup' => array(
     ),
   );
@@ -210,30 +210,7 @@ function webexp_batch_processing() {
  * Allows the profile to perform operations during the final install task.
  */
 function webexp_final_site_setup() {
-  //Based on selected configuration install modules
-  webexp_addmodules();
-  //Delete all of the variables inside the variables table
-  variable_del('webexp_needs_batch_processing');
-  variable_del('radio_development');
-  variable_del('radio_workflow');
-  variable_del('radio_wysiwyg');
-  variable_del('radio_skinr');
-  variable_del('radio_nodecontent');
-  variable_del('radio_clf3');
-  variable_del('radio_rules');
-  //features handling
-  $module_list = array('wetkit_post_install');
-  module_enable($module_list, TRUE);
-
-}
-
-/**
- * Implements webexp_addmodules().
- *
- * Custom function to add ancilliary modules.
- */
-function webexp_addmodules() {
-  //Module Selection Screen
+   //Module Selection Screen
   if (variable_get('radio_development', 0) == 1)
   {
     $module_list = array('devel','devel_generate','coder','coder_review','migrate','migrate_ui','migrate_extras','querypath','qpa','wetkit_migrate');
@@ -272,6 +249,19 @@ function webexp_addmodules() {
     $module_list = array('rules','rules_scheduler','rules_admin','wetkit_workflow_rules');
     module_enable($module_list, TRUE);
   }
+  
+  $module_list = array('wetkit_post_install');
+  module_enable($module_list, TRUE);
+  
+  //Delete all of the variables inside the variables table
+  variable_del('webexp_needs_batch_processing');
+  variable_del('radio_development');
+  variable_del('radio_workflow');
+  variable_del('radio_wysiwyg');
+  variable_del('radio_skinr');
+  variable_del('radio_nodecontent');
+  variable_del('radio_clf3');
+  variable_del('radio_rules');
 }
 
 /**
