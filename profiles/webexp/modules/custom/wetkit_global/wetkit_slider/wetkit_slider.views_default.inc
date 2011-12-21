@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * gov_web_usability.views_default.inc
+ * wetkit_slider.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function gov_web_usability_views_default_views() {
+function wetkit_slider_views_default_views() {
   $export = array();
 
   $view = new view;

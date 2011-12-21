@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * public_web_usability.features.field.inc
+ * wetkit_slider.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function public_web_usability_field_default_fields() {
+function wetkit_slider_field_default_fields() {
   $fields = array();
 
   // Exported field: 'field_collection_item-field_slider_collection-field_slider_description'
@@ -173,6 +173,7 @@ function public_web_usability_field_default_fields() {
             'delete' => 'Delete',
             'description' => TRUE,
             'edit' => 'Edit',
+            'view_mode' => 'full',
           ),
           'type' => 'field_collection_view',
           'weight' => 4,

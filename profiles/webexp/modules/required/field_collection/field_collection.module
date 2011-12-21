@@ -563,70 +563,11 @@ function field_collection_field_presave($entity_type, $entity, $field, $instance
 }
 
 /**
- * Implements hook_field_update().
- *
- * Checks for field_collection_item entities that have been removed from the object.
- */
-function field_collection_field_update($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
-
-  // On new revisions, all original field_collection_items may still
-  // be associated with the previous revision, so must be preserved.
-  if (!empty($entity->revision)) {
-    return;
-  }
-
-  // Array of the current field_collection_item entity_ids.
-  $current_ids = field_collection_field_item_to_ids($items);
-
-  // Obtain the unchanged version of the entity.
-  // It may already be available at $entity->original
-  if (isset($entity->original) && is_object($entity->original)) {
-    $original = $entity->original;
-  }
-  else {
-    // The entity type does not support $entity->original, so we
-    // create a bare-bones entity and load its previous field values.
-    $original = entity_create_stub_entity($entity_type, array($id, $vid, $bundle));
-    field_attach_load($entity_type, array($id => $original), FIELD_LOAD_CURRENT, array('field_id' => $field['id']));
-  }
-
-  // Compare the original field values with the ones that are being saved.
-  if (!empty($original->{$field['field_name']}[$langcode])) {
-    $original_ids = field_collection_field_item_to_ids($original->{$field['field_name']}[$langcode]);
-    $orphaned_field_collection_items = array_diff($original_ids, $current_ids);
-    // Delete orphaned field_collection_item entities. Otherwise they'll be around forever.
-    if (!empty($orphaned_field_collection_items)) {
-      entity_delete_multiple('field_collection_item', $orphaned_field_collection_items);
-    }
-  }
-}
-
-/**
  * Implements hook_field_delete().
  */
 function field_collection_field_delete($entity_type, $entity, $field, $instance, $langcode, &$items) {
   // Also delete all embedded entities.
   if ($ids = field_collection_field_item_to_ids($items)) {
-     // We need to filter out entities that are still being referenced in other hostentities.
-    $entity_info = entity_get_info($entity_type);
-    $entity_id_name = $entity_info['entity keys']['id'];
-    $field_columns = array_keys($field['columns']);
-    $field_column = array_shift($field_columns);
-
-    foreach ($ids as $id_key => $id) {
-      $query = new EntityFieldQuery();
-      $entities = $query
-        ->fieldCondition($field['field_name'], $field_column, $id)
-        ->execute();
-      unset($entities[$entity_type][$entity->$entity_id_name]);
-
-      if (!empty($entities[$entity_type])) {
-        // Filter this $id out.
-        unset($ids[$id_key]);
-      }
-    }
-    
     entity_delete_multiple('field_collection_item', $ids);
   }
 }

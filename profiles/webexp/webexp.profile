@@ -255,7 +255,7 @@ function webexp_final_site_setup() {
   //Enable Skinr Modules
   if (variable_get('radio_skinr', 0) == 1)
   {
-    $module_list = array('skinr','skinr_ui','wetkit_styles');
+    $module_list = array('skinr','skinr_ui','wetkit_styles','wetkit_slider');
     module_enable($module_list, TRUE);
   }
   
