@@ -1,0 +1,184 @@
+<?php
+
+function _custom_setup_form() {
+  //Start setting up the form
+  $options = array('1' => t('Enabled'), '0' => t('Disabled'));
+  $options_site = array('internet' => t('Internet'), 'intranet' => t('Intranet (some blocks missing + only government thus far)'));
+  
+  $form = array();
+  $form['webexp_site'] = array(
+    '#type' => 'radios',
+    '#title' => st('Site intended to be used for which of type of website?'),
+    '#default_value' =>  variable_get('radio_internet_intranet', 'internet'),
+    '#options' => $options_site,
+    '#description' => st('This option will change the default theme that will be used based on the type of site.'),
+  );
+  $form['webexp_development'] = array(
+    '#type' => 'radios',
+    '#title' => st('Enable Development Module(s)?'),
+    '#default_value' =>  variable_get('radio_development', 1),
+    '#options' => $options,
+    '#description' => st('Modules that will assist with Development for the Web Experience Toolkit based websites.'),
+  );
+  $form['webexp_workflow'] = array(
+    '#type' => 'radios',
+    '#title' => st('Enable Workflow Module(s)?'),
+    '#default_value' =>  variable_get('radio_workflow', 1),
+    '#options' => $options,
+    '#description' => st('Modules that will assist with Workflows for the Web Experience Toolkit based websites.'),
+  );
+  $form['webexp_wysiwyg'] = array(
+    '#type' => 'radios',
+    '#title' => st('Enable CKEditor Module(s)?'),
+    '#default_value' =>  variable_get('radio_wysiwyg', 1),
+    '#options' => $options,
+    '#description' => st('Modules that relate to a WYSIWYG Editor (CKEditor).'),
+  );
+  $form['webexp_skinr'] = array(
+    '#type' => 'radios',
+    '#title' => st('Enable Skinr Module(s)?'),
+    '#default_value' =>  variable_get('radio_skinr', 1),
+    '#options' => $options,
+    '#description' => st('Modules that deal with Skinning Integration.'),
+  );
+  $form['webexp_nodecontent'] = array(
+    '#type' => 'radios',
+    '#title' => st('Add Default Node Content'),
+    '#default_value' =>  variable_get('radio_nodecontent', 1),
+    '#options' => $options,
+    '#description' => st('Programmatically Created Node Content.'),
+  );
+  $form['webexp_clf3'] = array(
+    '#type' => 'radios',
+    '#title' => st('Enable CLF3 Prototype'),
+    '#default_value' =>  variable_get('radio_web_usability', 1),
+    '#options' => $options,
+    '#description' => st('CLF3 Prototype theme integrated with WET (80%).'),
+  );
+  $form['webexp_rules'] = array(
+    '#type' => 'radios',
+    '#title' => st('Enable Rules Functionality (Recommended)'),
+    '#default_value' =>  variable_get('radio_rules', 1),
+    '#options' => $options,
+    '#description' => st('Enable the Rules Suite of Modules + Wet Features related to workflows.'),
+  );
+  $form[] = array(
+    '#type' => 'submit',
+    '#value' => st('Save and continue'),
+  );
+  //Return the form back to parent
+  return $form;
+}
+
+function _custom_submit_form($form, &$form_state) {
+  variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
+  variable_set('radio_development', $form_state['values']['webexp_development']);
+  variable_set('radio_workflow', $form_state['values']['webexp_workflow']);
+  variable_set('radio_wysiwyg', $form_state['values']['webexp_wysiwyg']);
+  variable_set('radio_skinr', $form_state['values']['webexp_skinr']);
+  variable_set('radio_nodecontent', $form_state['values']['webexp_nodecontent']);
+  variable_set('radio_web_usability', $form_state['values']['webexp_clf3']);
+  variable_set('radio_rules', $form_state['values']['webexp_rules']);
+}
+
+function _custom_run_form() {
+  
+  //If Government Site
+  if (variable_get('radio_organization') == 'government')
+  {
+    //If Government Site and Internet Theme
+    if (variable_get('radio_internet_intranet') == 'internet')
+    {
+      theme_disable(array('bartik'));
+      theme_enable(array('genesis_clf'));
+      variable_set('theme_default', 'genesis_clf');
+    }
+    //If Government Site and Intranet Theme
+    else {
+      theme_disable(array('bartik'));
+      theme_enable(array('genesis_clf_intranet'));
+      variable_set('theme_default', 'genesis_clf_intranet');
+    }
+  }
+  //If Non-Government Site
+  else if (variable_get('radio_organization') == 'public') 
+  {
+    theme_disable(array('bartik'));
+    theme_enable(array('genesis_public'));
+    variable_set('theme_default', 'genesis_public');
+  }
+  
+  //Enable Node Content Modules
+  if (variable_get('radio_nodecontent', 0) == 1)
+  {
+    include_once DRUPAL_ROOT . '/profiles/webexp/includes/webexp.node.inc';
+    webexp_nodes();
+  }
+  
+  //Enable Dev Modules
+  if (variable_get('radio_development', 0) == 1)
+  {
+    $module_list = array('devel','devel_generate','coder','coder_review','migrate','migrate_ui','migrate_extras','querypath','qpa','wetkit_migrate');
+    module_enable($module_list, TRUE);
+  }
+  
+  //Enable Workflow Modules
+  if (variable_get('radio_workflow', 0) == 1)
+  {
+    $module_list = array('workbench','workbench_access','workbench_files','workbench_moderation');
+    module_enable($module_list, TRUE);
+  }
+  
+  //Enable WYSIWYG Modules
+  if (variable_get('radio_wysiwyg', 0) == 1)
+  {
+    $module_list = array('ckeditor','ckeditor_link','imce','wetkit_ckeditor');
+    module_enable($module_list, TRUE);
+  }
+  
+  //Enable Skinr Modules
+  if (variable_get('radio_skinr', 0) == 1)
+  {
+    $module_list = array('skinr','skinr_ui','wetkit_styles','wetkit_slider');
+    module_enable($module_list, TRUE);
+  }
+  
+  //Enable Government Specific Modules
+  if ((variable_get('radio_web_usability') == 1) && (variable_get('radio_government') == 1))
+  {
+    $module_list = array('gov_web_usability');
+    module_enable($module_list, TRUE);
+    drupal_add_css(drupal_get_path('module', 'webexp') . '/css/adminmenu.css', array('group' => CSS_THEME, 'every_page' => TRUE));
+  }
+  
+  //Enable Non Government Modules
+  if ((variable_get('radio_web_usability') == 1) && (variable_get('radio_government') != 1))
+  {
+    $module_list = array('public_web_usability');
+    module_enable($module_list, TRUE);
+    drupal_add_css(drupal_get_path('module', 'webexp') . '/css/adminmenu.css', array('group' => CSS_THEME, 'every_page' => TRUE));
+  }
+  
+  //Enable Rules Modules
+  if (variable_get('radio_rules', 0) == 1)
+  {
+    $module_list = array('rules','rules_scheduler','rules_admin','wetkit_workflow_rules');
+    module_enable($module_list, TRUE);
+  }
+  
+  //Run Post Install Scripts
+  $module_list = array('wetkit_post_install');
+  module_enable($module_list, TRUE);
+}
+
+function _custom_flush_vars() {
+  //Remove Temporary Variables from variable table
+  variable_del('radio_development');
+  variable_del('radio_workflow');
+  variable_del('radio_wysiwyg');
+  variable_del('radio_skinr');
+  variable_del('radio_nodecontent');
+  variable_del('radio_web_usability');
+  variable_del('radio_rules');
+  variable_del('radio_internet_intranet');
+}

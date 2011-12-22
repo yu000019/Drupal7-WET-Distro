@@ -67,6 +67,7 @@ dependencies[] = admin
 ;dependencies[] = flag
 ;dependencies[] = flag_actions
 ;dependencies[] = translation_helpers
+dependencies[] = password_policy
 
 ;custom
 dependencies[] = wetkit
