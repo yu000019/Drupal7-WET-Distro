@@ -269,7 +269,7 @@ function webexp_final_site_setup() {
   //Enable Government Specific Modules
   if ((variable_get('radio_web_usability') == 1) && (variable_get('radio_government') == 1))
   {
-    $module_list = array('gov_web_usability','gov_clf2');
+    $module_list = array('gov_web_usability');
     module_enable($module_list, TRUE);
     drupal_add_css(drupal_get_path('module', 'webexp') . '/css/adminmenu.css', array('group' => CSS_THEME, 'every_page' => TRUE));
   }
