@@ -88,11 +88,11 @@ function webexp_configuration_form() {
 function webexp_configuration_form_submit($form, &$form_state) {
   //Custom Installation
   if (variable_get('radio_type_install') == 'custom') {
-    return _custom_submit_form($form, $form_state);
+    return _custom_submit_form($form, &$form_state);
   }
   //Default Installation
   else if (variable_get('radio_type_install') == 'default') {
-    return _default_submit_form($form, $form_state);
+    return _default_submit_form($form, &$form_state);
   }
 }
 
