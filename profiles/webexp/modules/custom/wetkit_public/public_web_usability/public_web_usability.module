@@ -11,8 +11,6 @@ include_once('public_web_usability.features.inc');
 */
 function public_web_usability_install() {
   
-  //variable_set('views_headline', 1);
-  
   /* Add Main Menu */
   _add_custom_menu_item_desc('<front>', 'Home', NULL, 'main-menu', 0, 'en');
   _add_custom_menu_item_desc('<front>', 'Help', NULL,'main-menu', 1, 'en');
@@ -91,13 +89,24 @@ function public_web_usability_install() {
   
   //Clears all menu caches
   menu_cache_clear_all();
+  
+  migrate_flush_caches();  
+  $migration = Migration::getInstance('XML_Web_Usability_Gov');
+  $result = $migration->processImport();
+  $migration = Migration::getInstance('HTML_Documentation');
+  $result = $migration->processImport();
 }
 
 /**
 * Implements hook_uninstall().
 */
 function public_web_usability_uninstall() {
-  variable_del('views_headline');
+  variable_del('views_temp');
+  $migration = Migration::getInstance('XML_Web_Usability_Gov');
+  $result = $migration->processRollback();
+  $migration = Migration::getInstance('XML_Documentation');
+  $result = $migration->processRollback();
+  cache_clear_all();
 }
 
 /**
@@ -116,19 +125,23 @@ function public_web_usability_page_alter(&$page) {
 */
 function public_web_usability_init(){
   
-  //Temporary If Statement to run commands below one time
-  if (variable_get('views_headline', 1) == 1) {
+   //Temporary If Statement to run commands below one time
+  if (variable_get('views_temp', 1) == 1) {
     
     //Update Certain Regions
     db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_clf' AND delta = 'headlines_front_page-block'"); 
-
+    db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_clf_intranet' AND delta = 'headlines_front_page-block'");
+     
     //Multilingual Variables
     variable_set('i18n_variable_conf', array('site_name'));
     variable_set('i18n_variable_list', array('site_name'));
     i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
     
+    //Clear all caches
     cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
     
+    
+    //Add the Default Blocks
     db_insert('i18n_block_language')->fields(array(
       'module' => 'public_web_usability',
       'delta' => 'videos_blocks',
@@ -176,7 +189,8 @@ function public_web_usability_init(){
       'delta' => 'connected_blocks_fr',
       'language' => 'fr',
     ))->execute();
-        
+    
+    //Set the Language for Drupal (eng and fra)
     $languages = array (
      'language' => 'en',
      'name' => 'English',
@@ -205,7 +219,21 @@ function public_web_usability_init(){
       ->condition('language', 'fr')
       ->execute();
   }
-  variable_set('views_headline', 0);
+  variable_set('views_temp', 0);
+  
+  //For Migrated Documentation
+  if (variable_get('features_set', 1) == 1) {
+    global $theme;
+    db_query('UPDATE {block} SET region = :region, status = :status WHERE module = :module AND theme = :theme AND delta = :delta', 
+         array( ':region' => 'sidebar_first', 
+                ':status' => '1', 
+                ':module' => 'menu',
+                ':theme' => $theme,
+                ':delta' => 'menu-documentation'));
+    drupal_flush_all_caches();
+    features_revert();
+  }
+  variable_set('features_set', 0);
 }
 
 

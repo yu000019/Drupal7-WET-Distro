@@ -3,7 +3,7 @@
 function _custom_setup_form() {
   //Start setting up the form
   $options = array('1' => t('Enabled'), '0' => t('Disabled'));
-  $options_site = array('internet' => t('Internet'), 'intranet' => t('Intranet (some blocks missing + only government thus far)'));
+  $options_site = array('internet' => t('Internet'), 'intranet' => t('Intranet'));
   
   $form = array();
   $form['webexp_site'] = array(
@@ -81,8 +81,7 @@ function _custom_submit_form($form, &$form_state) {
   variable_set('radio_rules', $form_state['values']['webexp_rules']);
 }
 
-function _custom_run_form() {
-  
+function _custom_run_form() { 
   //If Government Site
   if (variable_get('radio_organization') == 'government')
   {
@@ -118,7 +117,7 @@ function _custom_run_form() {
   //Enable Dev Modules
   if (variable_get('radio_development', 0) == 1)
   {
-    $module_list = array('devel','devel_generate','coder','coder_review','migrate','migrate_ui','migrate_extras','querypath','qpa','wetkit_migrate');
+    $module_list = array('devel','devel_generate','coder','coder_review','migrate','migrate_ui','migrate_extras','querypath','qpa');
     module_enable($module_list, TRUE);
   }
   
@@ -132,31 +131,15 @@ function _custom_run_form() {
   //Enable WYSIWYG Modules
   if (variable_get('radio_wysiwyg', 0) == 1)
   {
-    $module_list = array('ckeditor','ckeditor_link','imce','wetkit_ckeditor');
+    $module_list = array('ckeditor','ckeditor_link','imce');
     module_enable($module_list, TRUE);
   }
   
   //Enable Skinr Modules
   if (variable_get('radio_skinr', 0) == 1)
   {
-    $module_list = array('skinr','skinr_ui','wetkit_styles','wetkit_slider');
+    $module_list = array('skinr','skinr_ui');
     module_enable($module_list, TRUE);
-  }
-  
-  //Enable Government Specific Modules
-  if ((variable_get('radio_web_usability') == 1) && (variable_get('radio_government') == 1))
-  {
-    $module_list = array('gov_web_usability');
-    module_enable($module_list, TRUE);
-    drupal_add_css(drupal_get_path('module', 'webexp') . '/css/adminmenu.css', array('group' => CSS_THEME, 'every_page' => TRUE));
-  }
-  
-  //Enable Non Government Modules
-  if ((variable_get('radio_web_usability') == 1) && (variable_get('radio_government') != 1))
-  {
-    $module_list = array('public_web_usability');
-    module_enable($module_list, TRUE);
-    drupal_add_css(drupal_get_path('module', 'webexp') . '/css/adminmenu.css', array('group' => CSS_THEME, 'every_page' => TRUE));
   }
   
   //Enable Rules Modules
@@ -166,9 +149,27 @@ function _custom_run_form() {
     module_enable($module_list, TRUE);
   }
   
-  //Run Post Install Scripts
-  $module_list = array('wetkit_post_install');
-  module_enable($module_list, TRUE);
+  //Enable Features
+  if (variable_get('radio_organization') == 'government')
+  {
+    $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules');
+    module_enable($module_list, TRUE);
+    
+    //Kinda hackish but has to be run after first set
+    $module_list = array('gov_web_usability');
+    module_enable($module_list, TRUE);
+    
+  }
+  else if (variable_get('radio_organization') == 'public')
+  {
+    $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules');
+    module_enable($module_list, TRUE);
+    
+    //Kinda hackish but has to be run after first set
+    $module_list = array('public_web_usability');
+    module_enable($module_list, TRUE);
+  }
+  
 }
 
 function _custom_flush_vars() {

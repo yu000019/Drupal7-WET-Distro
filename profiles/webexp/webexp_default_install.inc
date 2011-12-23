@@ -2,14 +2,13 @@
 
 function _default_setup_form() {
   //Start setting up the form
-  $options = array('1' => t('Enabled'), '0' => t('Disabled'));
-  $options_site = array('1' => t('Internet'), '0' => t('Intranet (some blocks missing + only government thus far)'));
+  $options_site = array('internet' => t('Internet'), 'intranet' => t('Intranet'));
   
   $form = array();
   $form['webexp_site'] = array(
     '#type' => 'radios',
     '#title' => st('Site intended to be used for which of type of website?'),
-    '#default_value' =>  variable_get('radio_internet_intranet', 1),
+    '#default_value' =>  variable_get('radio_internet_intranet', 'internet'),
     '#options' => $options_site,
     '#description' => st('This option will change the default theme that will be used based on the type of site.'),
   );
@@ -25,8 +24,7 @@ function _default_submit_form() {
   variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
 }
 
-function _default_run_form() {
-  
+function _default_run_form() {  
   //If Government Site
   if (variable_get('radio_organization') == 'government')
   {
@@ -79,12 +77,21 @@ function _default_run_form() {
   //Enable Features
   if (variable_get('radio_organization') == 'government')
   {
-    $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules','wetkit_post_install', 'gov_web_usability');
+    $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules');
     module_enable($module_list, TRUE);
+    
+    //Kinda hackish but has to be run after first set
+    $module_list = array('gov_web_usability');
+    module_enable($module_list, TRUE);
+    
   }
   else if (variable_get('radio_organization') == 'public')
   {
-    $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules','wetkit_post_install', 'public_web_usability');
+    $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules');
+    module_enable($module_list, TRUE);
+    
+    //Kinda hackish but has to be run after first set
+    $module_list = array('public_web_usability');
     module_enable($module_list, TRUE);
   }
   

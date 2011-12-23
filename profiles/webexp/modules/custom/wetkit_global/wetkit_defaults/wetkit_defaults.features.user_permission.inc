@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * wetkit_post_install.features.user_permission.inc
+ * wetkit_defaults.features.user_permission.inc
  */
 
 /**
  * Implements hook_user_default_permissions().
  */
-function wetkit_post_install_user_default_permissions() {
+function wetkit_defaults_user_default_permissions() {
   $permissions = array();
 
   // Exported permission: access administration pages

@@ -6,10 +6,10 @@
  */
 
 /**
- * @defgroup wetkit Example: JavaScript
- * @ingroup examples
+ * @defgroup wetkit
+ * @ingroup wetkit
  * @{
- * Examples using Drupal 7's built-in JavaScript.
+ * WETKIT Theme.
  */
 
 /**
@@ -179,11 +179,5 @@ function wetkit_init() {
   if (function_exists('libraries_get_path')) {
     $library_path = libraries_get_path('wet-boew-jquery');
     drupal_add_js($library_path  . '/js/pe-ap.js'); 
-    //drupal_add_js(drupal_get_path('module', 'wetkit') . '/js/wet.js');
-    //drupal_add_js(array('wetfiles' => array('basepath' => $library_path  . '/js')), 'setting');
-  }
-  if ( (variable_get('wetkit_graphs_enable', FALSE) == 1) && (variable_get('wetkit_graphs_javascript', NULL) != NULL) ) 
-  {
-    //$varparams = variable_get('wetkit_graphs_javascript', NULL);
-  }
+   }
 }

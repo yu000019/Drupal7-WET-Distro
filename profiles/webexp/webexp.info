@@ -71,6 +71,7 @@ dependencies[] = password_policy
 
 ;custom
 dependencies[] = wetkit
+dependencies[] = wetkit_defaults
 dependencies[] = wetkit_i18n
 dependencies[] = wetkit_content_types
 ;dependencies[] = wetkit_metatag

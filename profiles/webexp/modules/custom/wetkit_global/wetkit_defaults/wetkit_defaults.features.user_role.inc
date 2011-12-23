@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * wetkit_post_install.features.user_role.inc
+ * wetkit_defaults.features.user_role.inc
  */
 
 /**
  * Implements hook_user_default_roles().
  */
-function wetkit_post_install_user_default_roles() {
+function wetkit_defaults_user_default_roles() {
   $roles = array();
 
   // Exported role: administrator
