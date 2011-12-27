@@ -20,7 +20,7 @@ function _default_setup_form() {
   return $form;
 }
 
-function _default_submit_form() {
+function _default_submit_form($form, &$form_state) {
   variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
 }
 
