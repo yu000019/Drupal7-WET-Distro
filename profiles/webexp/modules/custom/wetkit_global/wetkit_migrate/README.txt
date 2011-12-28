@@ -4,7 +4,7 @@
  */
 
 Migrate WetKit
-An plug-in module to the migrate module which extends its capability to importing HTML.
+An plug-in module to the migrate module which extends its capability to import a vast array of content.
 
 CONTENTS
 --------

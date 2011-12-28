@@ -2,9 +2,9 @@
 
 function _custom_setup_form() {
   //Start setting up the form
-  $options = array('1' => t('Enabled'), '0' => t('Disabled'));
-  $options_site = array('internet' => t('Internet'), 'intranet' => t('Intranet'));
-  $options_branding = array('government' => t('Government'), 'public' => t('Public'));
+  $options = array('1' => st('Enabled'), '0' => st('Disabled'));
+  $options_site = array('internet' => st('Internet'), 'intranet' => st('Intranet'));
+  $options_branding = array('government' => st('Government'), 'public' => st('Public'));
   
   $form = array();
   $form['webexp_govern'] = array(
@@ -114,13 +114,6 @@ function _custom_run_form() {
     theme_disable(array('bartik'));
     theme_enable(array('genesis_public'));
     variable_set('theme_default', 'genesis_public');
-  }
-  
-  //Enable Node Content Modules
-  if (variable_get('radio_nodecontent', 0) == 1)
-  {
-    include_once DRUPAL_ROOT . '/profiles/webexp/includes/webexp.node.inc';
-    webexp_nodes();
   }
   
   //Enable Dev Modules

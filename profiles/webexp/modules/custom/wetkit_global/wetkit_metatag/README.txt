@@ -4,7 +4,7 @@ README.txt
 OVERVIEW
 ==================
 
-A module that extends the MetaTag Module built by Acquia to support the standard Government of Canada Meta Tags.
+A module that extends the MetaTag Module built by Acquia to support the Web Experience Toolkit based metatags.
 
 COMPATIBILITY NOTES
 ==================
@@ -27,31 +27,31 @@ CONTEXTS
 ========
 	
 	Global (MetaTags Exist SiteWide)
-	dc:title
-	dc:sitename
-	dc:url
+	dc.title
+	dc.sitename
+	dc.url
 	
 	Global:Frontpage (Metatags Existing just on Front Page)
-	dc:title (inheritance)
-	dc:url (inheritance)
+	dc.title (inheritance)
+	dc.url (inheritance)
 	
 	Node (Metatags Exist on node view)
-	dc:title
-	dc:description
-	dc:url
+	dc.title
+	dc.description
+	dc.url
 	date
 	dcterms.issued
 	dcterms.modified
 	author
 	
 	Taxonomy Term (Metatags Existing on Taxonomy Term View)
-	dc:title
-	dc:description
+	dc.title
+	dc.description
 	
 	User (Metatags Existing on User View)
-	dc:type
-	dc:title
-	dc:image
+	dc.type
+	dc.title
+	dc.image
 	
 EXTENDING
 ========

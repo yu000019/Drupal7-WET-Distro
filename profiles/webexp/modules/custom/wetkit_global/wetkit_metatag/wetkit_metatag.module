@@ -35,7 +35,7 @@ function theme_wetkit_metatag($variables) {
   $element = &$variables['element'];
   element_set_attributes($element, array('#name' => 'name', '#value' => 'content'));
   unset($element['#value']);
-  return theme_html_tag($variables);
+  return theme('html_tag', $variables);
 }
 
 /**
@@ -46,7 +46,7 @@ function theme_wetkit_metatag_scheme($variables) {
   element_set_attributes($element, array('#name' => 'name', '#value' => 'content'));
   $element['#attributes']['scheme'] = 'W3CDTF';
   unset($element['#value']);
-  return theme_html_tag($variables);
+  return theme('html_tag', $variables);
 }
 
 /**
@@ -59,7 +59,7 @@ function theme_wetkit_metatag_language($variables) {
   $element['#attributes']['content'] = $val_lang;
   $element['#attributes']['scheme'] = 'ISO639-2/T';
   unset($element['#value']);
-  return theme_html_tag($variables);
+  return theme('html_tag', $variables);
 }
 
 /**
@@ -70,7 +70,7 @@ function theme_wetkit_metatag_title($variables) {
   element_set_attributes($element, array('#name' => 'name', '#value' => 'content'));
   $element['#attributes']['name'] = 'title';
   unset($element['#value']);
-  return theme_html_tag($variables);
+  return theme('html_tag', $variables);
 }
 
 /**

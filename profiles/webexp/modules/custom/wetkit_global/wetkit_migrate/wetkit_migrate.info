@@ -6,5 +6,6 @@ dependencies[] = migrate
 dependencies[] = migrate_extras
 
 files[] = wetkit_migrate.module
+files[] = default_content.inc
 files[] = web_usability.inc
 files[] = documentation.inc

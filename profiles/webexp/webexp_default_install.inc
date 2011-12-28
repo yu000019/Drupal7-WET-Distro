@@ -2,8 +2,8 @@
 
 function _default_setup_form() {
   //Start setting up the form
-  $options_site = array('internet' => t('Internet'), 'intranet' => t('Intranet'));
-  $options_branding = array('government' => t('Government'), 'public' => t('Public'));
+  $options_site = array('internet' => st('Internet'), 'intranet' => st('Intranet'));
+  $options_branding = array('government' => st('Government'), 'public' => st('Public'));
     
   $form = array();
   $form['webexp_govern'] = array(
@@ -58,10 +58,6 @@ function _default_run_form() {
     theme_enable(array('genesis_public'));
     variable_set('theme_default', 'genesis_public');
   }
-  
-  //Enable Sample Node Content
-  include_once DRUPAL_ROOT . '/profiles/webexp/includes/webexp.node.inc';
-  webexp_nodes();
   
   //Enable Dev Modules
   $module_list = array('devel','devel_generate','coder','coder_review','migrate','migrate_ui','migrate_extras','querypath','qpa');

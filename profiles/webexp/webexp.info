@@ -44,7 +44,6 @@ dependencies[] = elements
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = field_group
-dependencies[] = globalredirect
 dependencies[] = html5_tools
 dependencies[] = libraries
 dependencies[] = link
@@ -72,7 +71,6 @@ dependencies[] = views_bulk_operations
 ;SEARCH
 dependencies[] = facetapi
 dependencies[] = metatag
-dependencies[] = metatag_ui
 dependencies[] = xmlsitemap
 dependencies[] = search404
 

@@ -3,10 +3,10 @@
 /**
  * Implements hook_batch_processing().
  *
- * FIRST TASK: Allows the profile to install the french language.
+ * FIRST TASK: Allows the profile to install the additional language (english or french).
  */
 function webexp_batch_processing() {
-  //Import the French po file and translate the interface;
+  //Import the additonal language po file and translate the interface;
   //Require once is only added here because too early in the bootstrap
   require_once 'includes/locale.inc';
   require_once 'includes/form.inc';
@@ -15,7 +15,6 @@ function webexp_batch_processing() {
   locale_add_language('fr');
   //Batch up the process + import existing po files
   $batch = locale_batch_by_language('fr');
-  
   return $batch;
 }
 
@@ -26,9 +25,9 @@ function webexp_batch_processing() {
  */
 function webexp_type_install_form() {
   drupal_set_title(st('Web Experience Toolkit'));
-  drupal_set_message('The following areas will assist in adding a more tailored user experience based on business requirements. Configuration will be will further differentiated based on the type of site and whether for governmental use.','status', FALSE);  
+  drupal_set_message(st('The following areas will assist in adding a more tailored user experience based on business requirements. Configuration will be will further differentiated based on the type of site and whether for governmental use.'),'status', FALSE);  
 
-  $options_install = array('default' => t('Default'), 'custom' => t('Custom'));
+  $options_install = array('default' => st('Default'), 'custom' => st('Custom'));
   
   $form = array();
   $form['webexp_type_install'] = array(
@@ -79,11 +78,11 @@ function webexp_configuration_form() {
 function webexp_configuration_form_submit($form, &$form_state) {
   //Custom Installation
   if (variable_get('radio_type_install') == 'custom') {
-    return _custom_submit_form($form, &$form_state);
+    return _custom_submit_form($form, $form_state);
   }
   //Default Installation
   else if (variable_get('radio_type_install') == 'default') {
-    return _default_submit_form($form, &$form_state);
+    return _default_submit_form($form, $form_state); 
   }
 }
 

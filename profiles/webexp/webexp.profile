@@ -28,7 +28,6 @@ function webexp_form_alter(&$form, $form_state, $form_id) {
  * implements hook_install_configure_form_alter().
  */
 function webexp_form_install_configure_form_alter(&$form, &$form_state) {
-  
   $form['site_information']['site_name']['#default_value'] = 'Web Experience Toolkit';
   $form['site_information']['site_mail']['#default_value'] = 'admin@'. $_SERVER['HTTP_HOST']; 
   $form['admin_account']['account']['name']['#default_value'] = 'admin';
@@ -47,7 +46,7 @@ function webexp_password_validate($form, &$form_state) {
   if (!empty($values['account']['pass'])) {
     $error = _password_policy_constraint_validate($values['account']['pass'], $account);
     if ($error) {
-      form_set_error('pass', t('Your password has not met the basic requirement(s):') .'<ul><li>'. implode('</li><li>', $error) .'</li></ul>');
+      form_set_error('pass', st('Your password has not met the basic requirement(s):') .'<ul><li>'. implode('</li><li>', $error) .'</li></ul>');
     }
   }
 }
@@ -87,7 +86,7 @@ function webexp_install_tasks() {
   $webexp_needs_batch_processing = variable_get('webexp_needs_batch_processing', TRUE);
   $tasks = array(
     'webexp_batch_processing' => array(
-      'display_name' => st('Import French Language'), 
+      'display_name' => st('Import Additional Language(s)'), 
       'display' => $webexp_needs_batch_processing, 
       'type' => 'batch', 
       'run' => $webexp_needs_batch_processing ? INSTALL_TASK_RUN_IF_NOT_COMPLETED : INSTALL_TASK_SKIP,
@@ -105,3 +104,22 @@ function webexp_install_tasks() {
   );
   return $tasks;
 }
+
+/**
+ * Implements hook_install_tasks_alter().
+ *
+ * Alters the profile that setups and defines tasks.
+ */
+function webexp_install_tasks_alter(&$tasks, $install_state) {
+  //Get Locale Language
+  global $install_state;
+  $lang_val = isset($install_state['parameters']['locale']);
+  
+  //If using French Locale as default remove associated Install Task
+  if ($lang_val == 'fr')
+  {
+    unset($tasks['webexp_batch_processing']);
+  }
+}
+
+ 

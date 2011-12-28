@@ -91,6 +91,8 @@ function gov_web_usability_install() {
   menu_cache_clear_all();
   
   migrate_flush_caches();  
+  $migration = Migration::getInstance('XML_Default_Content');
+  $result = $migration->processImport();
   $migration = Migration::getInstance('XML_Web_Usability_Gov');
   $result = $migration->processImport();
   $migration = Migration::getInstance('HTML_Documentation');
@@ -102,6 +104,8 @@ function gov_web_usability_install() {
 */
 function gov_web_usability_uninstall() {
   variable_del('views_temp');
+  $migration = Migration::getInstance('XML_Default_Content');
+  $result = $migration->processRollback();
   $migration = Migration::getInstance('XML_Web_Usability_Gov');
   $result = $migration->processRollback();
   $migration = Migration::getInstance('XML_Documentation');
@@ -212,6 +216,7 @@ function gov_web_usability_init(){
       ))
       ->condition('language', 'en')
       ->execute();
+    
     db_update('languages')
       ->fields(array(
         'prefix' => 'fra',

@@ -186,7 +186,7 @@ function webexp_install() {
       'type' => 'page',
       'name' => st('Page'),
       'base' => 'node_content',
-      'description' => st("Use <em>Landing pages</em> for your general content."),
+      'description' => st('Use <em>Landing pages</em> for your general content.'),
       'custom' => 1,
       'modified' => 1,
       'locked' => 0,
@@ -423,8 +423,8 @@ function webexp_install() {
   variable_set('admin_theme', 'rubik');
   variable_set('node_admin_theme', '1');
   
+  // Enable the Deafult Theme
   theme_enable(array('genesis_clf'));
-  //theme_enable(array('genesis_public'));
 }
 
 /**

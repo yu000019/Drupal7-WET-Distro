@@ -42,10 +42,10 @@ class XML_Web_Usability_GovMigration extends XMLMigration {
     
     // This can also be an URL instead of a file path.
     $xml_folder = DRUPAL_ROOT . '/' . drupal_get_path('module', 'wetkit_migrate') . '/xml/';
-    $list_url = $xml_folder . 'index.xml';
+    $list_url = $xml_folder . 'web_usability.xml';
     // Each ID retrieved from the list URL will be plugged into :id in the
     // item URL to fetch the specific objects.
-    $item_url = $xml_folder . 'documents/' . ':id.xml';
+    $item_url = $xml_folder . 'web_usability/' . ':id.xml';
     
     // We use the MigrateSourceList class for any source where we obtain the list
     // of IDs to process separately from the data for each item. The listing

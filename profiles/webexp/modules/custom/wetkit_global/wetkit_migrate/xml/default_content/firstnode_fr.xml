@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <langcode>fr</langcode>
+  <path>webexp</path>
+  <name>Web Experience Toolkit Drupal Prototype</name>
+  <description><![CDATA[<p>Le Drupal distribution basée sur Web Experience Toolkit est une plateforme de logiciel pré-configuré qui permet aux ministères gouvernementaux en utilisant un système de gestion de contenu qui est déjà correctement configuré pour gouvernementales exigences fonctionnelles et d\'affaires.</p>
+    <h2>Bref aperçu des fonctionnalités implémentées</h2>
+    <ul>
+      <li>Profil personnalisé d\'installation Web Experience</li>
+      <li>Une meilleure intégration dans Drupal Theme NSI + héritage approprié aux CLF_Custom</li>
+      <li>Contrôle d\'accès complexes + Workflow (module Workbench)</li>
+      <li>Préconfigurés rôles + utilisateurs + autorisations</li>
+      <li>Multilinguisme</li>
+      <li>Thème WET a été remplacé dans le module Wetkit</li>
+      <li>Intégration WET bibliothèques personnalisées grâce Wetkit module</li>
+      <li>Installation Configuration + des modules de meilleures pratiques</li>
+    </ul> ]]></description>
+</document>
