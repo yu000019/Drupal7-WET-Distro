@@ -29,55 +29,64 @@ dependencies[] = aggregator
 dependencies[] = simpletest
 dependencies[] = trigger
 
-;CONTRIBUTED
+;REQUIRED
+dependencies[] = admin
 dependencies[] = advanced_help
-dependencies[] = transliteration
-dependencies[] = ctools
-dependencies[] = views
-dependencies[] = views_ui
-dependencies[] = diff
-dependencies[] = features
+dependencies[] = conditional_styles
 dependencies[] = context
 dependencies[] = context_layouts
 dependencies[] = context_ui
+dependencies[] = ctools
+dependencies[] = custom_breadcrumbs
+dependencies[] = custom_formatters
+dependencies[] = diff
+dependencies[] = elements
+dependencies[] = features
+dependencies[] = field_collection
+dependencies[] = field_group
+dependencies[] = globalredirect
+dependencies[] = html5_tools
+dependencies[] = libraries
+dependencies[] = link
+dependencies[] = module_filter
+dependencies[] = pathauto
+dependencies[] = pathauto_persist
+dependencies[] = pathologic
+dependencies[] = rules
+dependencies[] = scheduler
+dependencies[] = skinr
+dependencies[] = stringoverrides
 dependencies[] = strongarm
+dependencies[] = token
+dependencies[] = transliteration
+dependencies[] = uuid
 dependencies[] = variable
 dependencies[] = variable_admin
 dependencies[] = variable_advanced
 dependencies[] = variable_realm
 dependencies[] = variable_store
-dependencies[] = pathauto
-dependencies[] = pathauto_persist
-dependencies[] = libraries
-dependencies[] = module_filter
-dependencies[] = custom_breadcrumbs
-dependencies[] = link
+dependencies[] = views
+dependencies[] = views_ui
+dependencies[] = views_bulk_operations
+
+;SEARCH
 dependencies[] = facetapi
-;dependencies[] = metatag
-;dependencies[] = metatag_ui
-dependencies[] = hacked
+dependencies[] = metatag
+dependencies[] = metatag_ui
 dependencies[] = xmlsitemap
 dependencies[] = search404
-dependencies[] = field_collection
-dependencies[] = conditional_styles
-dependencies[] = views_bulk_operations
-dependencies[] = elements
-dependencies[] = html5_tools
-dependencies[] = admin
-;dependencies[] = flag
-;dependencies[] = flag_actions
-;dependencies[] = translation_helpers
-dependencies[] = password_policy
 
-;custom
+;SECURITY
+dependencies[] = hacked
+dependencies[] = password_policy
+dependencies[] = security_review
+
+;CUSTOM MODULES AND FEATURES (DEFAULTS + MULTILINGUAL WORK)
 dependencies[] = wetkit
 dependencies[] = wetkit_defaults
 dependencies[] = wetkit_i18n
 dependencies[] = wetkit_content_types
-;dependencies[] = wetkit_metatag
-
-;security
-dependencies[] = security_review
+dependencies[] = wetkit_metatag
 
 ;FILES
 files[] = webexp.install

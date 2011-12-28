@@ -29,7 +29,6 @@ function webexp_type_install_form() {
   drupal_set_message('The following areas will assist in adding a more tailored user experience based on business requirements. Configuration will be will further differentiated based on the type of site and whether for governmental use.','status', FALSE);  
 
   $options_install = array('default' => t('Default'), 'custom' => t('Custom'));
-  $options_branding = array('government' => t('Government'), 'public' => t('Public'));
   
   $form = array();
   $form['webexp_type_install'] = array(
@@ -38,13 +37,6 @@ function webexp_type_install_form() {
     '#default_value' =>  variable_get('radio_type_install', 'default'),
     '#options' => $options_install,
     '#description' => st('Please select your installation method. It is recommended to install the default package if you are not sure.'),
-  );
-  $form['webexp_govern'] = array(
-    '#type' => 'radios',
-    '#title' => st('Is this for Government or Public Use?'),
-    '#default_value' =>  variable_get('radio_organization', 'government'),
-    '#options' => $options_branding,
-    '#description' => st('Please be certain that the wetkit module is included in the base install platform for this operation to succeed.'),
   );
   $form[] = array(
     '#type' => 'submit',
@@ -61,7 +53,6 @@ function webexp_type_install_form() {
 function webexp_type_install_form_submit($form, &$form_state) {
   //Assign Variables
   variable_set('radio_type_install', $form_state['values']['webexp_type_install']);
-  variable_set('radio_organization', $form_state['values']['webexp_govern']);
 }
 
 /**
@@ -119,5 +110,4 @@ function webexp_final_setup() {
 function _global_flush_vars() {
   variable_del('webexp_needs_batch_processing');
   variable_del('radio_type_install');
-  variable_del('radio_organization');
 }

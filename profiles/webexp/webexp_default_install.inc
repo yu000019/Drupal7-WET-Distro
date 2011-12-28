@@ -3,8 +3,16 @@
 function _default_setup_form() {
   //Start setting up the form
   $options_site = array('internet' => t('Internet'), 'intranet' => t('Intranet'));
-  
+  $options_branding = array('government' => t('Government'), 'public' => t('Public'));
+    
   $form = array();
+  $form['webexp_govern'] = array(
+    '#type' => 'radios',
+    '#title' => st('Is this for Government or Public Use?'),
+    '#default_value' =>  variable_get('radio_organization', 'government'),
+    '#options' => $options_branding,
+    '#description' => st('Please be certain that the wetkit module is included in the base install platform for this operation to succeed.'),
+  );
   $form['webexp_site'] = array(
     '#type' => 'radios',
     '#title' => st('Site intended to be used for which of type of website?'),
@@ -22,6 +30,7 @@ function _default_setup_form() {
 
 function _default_submit_form($form, &$form_state) {
   variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
+  variable_set('radio_organization', $form_state['values']['webexp_govern']);
 }
 
 function _default_run_form() {  
@@ -100,4 +109,5 @@ function _default_run_form() {
 function _default_flush_vars() {
   //Remove Temporary Variables from variable table
   variable_del('radio_internet_intranet');
+  variable_del('radio_organization');
 }

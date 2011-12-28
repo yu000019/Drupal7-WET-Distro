@@ -37,11 +37,6 @@ libraries[htmlpurifier][download][type] = "get"
 libraries[htmlpurifier][download][url] = "http://htmlpurifier.org/releases/htmlpurifier-4.3.0-lite.tar.gz"
 libraries[htmlpurifier][directory_name] = "htmlpurifier"
 
-;Strongleg
-projects[strongleg][type] = module
-projects[strongleg][download][type] = git
-projects[strongleg][download][url] = http://git.drupal.org/project/strongleg.git
-
 ;Interface
 projects[panels][version] = 7.x-3.0-alpha3
 projects[ds][version] = 7.x-1.3

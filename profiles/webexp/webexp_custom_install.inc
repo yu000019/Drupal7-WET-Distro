@@ -4,8 +4,16 @@ function _custom_setup_form() {
   //Start setting up the form
   $options = array('1' => t('Enabled'), '0' => t('Disabled'));
   $options_site = array('internet' => t('Internet'), 'intranet' => t('Intranet'));
+  $options_branding = array('government' => t('Government'), 'public' => t('Public'));
   
   $form = array();
+  $form['webexp_govern'] = array(
+    '#type' => 'radios',
+    '#title' => st('Is this for Government or Public Use?'),
+    '#default_value' =>  variable_get('radio_organization', 'government'),
+    '#options' => $options_branding,
+    '#description' => st('Please be certain that the wetkit module is included in the base install platform for this operation to succeed.'),
+  );
   $form['webexp_site'] = array(
     '#type' => 'radios',
     '#title' => st('Site intended to be used for which of type of website?'),
@@ -79,9 +87,10 @@ function _custom_submit_form($form, &$form_state) {
   variable_set('radio_nodecontent', $form_state['values']['webexp_nodecontent']);
   variable_set('radio_web_usability', $form_state['values']['webexp_clf3']);
   variable_set('radio_rules', $form_state['values']['webexp_rules']);
+  variable_set('radio_organization', $form_state['values']['webexp_govern']);
 }
 
-function _custom_run_form() { 
+function _custom_run_form() {
   //If Government Site
   if (variable_get('radio_organization') == 'government')
   {
@@ -145,7 +154,7 @@ function _custom_run_form() {
   //Enable Rules Modules
   if (variable_get('radio_rules', 0) == 1)
   {
-    $module_list = array('rules','rules_scheduler','rules_admin','wetkit_workflow_rules');
+    $module_list = array('rules','rules_scheduler','rules_admin');
     module_enable($module_list, TRUE);
   }
   
@@ -160,6 +169,7 @@ function _custom_run_form() {
     module_enable($module_list, TRUE);
     
   }
+  
   else if (variable_get('radio_organization') == 'public')
   {
     $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules');
@@ -182,4 +192,5 @@ function _custom_flush_vars() {
   variable_del('radio_web_usability');
   variable_del('radio_rules');
   variable_del('radio_internet_intranet');
+  variable_del('radio_organization');
 }
