@@ -16,7 +16,7 @@ function pathologic_filter_info() {
   return array(
     'pathologic' => array(
       'title' => t('Correct URLs with Pathologic'),
-      'process callback' => '_pathologic',
+      'process callback' => '_pathologic_filter',
       'settings callback' => '_pathologic_settings',
       'default settings' => array(
         'local_paths' => '',
@@ -37,18 +37,18 @@ function _pathologic_settings($form, &$form_state, $filter, $format, $defaults) 
       '#title' => t('In most cases, Pathologic should be the <em>last</em> filter in the &ldquo;Filter processing order&rdquo; list.'),
       '#weight' => -10,
     ),
-    'local_paths' => array(
-      '#type' => 'textarea',
-      '#title' =>  t('Also considered local'),
-      '#default_value' => isset($filter->settings['local_paths']) ? $filter->settings['local_paths'] : $defaults['local_paths'],
-        '#description' => t('Enter the beginning of paths which should also be considered local for this server. Please read <a href="!docs">Pathologic&rsquo;s documentation</a> for more information about this feature. If the site is using a WYSIWYG content editor such as CKEditor or TinyMCE, you will probably need to enter a single slash (<code>/</code>) in this field.', array('!docs' => 'http://drupal.org/node/257026')),
-      '#weight' => 10,
-    ),
     'absolute' => array(
       '#type' => 'checkbox',
       '#title' => t('Output full absolute URLs'),
       '#default_value' => isset($filter->settings['absolute']) ? $filter->settings['absolute'] : $defaults['absolute'],
       '#description' => t('If checked, Pathologic will output full absolute URLs, with a protocol and server fragment (such as <code>http://example.com/foo/bar</code>); this is useful if you want images and links to not break for those reading the content in a feed reader or through some other form of aggregation. However, in cases where the site is being served via both HTTP and HTTPS, it may be necessary to uncheck this box so that protocol and server fragments are omitted in the paths Pathologic creates (such as <code>/foo/bar</code>) to avoid issues where the browser complains about pages containing both secure and insecure content.'),
+      '#weight' => 10,
+    ),
+    'local_paths' => array(
+      '#type' => 'textarea',
+      '#title' =>  t('All URLs'),
+      '#default_value' => isset($filter->settings['local_paths']) ? $filter->settings['local_paths'] : $defaults['local_paths'],
+        '#description' => t('If this site is or was available at more than one URL, enter the full absolute URLs here, separated by line breaks. For example, if this site is live at <code>http://example.com/</code> but has a staging version at <code>http://dev.example.org/staging/</code>, you would enter both those URLs here. If confused, please read <a href="!docs">Pathologic&rsquo;s documentation</a> for more information about this option and what it affects.', array('!docs' => 'http://drupal.org/node/257026')),
       '#weight' => 20,
     ),
   );
@@ -57,117 +57,112 @@ function _pathologic_settings($form, &$form_state, $filter, $format, $defaults) 
 /**
  * Pathologic filter callback.
  */
-function _pathologic($text, $filter) {
-  $statics = &drupal_static(__FUNCTION__);
-  if (!isset($statics)) {
-    $statics = array();
+function _pathologic_filter($text, $filter, $format, $langcode, $cache, $cache_id) {
+  $settings = &drupal_static(__FUNCTION__, array());
+  if (!isset($settings[$filter->format])) {
+    $filter->settings['local_paths_array'] = array_map('trim', explode("\n", $filter->settings['local_paths']));
+    $settings[$filter->format] = $filter->settings;
   }
-  if (!isset($statics[$filter->format])) {
-    // Parse the list of the paths also considered local.
-    $paths_text = trim($filter->settings['local_paths']);
-    if ($paths_text === '') {
-      $paths = array();
-    }
-    else {
-      $paths = array_map('trim', explode("\n", $paths_text));
-    }
-    // Add "this" path
-    $paths[] = url('<front>', array('absolute' => TRUE));
-    // Remove duplicates, since it's possible "this" path was already in the list;
-    // also do escaping
-    $paths = array_map('_pathologic_escape', array_unique($paths));
-    // Create a list of protocol prefixes so we can ignore them
-    $proto_prefixes = implode('|', variable_get('filter_allowed_protocols', array('ftp', 'http', 'https', 'irc', 'mailto', 'news', 'nntp', 'rtsp', 'sftp', 'ssh', 'tel', 'telnet', 'webcal')));
-
-    // We need to account for the fact that
-    // http://example.com/foo
-    // http://example.com/?q=foo
-    // http://example.com/index.php?q=foo
-    // …are all valid.
-
-    $statics[$filter->format] = array(
-      'pattern' => '
-        ~(href|src|action|longdesc|HREF|SRC|ACTION|LONGDESC)=" # HTML attributes
-                                                                 # to search for
-        (internal:|files:|' . implode('|', $paths) . ')?      # Path prefixes to
-                                                                     #search for
-        (?:
-          /(?:\#.*)?|            # A / path with a possible anchor fragment, or…
-          (?!(?:\#|/|(?:' . $proto_prefixes . '):/))  # Exclude likely protocols
-          (?:(?:index\.php)?(?:\?q=)?) # Allow for paths which include index.php
-                                                                    # and/or ?q=
-          ([^"]*)                                       # Finally, get the path.
-        )"~x',
-      // create_funtion() lets us do lambdas in a really crappy but pre-PHP 5.3-
-      // compatible way. We're using it here so we can pass the value of
-      // $filter->settings['absolute'] to the replacement function. We could
-      // just put the whole replacement function here, but that would just be
-      // silly.
-      'callback' => create_function('$matches', 'return _pathologic_replace($matches, ' . ($filter->settings['absolute'] ? 'TRUE' : 'FALSE') . ');'),
-    );
-  }
-  return preg_replace_callback($statics[$filter->format]['pattern'], $statics[$filter->format]['callback'], $text);
+  $settings['langcode'] = $langcode;
+  $settings['current_settings'] = &$settings[$filter->format];
+  return preg_replace_callback('~(href|src|action|longdesc)="([^"]+)~i', '_pathologic_replace', $text);
 }
 
 /**
  * Replace the attributes. preg_replace_callback() callback.
  */
-function _pathologic_replace($matches, $absolute) {
+function _pathologic_replace($matches) {
+  global $base_path;
+  // Get the settings for the filter. There's basically three ways to do this:
+  // abuse eval() and friends; abuse globals; or abuse drupal_static(). The
+  // latter is the least offensive, I think.
+  $settings = drupal_static('_pathologic_filter');
+  // Now parse the URL
+  $parts = parse_url($matches[2]);
+  // Do some early tests to see if we should just give up now.
+  if (
+    // If parse_url() failed, give up by "replacing" the original with the same.
+    $parts === FALSE ||
+    // If there's a scheme part and it doesn't look useful, bail out.
+    // "internal" is for Path Filter compatibility.
+    (isset($parts['scheme']) && !in_array($parts['scheme'], array('http', 'https', 'files', 'internal'))) ||
+    // Also bail out if this doesn't look like a "local" path.
+    (isset($parts['host']) && !in_array($parts['host'], $settings['current_settings']['local_paths_array']))
+  ) {
+    return $matches[0];
+  }
   // First, "files:" support. This is fairly easy.
-  if ($matches[2] === 'files:') {
-    return $matches[1] . '="' . file_create_url(file_build_uri(urldecode($matches[3]))) . '"';
-  }
-  // Build the full URL, then take it apart
-  $parts = parse_url('http://example.com/' . urldecode($matches[3]));
-  if ($parts['path'] === '/' || $parts['path'] === '//') {
-    // '//' will be the case if the original path was just a slash
-    $parts['path'] = '<front>';
-  }
-  else {
-    // Trim initial slash off path.
-    $parts['path'] = drupal_substr($parts['path'], 1);
-  }
-
-  // Need to parse the query parts
-  if (isset($parts['query'])) {
-    parse_str($parts['query'], $qparts);
-    if (isset($qparts['q'])) {
-      $parts['path'] = $qparts['q'];
-      unset($qparts['q']);
+  if (isset($parts['scheme']) && $parts['scheme'] === 'files') {
+    // Can we create a file URL for it?
+    $file_url = file_create_url(file_build_uri($parts['path']));
+    if ($file_url) {
+      return $matches[1] . '="' . $file_url;
     }
-    foreach ($qparts as $key => $qpart) {
-      if ($qpart === '') {
-        // In a query string, this is a key for which there isn't a value; for
-        // example, the "baz" in "foo=bar&baz&qux=quux". In order for url() (or,
-        // more specifically, drupal_http_build_query()) to handle this
-        // correctly, it should have a value of NULL.
-        $qparts[$key] = NULL;
+    else {
+      // That didn't work. Bail out.
+      return $matches[0];
+    }
+  }
+  // Does the path have the base_path in it? This will be the case if the Drupal
+  // root is at http://example.com/drupal/ and the URL looks like
+  // http://example.com/drupal/foo or /drupal/foo
+  if (isset($parts['path'])) {
+    if (strpos($parts['path'], $base_path) === 0) {
+      $parts['trimmed_path'] = drupal_substr($parts['path'], drupal_strlen($base_path));
+    }
+    else {
+      $parts['trimmed_path'] = $parts['path'];
+    }
+    if ($parts['trimmed_path'] === '') {
+      // Okay, if we just ended up with an empty string, then what happened is
+      // they linked to the front page of their Drupal installation using non-
+      // clean URLs (supposedly). So we'll set it to '<front>' so that we can
+      // properly link to it later.
+      $parts['trimmed_path'] = '<front>';
+    }
+    // Okay, they didn't use files:, but does it appear that the path is still
+    // to a real file on the disk? If so, we don't want to adjust for language.
+    // Also, skip all other tweaks.
+    elseif (file_exists(realpath($parts['trimmed_path']))) {
+      $settings['langcode'] = 'und';
+    }
+  }
+  // Examine the query part of the URL. Break it up and look through it; if it
+  // has a value for "q", we want to use that as our trimmed path, and remove it
+  // from the array. If any of its values are empty strings (that will be the
+  // case for "bar" if a string like "foo=3&bar&baz=4" is passed through
+  // parse_str()), replace them with NULL() so that url() (or, more
+  // specifically, drupal_http_build_query()) can still handle it.
+  if (isset($parts['query'])) {
+    parse_str($parts['query'], $parts['qparts']);
+    foreach($parts['qparts'] as $key => $value) {
+      if ($value === '') {
+        $parts['qparts'][$key] = NULL;
+      }
+      elseif ($key === 'q') {
+        $parts['trimmed_path'] = $value;
+        unset($parts['qparts']['q']);
       }
     }
   }
   else {
-    $qparts = NULL;
+    $parts['qparts'] = NULL;
   }
-
+  // If we don't have a trimmed path yet, bail out.
+  if (!isset($parts['trimmed_path'])) {
+    return $matches[0];
+  }
+  // Okay, format the URL.
+  $langs = language_list();
   $url = url(
-    $parts['path'],
+    $parts['trimmed_path'],
     array(
-      'query' => $qparts,
+      'query' => $parts['qparts'],
       'fragment' => isset($parts['fragment']) ? $parts['fragment'] : NULL,
-      'absolute' => $absolute,
+      'absolute' => $settings['current_settings']['absolute'],
+      'language' => isset($langs[$settings['langcode']]) ? $langs[$settings['langcode']] : NULL,
     )
   );
-
-  // $matches[1] will be the attribute; src, href, etc.
-  return "{$matches[1]}=\"{$url}\"";
-}
-
-/**
- * Escape paths to convert. preg_replace_callback() callback.
- */
-function _pathologic_escape($path) {
-  // Quote special characters, but "convert" asterisks.
-  // Apparently the special characters in the preg_replace below need to be
-  // double-escaped…?
-  return preg_replace(array('/(?<!\\\)\\\\\*/', '/^https?/'), array('[^/]*', 'https?'), preg_quote($path, '~'));
+  // $matches[1] will be the tag attribute; src, href, etc.
+  return "{$matches[1]}=\"{$url}";
 }

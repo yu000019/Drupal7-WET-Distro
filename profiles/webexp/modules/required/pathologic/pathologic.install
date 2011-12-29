@@ -8,7 +8,7 @@
 /**
  * Re-enable Pathologic under Drupal 7, preserving settings from Drupal 6.
  */
-function pathologic_update_7000() {
+function pathologic_update_7000($sandbox) {
   // Make sure {d6_upgrade_filter} exists. It won't exist for people upgrading
   // from beta versions of the D7 version of Pathologic on native D7 sites (not
   // upgraded from D6).
@@ -47,3 +47,4 @@ function pathologic_update_7000() {
     // No, maybe we don't want to actually do that…?
   }
 }
+
