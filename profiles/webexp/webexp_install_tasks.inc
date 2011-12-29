@@ -5,7 +5,7 @@
  *
  * FIRST TASK: Allows the profile to install the additional language (english or french).
  */
-function webexp_batch_processing() {
+function webexp_batch_processing(&$install_state) {
   //Import the additonal language po file and translate the interface;
   //Require once is only added here because too early in the bootstrap
   require_once 'includes/locale.inc';
@@ -16,6 +16,7 @@ function webexp_batch_processing() {
   //Batch up the process + import existing po files
   $batch = locale_batch_by_language('fr');
   return $batch;
+
 }
 
 /**

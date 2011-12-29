@@ -112,14 +112,15 @@ function webexp_install_tasks() {
  */
 function webexp_install_tasks_alter(&$tasks, $install_state) {
   //Get Locale Language
-  global $install_state;
-  $lang_val = isset($install_state['parameters']['locale']);
+  //global $install_state;
+  //$lang_val = isset($install_state['parameters']['locale']);
   
   //If using French Locale as default remove associated Install Task
-  if ($lang_val == 'fr')
-  {
-    unset($tasks['webexp_batch_processing']);
-  }
+  //if ($lang_val == 'fr')
+  //{
+  //  unset($tasks['webexp_batch_processing']);
+  //}
+  unset($tasks['install_import_locales']);
+  unset($tasks['install_import_locales_remaining']);
 }
 
- 
