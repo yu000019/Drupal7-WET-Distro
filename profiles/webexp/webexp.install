@@ -252,6 +252,9 @@ function webexp_install() {
 
   // Allow visitor account creation with administrative approval.
   variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
+  
+  // Only enable security alerts to be sent by default
+  variable_set('update_notification_threshold', array('security'));
 
   // Create a default vocabulary named "Tags", enabled for the 'article' content type.
   $description = st('Use tags to group articles on similar topics into categories.');
