@@ -1,5 +1,5 @@
 <?php
-
+global $theme;
 
 /**
  * Implements hook_skinr_skin_plugin_info()
@@ -188,7 +188,7 @@ function wetkit_styles_skinr_skin_styles_info() {
   );
   
   $skins['gridmodulecss'] = array(
-    'status' => array('genesis_clf' => 1),
+    'status' => array($theme => 1),
     'title' => t('Grid and Module CSS'),
     'group' => 'gridcss',
     'description' => t('Select the appropriate classes you wish to apply'),
@@ -197,7 +197,7 @@ function wetkit_styles_skinr_skin_styles_info() {
   );
   
   $skins['placementcss'] = array(
-    'status' => array('genesis_clf' => 1),
+    'status' => array($theme => 1),
     'title' => t('Placement CSS'),
     'group' => 'placementcss',
     'description' => t('Select the appropriate classes you wish to apply'),
@@ -206,7 +206,7 @@ function wetkit_styles_skinr_skin_styles_info() {
   );
  
   $skins['stylingcss'] = array(
-    'status' => array('genesis_clf' => 1),
+    'status' => array($theme => 1),
     'title' => t('Styling CSS'),
     'group' => 'stylecss',
     'description' => t('Select the appropriate classes you wish to apply'),

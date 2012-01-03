@@ -3,7 +3,7 @@
 function _custom_setup_form() {
   //Start setting up the form
   $options = array('1' => st('Enabled'), '0' => st('Disabled'));
-  $options_site = array('internet' => st('Internet'), 'intranet' => st('Intranet'));
+  $options_site = array('internet' => st('Internet'), 'intranet' => st('Intranet')); 
   $options_branding = array('government' => st('Government'), 'public' => st('Public'));
   
   $form = array();
@@ -98,22 +98,24 @@ function _custom_run_form() {
     if (variable_get('radio_internet_intranet') == 'internet')
     {
       theme_disable(array('bartik'));
-      theme_enable(array('genesis_clf'));
-      variable_set('theme_default', 'genesis_clf');
+      theme_enable(array($GLOBALS['$gov_theme_internet']));
+      variable_set('theme_default', $GLOBALS['$gov_theme_internet']);
     }
     //If Government Site and Intranet Theme
     else {
       theme_disable(array('bartik'));
-      theme_enable(array('genesis_clf_intranet'));
-      variable_set('theme_default', 'genesis_clf_intranet');
+      theme_enable(array($GLOBALS['$gov_theme_intranet']));
+      variable_set('theme_default', $GLOBALS['$gov_theme_intranet']);
     }
   }
   //If Non-Government Site
   else if (variable_get('radio_organization') == 'public') 
   {
+    theme_disable(array($GLOBALS['$gov_theme_internet']));
     theme_disable(array('bartik'));
-    theme_enable(array('genesis_public'));
-    variable_set('theme_default', 'genesis_public');
+    
+    theme_enable(array($GLOBALS['$public_theme_internet']));
+    variable_set('theme_default', $GLOBALS['$public_theme_internet']);
   }
   
   //Enable Dev Modules
@@ -158,7 +160,7 @@ function _custom_run_form() {
     module_enable($module_list, TRUE);
     
     //Kinda hackish but has to be run after first set
-    $module_list = array('gov_web_usability');
+    $module_list = array($GLOBALS['$gov_web_usability']);
     module_enable($module_list, TRUE);
     
   }
@@ -168,8 +170,7 @@ function _custom_run_form() {
     $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules');
     module_enable($module_list, TRUE);
     
-    //Kinda hackish but has to be run after first set
-    $module_list = array('public_web_usability');
+    $module_list = array($GLOBALS['$public_web_usability']);
     module_enable($module_list, TRUE);
   }
   

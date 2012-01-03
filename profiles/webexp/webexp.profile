@@ -1,5 +1,15 @@
 <?php
 
+//Global Theme + Web Usability Variables for Government
+$GLOBALS['$gov_theme_internet'] = 'genesis_clf';
+$GLOBALS['$gov_theme_intranet'] = 'genesis_clf_intranet';
+$GLOBALS['$gov_web_usability'] = 'gov_web_usability';
+
+//Global Theme + Web Usability Variables for Public
+$GLOBALS['$public_theme_internet'] = 'genesis_public';
+$GLOBALS['$public_theme_intranet'] = 'genesis_public_intranet';
+$GLOBALS['$public_web_usability'] = 'public_web_usability';
+
 /**
  * Implements hook_form_FORM_ID_alter().
  *

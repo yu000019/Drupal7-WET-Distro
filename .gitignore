@@ -7,3 +7,8 @@ sites/*/settings*.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
+
+profiles/webexp/themes/genesis_ottu/
+profiles/webexp/modules/custom/wetkit_public/ottu_web_usability/
+sites/all/modules/ottu_web_usability/
+sites/all/themes/genesis_ottu/
