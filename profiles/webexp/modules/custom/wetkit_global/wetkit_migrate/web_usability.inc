@@ -105,36 +105,36 @@ class XML_Web_Usability_GovMigration extends XMLMigration {
    _menulinks_generate('contactus', 'main-menu', 'Contact Us');
    _menulinks_generate('contactus', 'main-menu', 'Nous Contacter');
    
-   _menulinks_generate('terms', 'menu-goc-terms-bar', 'Terms and Conditions');
-   _menulinks_generate('terms', 'menu-goc-terms-bar', 'Avis');
-   _menulinks_generate('transparency', 'menu-goc-terms-bar', 'Transparency');
-   _menulinks_generate('transparency', 'menu-goc-terms-bar', 'Transparence');
+   _menulinks_generate('terms', 'menu-wet-terms', 'Terms and Conditions');
+   _menulinks_generate('terms', 'menu-wet-terms', 'Avis');
+   _menulinks_generate('transparency', 'menu-wet-terms', 'Transparency');
+   _menulinks_generate('transparency', 'menu-wet-terms', 'Transparence');
    
-   _menulinks_generate('aboutus', 'menu-goc-about-us-bar', 'About Us');
-   _menulinks_generate('aboutus', 'menu-goc-about-us-bar', 'À propos de nous');
-   _menulinks_generate('mandate', 'menu-goc-about-us-bar', 'Our Mandate');
-   _menulinks_generate('mandate', 'menu-goc-about-us-bar', 'Notre mandat');
-   _menulinks_generate('minister', 'menu-goc-about-us-bar', 'Our Minister');
-   _menulinks_generate('minister', 'menu-goc-about-us-bar', 'Le ministre');
+   _menulinks_generate('aboutus', 'menu-wet-aboutus', 'About Us');
+   _menulinks_generate('aboutus', 'menu-wet-aboutus', 'À propos de nous');
+   _menulinks_generate('mandate', 'menu-wet-aboutus', 'Our Mandate');
+   _menulinks_generate('mandate', 'menu-wet-aboutus', 'Notre mandat');
+   _menulinks_generate('minister', 'menu-wet-aboutus', 'Our Minister');
+   _menulinks_generate('minister', 'menu-wet-aboutus', 'Le ministre');
 
-   _menulinks_generate('contactus', 'menu-goc-contact-bar', 'Contact Us');
-   _menulinks_generate('contactus', 'menu-goc-contact-bar', 'Contactez-nous');
-   _menulinks_generate('find/employee', 'menu-goc-contact-bar', 'Find an Employee');
-   _menulinks_generate('find/employee', 'menu-goc-contact-bar', 'Trouvez un(e) employé(e)');
-   _menulinks_generate('contact/phone', 'menu-goc-contact-bar', 'Phone Numbers');
-   _menulinks_generate('contact/phone', 'menu-goc-contact-bar', 'Numéros de téléphone');
+   _menulinks_generate('contactus', 'menu-wet-contactus', 'Contact Us');
+   _menulinks_generate('contactus', 'menu-wet-contactus', 'Contactez-nous');
+   _menulinks_generate('find/employee', 'menu-wet-contactus', 'Find an Employee');
+   _menulinks_generate('find/employee', 'menu-wet-contactus', 'Trouvez un(e) employé(e)');
+   _menulinks_generate('contact/phone', 'menu-wet-contactus', 'Phone Numbers');
+   _menulinks_generate('contact/phone', 'menu-wet-contactus', 'Numéros de téléphone');
 
-   _menulinks_generate('news', 'menu-goc-news-bar', 'News');
-   _menulinks_generate('news', 'menu-goc-news-bar', 'Média');
-   _menulinks_generate('news/releases', 'menu-goc-news-bar', 'News Releases');
-   _menulinks_generate('media/advisories', 'menu-goc-news-bar', 'Media Advisories');
-   _menulinks_generate('multimedia', 'menu-goc-news-bar', 'Multimedia');
-   _menulinks_generate('news/releases', 'menu-goc-news-bar', 'Communiqués');
-   _menulinks_generate('media/advisories', 'menu-goc-news-bar', 'Avis aux médias');
-   _menulinks_generate('multimedia', 'menu-goc-news-bar', 'News Releases');
+   _menulinks_generate('news', 'menu-wet-news', 'News');
+   _menulinks_generate('news', 'menu-wet-news', 'Média');
+   _menulinks_generate('news/releases', 'menu-wet-news', 'News Releases');
+   _menulinks_generate('media/advisories', 'menu-wet-news', 'Media Advisories');
+   _menulinks_generate('multimedia', 'menu-wet-news', 'Multimedia');
+   _menulinks_generate('news/releases', 'menu-wet-news', 'Communiqués');
+   _menulinks_generate('media/advisories', 'menu-wet-news', 'Avis aux médias');
+   _menulinks_generate('multimedia', 'menu-wet-news', 'News Releases');
    
-   _menulinks_generate('connected', 'menu-goc-connected-bar', 'Stay Connected');
-   _menulinks_generate('connected', 'menu-goc-connected-bar', 'Restez branchés');   
+   _menulinks_generate('connected', 'menu-wet-stayconnected', 'Stay Connected');
+   _menulinks_generate('connected', 'menu-wet-stayconnected', 'Restez branchés');   
 
    //Clears all menu caches
    menu_cache_clear_all();
@@ -147,36 +147,36 @@ class XML_Web_Usability_GovMigration extends XMLMigration {
    _menulinks_generate('<front>', 'main-menu', 'Contact Us');
    _menulinks_generate('<front>', 'main-menu', 'Nous Contacter'); 
    
-   _menulinks_generate('<front>', 'menu-goc-terms-bar', 'Terms and Conditions');
-   _menulinks_generate('<front>', 'menu-goc-terms-bar', 'Avis');
-   _menulinks_generate('<front>', 'menu-goc-terms-bar', 'Transparency');
-   _menulinks_generate('<front>', 'menu-goc-terms-bar', 'Transparence');
+   _menulinks_generate('<front>', 'menu-wet-terms', 'Terms and Conditions');
+   _menulinks_generate('<front>', 'menu-wet-terms', 'Avis');
+   _menulinks_generate('<front>', 'menu-wet-terms', 'Transparency');
+   _menulinks_generate('<front>', 'menu-wet-terms', 'Transparence');
   
-   _menulinks_generate('<front>', 'menu-goc-about-us-bar', 'About Us');
-   _menulinks_generate('<front>', 'menu-goc-about-us-bar', 'À propos de nous');
-   _menulinks_generate('<front>', 'menu-goc-about-us-bar', 'Our Mandate');
-   _menulinks_generate('<front>', 'menu-goc-about-us-bar', 'Notre mandat');
-   _menulinks_generate('<front>', 'menu-goc-about-us-bar', 'Our Minister');
-   _menulinks_generate('<front>', 'menu-goc-about-us-bar', 'Le ministre');
+   _menulinks_generate('<front>', 'menu-wet-aboutus', 'About Us');
+   _menulinks_generate('<front>', 'menu-wet-aboutus', 'À propos de nous');
+   _menulinks_generate('<front>', 'menu-wet-aboutus', 'Our Mandate');
+   _menulinks_generate('<front>', 'menu-wet-aboutus', 'Notre mandat');
+   _menulinks_generate('<front>', 'menu-wet-aboutus', 'Our Minister');
+   _menulinks_generate('<front>', 'menu-wet-aboutus', 'Le ministre');
    
-   _menulinks_generate('<front>', 'menu-goc-contact-bar', 'Contact Us');
-   _menulinks_generate('<front>', 'menu-goc-contact-bar', 'Contactez-nous');
-   _menulinks_generate('<front>', 'menu-goc-contact-bar', 'Find an Employee');
-   _menulinks_generate('<front>', 'menu-goc-contact-bar', 'Trouvez un(e) employé(e)');
-   _menulinks_generate('<front>', 'menu-goc-contact-bar', 'Phone Numbers');
-   _menulinks_generate('<front>', 'menu-goc-contact-bar', 'Numéros de téléphone');
+   _menulinks_generate('<front>', 'menu-wet-contactus', 'Contact Us');
+   _menulinks_generate('<front>', 'menu-wet-contactus', 'Contactez-nous');
+   _menulinks_generate('<front>', 'menu-wet-contactus', 'Find an Employee');
+   _menulinks_generate('<front>', 'menu-wet-contactus', 'Trouvez un(e) employé(e)');
+   _menulinks_generate('<front>', 'menu-wet-contactus', 'Phone Numbers');
+   _menulinks_generate('<front>', 'menu-wet-contactus', 'Numéros de téléphone');
    
-   _menulinks_generate('<front>', 'menu-goc-news-bar', 'News');
-   _menulinks_generate('<front>', 'menu-goc-news-bar', 'Média');
-   _menulinks_generate('<front>', 'menu-goc-news-bar', 'News Releases');
-   _menulinks_generate('<front>', 'menu-goc-news-bar', 'Media Advisories');
-   _menulinks_generate('<front>', 'menu-goc-news-bar', 'Multimedia');
-   _menulinks_generate('<front>', 'menu-goc-news-bar', 'Communiqués');
-   _menulinks_generate('<front>', 'menu-goc-news-bar', 'Avis aux médias');
-   _menulinks_generate('<front>', 'menu-goc-news-bar', 'News Releases');
+   _menulinks_generate('<front>', 'menu-wet-news', 'News');
+   _menulinks_generate('<front>', 'menu-wet-news', 'Média');
+   _menulinks_generate('<front>', 'menu-wet-news', 'News Releases');
+   _menulinks_generate('<front>', 'menu-wet-news', 'Media Advisories');
+   _menulinks_generate('<front>', 'menu-wet-news', 'Multimedia');
+   _menulinks_generate('<front>', 'menu-wet-news', 'Communiqués');
+   _menulinks_generate('<front>', 'menu-wet-news', 'Avis aux médias');
+   _menulinks_generate('<front>', 'menu-wet-news', 'News Releases');
    
-   _menulinks_generate('<front>', 'menu-goc-connected-bar', 'Stay Connected');
-   _menulinks_generate('<front>', 'menu-goc-connected-bar', 'Restez branchés'); 
+   _menulinks_generate('<front>', 'menu-wet-stayconnected', 'Stay Connected');
+   _menulinks_generate('<front>', 'menu-wet-stayconnected', 'Restez branchés'); 
 
     //Clears all menu caches
     menu_cache_clear_all();

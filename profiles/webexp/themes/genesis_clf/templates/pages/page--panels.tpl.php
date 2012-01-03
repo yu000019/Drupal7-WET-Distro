@@ -94,9 +94,9 @@
                   <?php endif;?>  
                 </div>
               </div>
-              <!-- Custom Drupal GOC Nav Bar -->
+              <!-- Custom Drupal WET: Header -->
               <?php print $menu_gov_bar; ?>
-              <!-- /Custom Drupal GOC Nav Bar -->
+              <!-- /Custom Drupal WET: Header -->
             </div>
           </div>
         </div>
@@ -219,9 +219,9 @@
 				<h3><?php print t('Site Footer'); ?></h3>
 				<div id="cn-sft-inner">
 					<div id="cn-ft-tctr">
-            <!-- Custom Drupal GOC Terms Bar -->
+            <!-- Custom Drupal WET: Terms -->
             <?php print $menu_gov_terms_bar; ?>
-            <!-- /Custom Drupal GOC Terms Bar -->
+            <!-- /Custom Drupal WET: Terms -->
 					</div>
 					<div class="clear"></div>
 					<section>
@@ -233,9 +233,9 @@
 					</section>
 					<section>
 						<div class="span-2">
-              <!-- Custom Drupal GOC News Bar -->
+              <!-- Custom Drupal WET: News -->
               <?php print $menu_gov_news_bar; ?>
-              <!-- /Custom Drupal GOC News Bar -->
+              <!-- /Custom Drupal WET: News -->
 						</div>
 					</section>
 					<section>
@@ -274,9 +274,9 @@
 				<h3><?php print t('Government of Canada Footer'); ?></h3>
 				<div id="cn-gcft-inner">
 					<div id="fip-pcim-gcft">
-              <!-- Custom Drupal GOC Footer Bar -->
+              <!-- Custom Drupal WET: Footer -->
               <?php print $menu_gov_footer_bar; ?>
-              <!-- /Custom Drupal GOC Footer Bar -->
+              <!-- /Custom Drupal WET: Footer -->
 					</div>
 				</div>
 			</div>

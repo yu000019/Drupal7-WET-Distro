@@ -24,68 +24,68 @@ function gov_web_usability_install() {
   _add_custom_menu_item_desc('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'fr');
   
   /* Add Menu Items to Gov Nav Bar */
-  _add_custom_menu_item('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', 'menu-goc-nav-bar', 'en');
-  _add_custom_menu_item('http://www.servicecanada.gc.ca/eng/home.shtml', 'Services', 'menu-goc-nav-bar', 'en');
-  _add_custom_menu_item('http://www.canada.gc.ca/depts/major/depind-eng.html', 'Departments', 'menu-goc-nav-bar', 'en');
-  _add_custom_menu_item('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', 'menu-goc-nav-bar', 'fr');
-  _add_custom_menu_item('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Services', 'menu-goc-nav-bar', 'fr');
-  _add_custom_menu_item('http://www.canada.gc.ca/depts/major/depind-fra.html', 'Ministères', 'menu-goc-nav-bar', 'fr');
+  _add_custom_menu_item('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', 'menu-wet-header', 'en');
+  _add_custom_menu_item('http://www.servicecanada.gc.ca/eng/home.shtml', 'Services', 'menu-wet-header', 'en');
+  _add_custom_menu_item('http://www.canada.gc.ca/depts/major/depind-eng.html', 'Departments', 'menu-wet-header', 'en');
+  _add_custom_menu_item('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', 'menu-wet-header', 'fr');
+  _add_custom_menu_item('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Services', 'menu-wet-header', 'fr');
+  _add_custom_menu_item('http://www.canada.gc.ca/depts/major/depind-fra.html', 'Ministères', 'menu-wet-header', 'fr');
   
   /* Add Menu Items to Gov Footer Bar */
-  _add_custom_menu_item_desc('http://healthycanadians.gc.ca/index-eng.php', 'Health', 'healthycanadians.gc.ca', 'menu-goc-footer-bar', 0, 'en');
-  _add_custom_menu_item_desc('http://www.voyage.gc.ca/index-eng.asp', 'Travel', 'travel.gc.ca', 'menu-goc-footer-bar', 1, 'en');
-  _add_custom_menu_item_desc('http://www.servicecanada.gc.ca/eng/home.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-goc-footer-bar', 2, 'en');
-  _add_custom_menu_item_desc('http://www.jobbank.gc.ca/intro-eng.aspx', 'Jobs', 'jobbank.gc.ca', 'menu-goc-footer-bar', 3, 'en');
-  _add_custom_menu_item_desc('http://actionplan.gc.ca/eng/index.asp', 'Economy', 'actionplan.gc.ca', 'menu-goc-footer-bar', 4, 'en');
-  _add_custom_menu_item_desc('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', NULL, 'menu-goc-footer-bar', 5, 'en');
-  _add_custom_menu_item_desc('http://canadiensensante.gc.ca/index-fra.php', 'Santé', 'canadiensensante.gc.ca', 'menu-goc-footer-bar', 0, 'fr');
-  _add_custom_menu_item_desc('http://voyage.gc.ca/index-fra.asp', 'Voyage', 'voyage.gc.ca', 'menu-goc-footer-bar', 1, 'fr');
-  _add_custom_menu_item_desc('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-goc-footer-bar', 2, 'fr');
-  _add_custom_menu_item_desc('http://www.guichetemplois.gc.ca/Intro-fra.aspx', 'Emplois', 'guichetemplois.gc.ca', 'menu-goc-footer-bar', 3, 'fr');
-  _add_custom_menu_item_desc('http://www.plandaction.gc.ca/', 'Économie', 'plandaction.gc.ca', 'menu-goc-footer-bar', 4, 'fr');
-  _add_custom_menu_item_desc('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', NULL, 'menu-goc-footer-bar', 5, 'fr');
+  _add_custom_menu_item_desc('http://healthycanadians.gc.ca/index-eng.php', 'Health', 'healthycanadians.gc.ca', 'menu-wet-footer', 0, 'en');
+  _add_custom_menu_item_desc('http://www.voyage.gc.ca/index-eng.asp', 'Travel', 'travel.gc.ca', 'menu-wet-footer', 1, 'en');
+  _add_custom_menu_item_desc('http://www.servicecanada.gc.ca/eng/home.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-wet-footer', 2, 'en');
+  _add_custom_menu_item_desc('http://www.jobbank.gc.ca/intro-eng.aspx', 'Jobs', 'jobbank.gc.ca', 'menu-wet-footer', 3, 'en');
+  _add_custom_menu_item_desc('http://actionplan.gc.ca/eng/index.asp', 'Economy', 'actionplan.gc.ca', 'menu-wet-footer', 4, 'en');
+  _add_custom_menu_item_desc('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', NULL, 'menu-wet-footer', 5, 'en');
+  _add_custom_menu_item_desc('http://canadiensensante.gc.ca/index-fra.php', 'Santé', 'canadiensensante.gc.ca', 'menu-wet-footer', 0, 'fr');
+  _add_custom_menu_item_desc('http://voyage.gc.ca/index-fra.asp', 'Voyage', 'voyage.gc.ca', 'menu-wet-footer', 1, 'fr');
+  _add_custom_menu_item_desc('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-wet-footer', 2, 'fr');
+  _add_custom_menu_item_desc('http://www.guichetemplois.gc.ca/Intro-fra.aspx', 'Emplois', 'guichetemplois.gc.ca', 'menu-wet-footer', 3, 'fr');
+  _add_custom_menu_item_desc('http://www.plandaction.gc.ca/', 'Économie', 'plandaction.gc.ca', 'menu-wet-footer', 4, 'fr');
+  _add_custom_menu_item_desc('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', NULL, 'menu-wet-footer', 5, 'fr');
   
   /* Add Menu Items to Gov About Us Bar */
-  _add_custom_menu_item_desc('<front>', 'About Us', NULL, 'menu-goc-about-us-bar', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Our Mandate', NULL, 'menu-goc-about-us-bar', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Our Minister', NULL, 'menu-goc-about-us-bar', 2, 'en');
-  _add_custom_menu_item_desc('<front>', 'À propos de nous', NULL, 'menu-goc-about-us-bar', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Notre mandat', NULL, 'menu-goc-about-us-bar', 1, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Le ministre', NULL, 'menu-goc-about-us-bar', 2, 'fr');
+  _add_custom_menu_item_desc('<front>', 'About Us', NULL, 'menu-wet-aboutus', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Our Mandate', NULL, 'menu-wet-aboutus', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Our Minister', NULL, 'menu-wet-aboutus', 2, 'en');
+  _add_custom_menu_item_desc('<front>', 'À propos de nous', NULL, 'menu-wet-aboutus', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Notre mandat', NULL, 'menu-wet-aboutus', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Le ministre', NULL, 'menu-wet-aboutus', 2, 'fr');
   
   /* Add Menu Items to Gov News Bar */
-  _add_custom_menu_item_desc('<front>', 'News', NULL, 'menu-goc-news-bar', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'News Releases', NULL, 'menu-goc-news-bar', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Media Advisories', NULL, 'menu-goc-news-bar', 2, 'en');
-  _add_custom_menu_item_desc('<front>', 'Multimedia', NULL, 'menu-goc-news-bar', 3, 'en');
-  _add_custom_menu_item_desc('<front>', 'Média', NULL, 'menu-goc-news-bar', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Communiqués', NULL, 'menu-goc-news-bar', 1, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Avis aux médias', NULL, 'menu-goc-news-bar', 2, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Multimedia', NULL, 'menu-goc-news-bar', 3, 'fr');
+  _add_custom_menu_item_desc('<front>', 'News', NULL, 'menu-wet-news', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'News Releases', NULL, 'menu-wet-news', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Media Advisories', NULL, 'menu-wet-news', 2, 'en');
+  _add_custom_menu_item_desc('<front>', 'Multimedia', NULL, 'menu-wet-news', 3, 'en');
+  _add_custom_menu_item_desc('<front>', 'Média', NULL, 'menu-wet-news', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Communiqués', NULL, 'menu-wet-news', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Avis aux médias', NULL, 'menu-wet-news', 2, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Multimedia', NULL, 'menu-wet-news', 3, 'fr');
   
   /* Add Menu Items to Gov Contact Us Bar */
-  _add_custom_menu_item_desc('<front>', 'Contact Us', NULL, 'menu-goc-contact-bar', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Phone Numbers', NULL, 'menu-goc-contact-bar', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Find an Employee', NULL, 'menu-goc-contact-bar', 2, 'en');
-  _add_custom_menu_item_desc('<front>', 'Contactez-nous', NULL, 'menu-goc-contact-bar', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Numéros de téléphone', NULL, 'menu-goc-contact-bar', 1, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Trouvez un(e) employé(e)', NULL, 'menu-goc-contact-bar', 2, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Contact Us', NULL, 'menu-wet-contactus', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Phone Numbers', NULL, 'menu-wet-contactus', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Find an Employee', NULL, 'menu-wet-contactus', 2, 'en');
+  _add_custom_menu_item_desc('<front>', 'Contactez-nous', NULL, 'menu-wet-contactus', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Numéros de téléphone', NULL, 'menu-wet-contactus', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Trouvez un(e) employé(e)', NULL, 'menu-wet-contactus', 2, 'fr');
   
   /* Add Menu Items to Gov Stay Connected Bar */
-  _add_custom_menu_item_desc('<front>', 'Stay Connected', NULL, 'menu-goc-connected-bar', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Youtube', NULL, 'menu-goc-connected-bar', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Twitter', NULL, 'menu-goc-connected-bar', 2, 'en');
-  _add_custom_menu_item_desc('<front>', 'Feeds', NULL, 'menu-goc-connected-bar', 3, 'en');
-  _add_custom_menu_item_desc('<front>', 'Restez branchés', NULL, 'menu-goc-connected-bar', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Youtube', NULL, 'menu-goc-connected-bar', 1, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Twitter', NULL, 'menu-goc-connected-bar', 2, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Fils de nouvelles', NULL, 'menu-goc-connected-bar', 3, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Stay Connected', NULL, 'menu-wet-stayconnected', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Youtube', NULL, 'menu-wet-stayconnected', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Twitter', NULL, 'menu-wet-stayconnected', 2, 'en');
+  _add_custom_menu_item_desc('<front>', 'Feeds', NULL, 'menu-wet-stayconnected', 3, 'en');
+  _add_custom_menu_item_desc('<front>', 'Restez branchés', NULL, 'menu-wet-stayconnected', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Youtube', NULL, 'menu-wet-stayconnected', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Twitter', NULL, 'menu-wet-stayconnected', 2, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Fils de nouvelles', NULL, 'menu-wet-stayconnected', 3, 'fr');
   
   /* Add Menu Items to Gov Terms + Trans Bar */
-  _add_custom_menu_item_desc('<front>', 'Terms and Conditions', NULL, 'menu-goc-terms-bar', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Transparency', NULL, 'menu-goc-terms-bar', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Avis', NULL, 'menu-goc-terms-bar', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Transparence', NULL, 'menu-goc-terms-bar', 1, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Terms and Conditions', NULL, 'menu-wet-terms', 0, 'en');
+  _add_custom_menu_item_desc('<front>', 'Transparency', NULL, 'menu-wet-terms', 1, 'en');
+  _add_custom_menu_item_desc('<front>', 'Avis', NULL, 'menu-wet-terms', 0, 'fr');
+  _add_custom_menu_item_desc('<front>', 'Transparence', NULL, 'menu-wet-terms', 1, 'fr');
   
   //Clears all menu caches
   menu_cache_clear_all();

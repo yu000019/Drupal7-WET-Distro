@@ -64,7 +64,7 @@ function wetkit_panels_default_page_manager_handlers() {
     $pane->pid = 'new-2';
     $pane->panel = 'left';
     $pane->type = 'block';
-    $pane->subtype = 'menu-menu-goc-about-us-bar';
+    $pane->subtype = 'menu-menu-wet-aboutus';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(

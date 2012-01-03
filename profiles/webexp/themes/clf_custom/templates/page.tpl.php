@@ -120,9 +120,9 @@
 					  </li>
             </ul>
               
-            <!-- Custom Drupal GOC Nav Bar -->
+            <!-- Custom Drupal WET: Header -->
             <?php print $main_menu_links; ?>
-            <!-- /Custom Drupal GOC Nav Bar -->
+            <!-- /Custom Drupal WET: Header -->
                   
  					</div>
 					<!-- Common menu bar ends / Fin de la barre de menu commune -->

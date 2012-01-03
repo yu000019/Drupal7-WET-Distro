@@ -94,13 +94,13 @@
                   <?php endif;?>  
                 </div>
               </div>
-              <!-- Custom Drupal GOC Nav Bar -->
+              <!-- Custom Drupal WET: Header -->
               <div id="cn-intranetnb">
                 <div id="cn-intranetnb-inner">
                   <?php print $menu_gov_bar; ?>
                 </div>
               </div>
-              <!-- /Custom Drupal GOC Nav Bar -->
+              <!-- /Custom Drupal WET: Header -->
               
               <div id="cn-wmms">
                 <div id="cn-wmms-inner">
@@ -291,9 +291,9 @@
 				<h3><?php print t('Site Footer'); ?></h3>
 				<div id="cn-sft-inner" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
 					<div id="cn-ft-tctr">
-            <!-- Custom Drupal GOC Terms Bar -->
+            <!-- Custom Drupal WET: Terms -->
             <?php print $menu_gov_terms_bar; ?>
-            <!-- /Custom Drupal GOC Terms Bar -->
+            <!-- /Custom Drupal WET: Terms -->
 					</div>
 					<div class="clear"></div>
 					<section>
@@ -305,9 +305,9 @@
 					</section>
 					<section>
 						<div class="span-2">
-              <!-- Custom Drupal GOC News Bar -->
+              <!-- Custom Drupal WET: News -->
               <?php print $menu_gov_news_bar; ?>
-              <!-- /Custom Drupal GOC News Bar -->
+              <!-- /Custom Drupal WET: News -->
 						</div>
 					</section>
 					<section>
