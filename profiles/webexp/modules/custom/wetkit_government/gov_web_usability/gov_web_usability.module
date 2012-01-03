@@ -90,13 +90,18 @@ function gov_web_usability_install() {
   //Clears all menu caches
   menu_cache_clear_all();
   
-  migrate_flush_caches();  
-  $migration = Migration::getInstance('XML_Default_Content');
-  $result = $migration->processImport();
-  $migration = Migration::getInstance('XML_Web_Usability_Gov');
-  $result = $migration->processImport();
-  $migration = Migration::getInstance('HTML_Documentation');
-  $result = $migration->processImport();
+  $module_list = array('wetkit_migrate');    
+  module_enable($module_list, TRUE);
+    
+  if (module_exists('wetkit_migrate')) {
+    migrate_flush_caches();  
+    $migration = Migration::getInstance('XML_Default_Content');
+    $result = $migration->processImport();
+    $migration = Migration::getInstance('XML_Web_Usability_Gov');
+    $result = $migration->processImport();
+    $migration = Migration::getInstance('HTML_Documentation');
+    $result = $migration->processImport();
+  }
 }
 
 /**
@@ -104,13 +109,15 @@ function gov_web_usability_install() {
 */
 function gov_web_usability_uninstall() {
   variable_del('views_temp');
-  $migration = Migration::getInstance('XML_Default_Content');
-  $result = $migration->processRollback();
-  $migration = Migration::getInstance('XML_Web_Usability_Gov');
-  $result = $migration->processRollback();
-  $migration = Migration::getInstance('XML_Documentation');
-  $result = $migration->processRollback();
-  cache_clear_all();
+  if (module_exists('wetkit_migrate')) {
+    $migration = Migration::getInstance('XML_Default_Content');
+    $result = $migration->processRollback();
+    $migration = Migration::getInstance('XML_Web_Usability_Gov');
+    $result = $migration->processRollback();
+    $migration = Migration::getInstance('XML_Documentation');
+    $result = $migration->processRollback();
+    cache_clear_all();
+  }
 }
 
 /**

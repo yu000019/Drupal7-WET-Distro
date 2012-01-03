@@ -85,7 +85,7 @@ function _default_run_form() {
   //Enable Features
   if (variable_get('radio_organization') == 'government')
   {
-    $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules');
+    $module_list = array('wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules');
     module_enable($module_list, TRUE);
     
     //Kinda hackish but has to be run after first set
@@ -95,7 +95,7 @@ function _default_run_form() {
   }
   else if (variable_get('radio_organization') == 'public')
   {
-    $module_list = array('wetkit_migrate','wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules','wetkit_workflow_rules');
+    $module_list = array('wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules');
     module_enable($module_list, TRUE);
     
     $module_list = array($GLOBALS['$public_web_usability']);    
