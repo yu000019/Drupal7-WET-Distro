@@ -97,7 +97,7 @@ function wetkit_metatag_metatag_info() {
   
   $info['tags']['dc.url'] = array(
     'label' => t('WetKit Metadata URL'),
-    'description' => t('The canonical URL of your object that will be used as its permanent ID in the website, for example:, <em>http://www.govcan.gc.ca/policy/</em>.'),
+    'description' => t('The canonical URL of your object that will be used as its permanent ID in the website.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'wetkit-metadata',
     'element' => array(
