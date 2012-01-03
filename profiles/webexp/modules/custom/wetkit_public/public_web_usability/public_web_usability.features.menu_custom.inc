@@ -13,7 +13,7 @@ function public_web_usability_menu_default_menu_custom() {
   // Exported menu: main-menu
   $menus['main-menu'] = array(
     'menu_name' => 'main-menu',
-    'title' => 'Main menu',
+    'title' => 'WET: Mega Menu',
     'description' => 'The <em>Main</em> megamenu for the Web Experience Toolkit',
     'language' => 'und',
     'i18n_mode' => '5',
@@ -83,7 +83,7 @@ function public_web_usability_menu_default_menu_custom() {
   t('WET: Terms');
   t('WET: Footer');
   t('WET: Header');
-  t('Main menu');
+  t('WET: Mega Menu');
   t('The <em>Main</em> megamenu for the Web Experience Toolkit');
   t('About Us Section for Web Experience Toolkit');
   t('Stay Connected Section for Web Experience Toolkit');
