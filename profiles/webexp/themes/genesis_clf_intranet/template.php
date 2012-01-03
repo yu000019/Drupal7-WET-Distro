@@ -89,6 +89,10 @@ function genesis_clf_intranet_preprocess_html(&$vars) {
 }
 
 function genesis_clf_intranet_preprocess_page(&$vars) { 
+
+  if(module_exists('i18n_menu')) {
+    $is_multilingual = 1;
+  } 
   
   //Search Form
   $search_box = drupal_render(drupal_get_form('search_form'));
@@ -119,7 +123,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
   }
   
   //Nav Bar GoC + Language Switcher
-  $menu = i18n_menu_navigation_links('menu-goc-nav-bar');
+  $menu = (module_exists('i18n_menu')) ? i18n_menu_navigation_links('menu-goc-nav-bar') : menu_navigation_links('menu-goc-nav-bar');
   $goc_nav_bar_markup = theme('links__menu_goc_nav_bar', array(
     'links' => $menu,
     'attributes' => array(
@@ -132,7 +136,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
   $vars['menu_gov_bar'] = '<ul id="menu_goc_nav_bar" class="links">' . $goc_nav_bar_markup . $language_link_markup . '</ul>';
   
   //Footer Bar GoC + Language Switcher
-  $menu = i18n_menu_navigation_links('menu-goc-footer-bar');
+  $menu = (module_exists('i18n_menu')) ? i18n_menu_navigation_links('menu-goc-footer-bar') : menu_navigation_links('menu-goc-footer-bar');
   $goc_footer_bar_markup = theme('links__menu_goc_footer_bar', array(
     'links' => $menu,
     'attributes' => array(
@@ -163,7 +167,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
   );
   
   //About Us Section
-  $menu = i18n_menu_navigation_links('menu-goc-about-us-bar');
+  $menu = (module_exists('i18n_menu')) ? i18n_menu_navigation_links('menu-goc-about-us-bar') : menu_navigation_links('menu-goc-about-us-bar');
   $goc_footer_bar_markup = theme('links__menu_goc_sections', array(
     'links' => $menu,
     'attributes' => array(
@@ -174,7 +178,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
   $vars['menu_gov_about_bar'] = $goc_footer_bar_markup;
   
   //News Bar
-  $menu = i18n_menu_navigation_links('menu-goc-news-bar');
+  $menu = (module_exists('i18n_menu')) ? i18n_menu_navigation_links('menu-goc-news-bar') : menu_navigation_links('menu-goc-news-bar');
   $goc_news_bar_markup = theme('links__menu_goc_sections', array(
     'links' => $menu,
     'attributes' => array(
@@ -185,7 +189,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
   $vars['menu_gov_news_bar'] = $goc_news_bar_markup;
   
   //Contact Us Bar
-  $menu = i18n_menu_navigation_links('menu-goc-contact-bar');
+  $menu = (module_exists('i18n_menu')) ? i18n_menu_navigation_links('menu-goc-contact-bar') : menu_navigation_links('menu-goc-contact-bar');
   $goc_contact_bar_markup = theme('links__menu_goc_sections', array(
     'links' => $menu,
     'attributes' => array(
@@ -196,7 +200,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
   $vars['menu_gov_contact_bar'] = $goc_contact_bar_markup;
   
   //Stay Connected Bar
-  $menu = i18n_menu_navigation_links('menu-goc-connected-bar');
+  $menu = (module_exists('i18n_menu')) ? i18n_menu_navigation_links('menu-goc-connected-bar') : menu_navigation_links('menu-goc-connected-bar');
   $goc_connected_bar_markup = theme('links__menu_goc_sections', array(
     'links' => $menu,
     'attributes' => array(
@@ -207,7 +211,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
   $vars['menu_gov_connected_bar'] = $goc_connected_bar_markup;
   
   //Terms Bar
-  $menu = i18n_menu_navigation_links('menu-goc-terms-bar');
+  $menu = (module_exists('i18n_menu')) ? i18n_menu_navigation_links('menu-goc-terms-bar') : menu_navigation_links('menu-goc-terms-bar');
   $goc_terms_bar_markup = theme('links__menu_goc_terms_bar', array(
     'links' => $menu,
     'attributes' => array(
