@@ -99,10 +99,15 @@ function genesis_clf_preprocess_page(&$vars) {
   $vars['search_box'] = $search_box;
 
   //Locale Language Block
-  $block = block_load('locale', 'language');
-  $block_content = _block_render_blocks(array($block));
-  $build = _block_get_renderable_array($block_content);
-  $vars['language_switcher'] = $build['locale_language']['#markup'];
+  if(module_exists('i18n')) {
+    $block = block_load('locale', 'language');
+    $block_content = _block_render_blocks(array($block));
+    $build = _block_get_renderable_array($block_content);
+    $vars['language_switcher'] = $build['locale_language']['#markup'];
+  } else {
+    $vars['language_switcher'] = '';
+  }
+
    
   //Panels
   if (module_exists('panels')) {
