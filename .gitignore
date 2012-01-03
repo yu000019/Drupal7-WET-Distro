@@ -10,3 +10,5 @@ sites/*/private
 
 profiles/webexp/themes/genesis_ottu/
 profiles/webexp/modules/custom/wetkit_public/ottu_web_usability/
+sites/all/modules/ottu_web_usability/
+sites/all/themes/genesis_ottu/
