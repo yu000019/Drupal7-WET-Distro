@@ -1,5 +1,5 @@
 name = WebExp
-description = MANDATORY: Install Profile created for the Web Experience Toolkit using Drupal 7
+description = Required: Install Profile created for the Web Experience Toolkit using Drupal 7
 core = 7.x
 
 ;CORE
@@ -58,7 +58,6 @@ dependencies[] = stringoverrides
 dependencies[] = strongarm
 dependencies[] = token
 dependencies[] = transliteration
-dependencies[] = uuid
 dependencies[] = variable
 dependencies[] = variable_admin
 dependencies[] = variable_advanced
@@ -67,6 +66,13 @@ dependencies[] = variable_store
 dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = views_bulk_operations
+
+;ENTITY
+dependencies[] = entity
+dependencies[] = entity_token
+
+;BREAKS SITE WITH ENTITY TRANSLATION
+;dependencies[] = uuid
 
 ;SEARCH
 dependencies[] = facetapi

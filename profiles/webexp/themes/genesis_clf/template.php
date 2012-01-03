@@ -340,7 +340,7 @@ function genesis_clf_links__menu_goc_sections($variables)  {
 
       // Add first, last and active classes to the list of links to help out themers.
       if ($i == 1) {
-        $class[] = 'first2';
+        $class[] = 'first';
       }
       if ($i == $num_links) {
         $class[] = 'last';
