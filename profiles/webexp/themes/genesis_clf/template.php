@@ -100,10 +100,10 @@ function genesis_clf_preprocess_page(&$vars) {
 
   //Locale Language Block
   if(module_exists('i18n')) {
-    $block = block_load('locale', 'language');
+    $block = block_load('locale', 'language_content');
     $block_content = _block_render_blocks(array($block));
     $build = _block_get_renderable_array($block_content);
-    $vars['language_switcher'] = $build['locale_language']['#markup'];
+    $vars['language_switcher'] = $build['locale_language_content']['#markup'];
   } else {
     $vars['language_switcher'] = '';
   }
