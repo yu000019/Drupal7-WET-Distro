@@ -9,7 +9,7 @@
 /**
  * Class for XML Mult file.
  */
-class XML_Web_Usability_GovMigration extends XMLMigration {
+class XML_Web_UsabilityMigration extends XMLMigration {
 
   public function __construct() {
     parent::__construct(MigrateGroup::getInstance('wetkit'));
@@ -78,7 +78,7 @@ class XML_Web_Usability_GovMigration extends XMLMigration {
   public function postImport(){
     
     //Fix Translation ID
-    $result = db_query("SELECT destid1 FROM {migrate_map_xml_web_usability_gov}");
+    $result = db_query("SELECT destid1 FROM {migrate_map_xml_web_usability}");
     $currentRowCount = 0;
     $current_translateid = 0;
     //$translation_set_tsid = 0;

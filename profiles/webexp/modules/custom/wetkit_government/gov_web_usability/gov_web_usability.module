@@ -97,7 +97,7 @@ function gov_web_usability_install() {
     migrate_flush_caches();  
     $migration = Migration::getInstance('XML_Default_Content');
     $result = $migration->processImport();
-    $migration = Migration::getInstance('XML_Web_Usability_Gov');
+    $migration = Migration::getInstance('XML_Web_Usability');
     $result = $migration->processImport();
     $migration = Migration::getInstance('HTML_Documentation');
     $result = $migration->processImport();
@@ -112,7 +112,7 @@ function gov_web_usability_uninstall() {
   if (module_exists('wetkit_migrate')) {
     $migration = Migration::getInstance('XML_Default_Content');
     $result = $migration->processRollback();
-    $migration = Migration::getInstance('XML_Web_Usability_Gov');
+    $migration = Migration::getInstance('XML_Web_Usability');
     $result = $migration->processRollback();
     $migration = Migration::getInstance('XML_Documentation');
     $result = $migration->processRollback();
