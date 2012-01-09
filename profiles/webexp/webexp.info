@@ -66,6 +66,7 @@ dependencies[] = variable_store
 dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = views_bulk_operations
+dependencies[] = nice_menus
 
 ;ENTITY
 dependencies[] = entity

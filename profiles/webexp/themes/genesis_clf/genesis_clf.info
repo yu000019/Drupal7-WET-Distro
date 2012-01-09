@@ -48,16 +48,16 @@
   stylesheets-conditional[IE 7][all][] = css/theme-gcwu-fegc/css/theme-gcwu-fegc-ie7.css
   stylesheets-conditional[IE 6][all][] = css/theme-gcwu-fegc/css/theme-gcwu-fegc-ie6.css
 
+; menubar
+  stylesheets[all][] = ../../../../profiles/webexp/libraries/wet-boew-jquery/js/support/menubar/style.css
+  ;stylesheets[all][] = ../../libraries/wet-boew-jquery/js/support/menubar/style.css
+
 ; Subtheme fip-pcim stylsheets.
   stylesheets[all][] = css/theme-gcwu-fegc/fip-pcim/css/fip-pcim.css
   ;stylesheets[all][] = css/theme-gcwu-fegc/fip-pcim/css/pf-if-fip-pcim.css
   stylesheets-conditional[IE 8][all][] = css/theme-gcwu-fegc/fip-pcim/css/fip-pcim-ie8.css
   stylesheets-conditional[IE 7][all][] = css/theme-gcwu-fegc/fip-pcim/css/fip-pcim-ie7.css
   stylesheets-conditional[IE 6][all][] = css/theme-gcwu-fegc/fip-pcim/css/fip-pcim-ie6.css
-
-; menubar
-  stylesheets[all][] = ../../../../profiles/webexp/libraries/wet-boew-jquery/js/support/menubar/style.css
-  ;stylesheets[all][] = ../../libraries/wet-boew-jquery/js/support/menubar/style.css
 
 ; final chance to do custom overrides
   stylesheets[all][] = css/custom.css

@@ -1,10 +1,9 @@
-﻿/*!
- * jQuery integration v1.3a6 / Intégration jQuery v1.3a6
+/*!
+ * jQuery integration v1.3b1 / Intégration jQuery v1.3b1
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * Terms and conditions of use: http://tbs-sct.ircan.gc.ca/projects/gcwwwtemplates/wiki/Terms
  * Conditions régissant l'utilisation : http://tbs-sct.ircan.gc.ca/projects/gcwwwtemplates/wiki/Conditions
  */
-
 
 /** JavaScript / JQuery Capabilities with Name-spaced HTML **/
 var PE = {
@@ -13,13 +12,10 @@ var PE = {
 	   /** Page Language - is set by the Meta Data Element [ dc.language ] **/
 	    PE.language =  this.find_language();
 	   /** Page Language - end **/
-     
-     /** Kind of Hacky Solution **/
-      PE.liblocation = '/profiles/webexp/libraries/wet-boew-jquery/js/'; 
-      //PE.liblocation = '/sites/all/libraries/wet-boew-jquery/js/'; 
-	    //PE.liblocation = jQuery("script[id='progressive']").attr('src').replace("pe-ap.js","");
-	   
-      /** JS Location - end **/
+	   /** JS Location - The browser helps set this up for us **/
+     PE.liblocation = '/profiles/webexp/libraries/wet-boew-jquery/js/'; 
+	   //PE.liblocation = jQuery("script[id='progressive']").attr('src').replace("pe-ap.js","");
+	    /** JS Location - end **/
 	    PE.uiloaded = false;
 	    /** jquery ui load state **/
 
@@ -33,7 +29,6 @@ var PE = {
 	    /** Load supporting plugins **/
 		PE.load('jquery.resize-events.js');
 	    PE.load('wet-boew.pngfix.js');
-	    PE.load('wet-boew.equalheight.js');
 	    PE.load('wet-boew.storage.js');
 
 		PE.parameters = props /** DEPRECATED: Backward Compatibility **/ ;
@@ -63,8 +58,7 @@ var PE = {
 			document.write('<script type="text/javascript" src="'+myPluginLoader+'" id="wet-boew_plugin_'+[key]+'"><\/script>');
 		}
 		
-		// Initialize the resize events
-		//ResizeEvents.initialise();
+		PE.load('wet-boew.equalheight.js');
     },
 
     /** language definition function **/

@@ -1,7 +1,6 @@
  var params = {
     zebra:{selector:'.zebra'},
     tabs: {},
-    menubar:{},
-    multimedia:{}
+    menubar: {}
 };
 PE.progress(params);
