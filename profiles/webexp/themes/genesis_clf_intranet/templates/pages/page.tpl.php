@@ -172,7 +172,7 @@
         <div id="cn-psnb">
           <h2><?php print t('Primary site navigation bar'); ?></h2>
           <div id="cn-psnb-inner">
-            <div class="wet-boew-menubar" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+            <div class="wet-boew-menubar wet-boew-megamenu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
               <?php if ($main_menu_links): ?>
                 <div class="main-menu-inner">
                   <?php print $mega_menu['content']; ?>
