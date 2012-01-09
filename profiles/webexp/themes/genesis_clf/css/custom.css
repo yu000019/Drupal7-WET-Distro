@@ -59,7 +59,8 @@ margin: -20px 0 0 160px !important;
 z-index: 500 !important;
 }
 
-#cn-psnb .wet-boew-megamenu{
+#cn-psnb .wet-boew-megamenu,
+#cn-psnb .wet-boew-menu {
   z-index: 499 !important;
 }
 

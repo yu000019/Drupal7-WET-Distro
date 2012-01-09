@@ -167,7 +167,7 @@
             <div class="wet-boew-menubar" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
               <?php if ($main_menu_links): ?>
                 <div class="main-menu-inner">
-                  <?php print $main_menu_links; ?>
+                  <?php print $mega_menu['content']; ?>
                 </div>
                <?php endif; ?>
             </div>

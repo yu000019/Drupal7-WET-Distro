@@ -1,83 +1,10 @@
 <?php
 
-/**
- * Preprocess and Process Functions SEE: http://drupal.org/node/254940#variables-processor
- * 1. Rename each function to match your subthemes name,
- *    e.g. if you name your theme "themeName" then the function
- *    name will be "themeName_preprocess_hook". Tip - you can
- *    search/replace on "genesis_clf".
- * 2. Uncomment the required function to use.
- */
-
-/**
- * Override or insert variables into all templates.
- */
-/* -- Delete this line if you want to use these functions
-function genesis_clf_preprocess(&$vars, $hook) {
-}
-function genesis_clf_process(&$vars, $hook) {
-}
-// */
-
-/**
- * Override or insert variables into the html templates.
- */
-/* -- Delete this line if you want to use these functions
-function genesis_clf_preprocess_html(&$vars) {
-  // Uncomment the folowing line to add a conditional stylesheet for IE 7 or less.
-  // drupal_add_css(path_to_theme() . '/css/ie/ie-lte-7.css', array('weight' => CSS_THEME, 'browsers' => array('IE' => 'lte IE 7', '!IE' => FALSE), 'preprocess' => FALSE));
-}
-function genesis_clf_process_html(&$vars) {
-}
-// */
-
-/**
- * Override or insert variables into the page templates.
- */
-/* -- Delete this line if you want to use these functions
-function genesis_clf_preprocess_page(&$vars) {
-}
-function genesis_clf_process_page(&$vars) {
-}
-// */
-
-/**
- * Override or insert variables into the node templates.
- */
-/* -- Delete this line if you want to use these functions
-function genesis_clf_preprocess_node(&$vars) {
-}
-function genesis_clf_process_node(&$vars) {
-}
-// */
-
-/**
- * Override or insert variables into the comment templates.
- */
-/* -- Delete this line if you want to use these functions
-function genesis_clf_preprocess_comment(&$vars) {
-}
-function genesis_clf_process_comment(&$vars) {
-}
-// */
-
-/**
- * Override or insert variables into the block templates.
- */
-/* -- Delete this line if you want to use these functions
-function genesis_clf_preprocess_block(&$vars) {
-}
-function genesis_clf_process_block(&$vars) {
-}
-// */
-
 function genesis_clf_theme_theme($existing, $type, $theme, $path) {
   
 }
 
-
 function genesis_clf_preprocess_html(&$vars) {  
-  
   $vars['layout_sidebars'] = 'none';
   $vars['layout_desc'] = '<!-- One column layout begins / Début de la mise en page d\'une colonne -->';
   $vars['layout_id'] = '<div id="cn-body-inner-1col">';
@@ -95,7 +22,6 @@ function genesis_clf_preprocess_html(&$vars) {
 }
 
 function genesis_clf_preprocess_page(&$vars) { 
-
   if(module_exists('i18n_menu')) {
     $is_multilingual = 1;
   } 
@@ -157,26 +83,6 @@ function genesis_clf_preprocess_page(&$vars) {
    )); 
   $vars['menu_gov_footer_bar'] = $goc_footer_bar_markup;
   
-  //Main Menu Bar
-  $vars['main_menu_links'] = theme('links__system_main_menu',
-    array(
-      'links' => $vars['main_menu'],
-      'attributes' => array(
-      'id' => 'wet-boew-navigation',
-        'class' => array(
-          'links', 'clearfix', 'wet-boew-megamenu wet-boew-menu site-bar show-first rounded',
-        )
-      ), 
-      'heading' => array(
-        'text' => t('Main menu'),
-        'level' => 'h2',
-        'class' => array(
-          'element-invisible',
-        ),
-      )
-    )
-  );
-  
   //About Us Section
   $menu = ($is_multilingual) ? i18n_menu_navigation_links('menu-wet-aboutus') : menu_navigation_links('menu-wet-aboutus');
   $goc_footer_bar_markup = theme('links__menu_goc_sections', array(
@@ -232,10 +138,31 @@ function genesis_clf_preprocess_page(&$vars) {
    )); 
   $vars['menu_gov_terms_bar'] = $goc_terms_bar_markup;  
 
+  //Mega Menu
   if (module_exists('nice_menus')) {
-   $vars['mm2'] = theme('nice_menus', array('id' => 0, 'direction' => 'down', 'depth' => 1, 'menu_name' => 'main-menu', 'menu' => NULL));
+    $vars['mega_menu'] = theme('nice_menus', array('id' => 0, 'direction' => 'down', 'depth' => 3, 'menu_name' => 'main-menu', 'menu' => NULL));
   }
-  
+  else {
+    //Main Menu Bar
+    $vars['mega_menu'] = theme('links__system_main_menu',
+      array(
+        'links' => $vars['main_menu'],
+        'attributes' => array(
+        'id' => 'wet-boew-navigation',
+          'class' => array(
+            'links', 'clearfix', 'wet-boew-megamenu wet-boew-menu site-bar show-first rounded',
+          )
+        ), 
+        'heading' => array(
+          'text' => t('Main menu'),
+          'level' => 'h2',
+          'class' => array(
+            'element-invisible',
+          ),
+        )
+      )
+    );
+  } 
 }
 
 function genesis_clf_nice_menus($variables) {
@@ -309,29 +236,50 @@ function genesis_clf_nice_menus_build($variables) {
         );
         $variables['element'] = $element;
         
-        if ($depth == 1)
-        {
-          $output .= '<li class="menu-' . $mlid . ' ' . $parent_class . $class . $first_class . $oddeven_class . $last_class . '"><section><h3>'. theme('nice_menus_menu_item_link', $variables).'</h3></section>';
+        if($menu_item['link']['depth'] == 1) {
+          $output .= '<li class="menu-' . $mlid . ' ' . $parent_class . $class . $first_class . $oddeven_class . $last_class . '"><section><h3>'. theme('nice_menus_menu_item_link', $variables) . '</h3>';
+        }
+        else if($menu_item['link']['depth'] == 2){
+          $output .= '<div class="menu-col">';
+        }
+        else if($menu_item['link']['depth'] == 3){
+          $output .= '<section><h4 class="col-head">'. theme('nice_menus_menu_item_link', $variables) . '</h4>';
         }
         else {
           $output .= '<li class="menu-' . $mlid . ' ' . $parent_class . $class . $first_class . $oddeven_class . $last_class . '">'. theme('nice_menus_menu_item_link', $variables);
         }
+        
         // Check our depth parameters.
         if ($menu_item['link']['depth'] <= $depth || $depth == -1) {
           // Build the child UL only if children are displayed for the user.
-          if ($children) {
-            $output .= '<div class="showcase"><ul>';
+          if ($children && ($menu_item['link']['depth'] == 1)) {
+            $output .= '<div class="showcase">';
             $output .= $children;
-            $output .= "</ul></div>\n";
+            $output .= "</div>\n";
           }
-          
+          else if ($children && ($menu_item['link']['depth'] == 2)) {
+            $output .= $children;
+          }
+          else if ($children && ($menu_item['link']['depth'] == 3)) {
+            $output .= '<ul>';
+            $output .= $children;
+            $output .= "</ul>\n";
+          }
         }
-
-        $output .= "</li>\n";
-        
+        if($menu_item['link']['depth'] == 1) {
+          $output .= "</section></li>\n";
+        }
+        else if($menu_item['link']['depth'] == 2){
+          $output .= '</div>';
+        }
+        else if($menu_item['link']['depth'] == 3){
+          $output .= '</section>';
+        }
+        else {
+          $output .= "</li>\n";
+        } 
       }
       else {
-     
         $element = array(
           '#below' => '',
           '#title' => $menu_item['link']['link_title'],
@@ -706,7 +654,6 @@ function genesis_clf_links__menu_goc_nav_bar($variables) {
 
 function genesis_clf_menu_local_tasks(&$variables) {
   $output = '';
-
   if (!empty($variables['primary'])) {
     $variables['primary']['#prefix'] = '<h2 class="element-invisible">' . t('Drupal Primary tabs') . '</h2>';
     $variables['primary']['#prefix'] .= '<ul class="drupaltabs primary">';
@@ -719,7 +666,6 @@ function genesis_clf_menu_local_tasks(&$variables) {
     $variables['secondary']['#suffix'] = '</ul>';
     $output .= drupal_render($variables['secondary']);
   }
-
   return $output;
 }
 

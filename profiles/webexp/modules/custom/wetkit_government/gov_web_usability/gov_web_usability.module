@@ -11,14 +11,43 @@ include_once('gov_web_usability.features.inc');
 */
 function gov_web_usability_install() {
   
-  /* Add Main Menu */
-  _add_custom_menu_item_desc('<front>', 'Home', NULL, 'main-menu', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Help', NULL,'main-menu', 1, 'en');
+  /* ADD MEGAMENU */
+  //Mega Menu Depth Example EN
+  $menu_depth1 = _add_custom_menu_item_desc('<front>', 'Home', NULL, 'main-menu', 0, 'en');
+  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
+  _add_custom_menu_item_desc('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);
+  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
+  _add_custom_menu_item_desc('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);
+  
+  //Mega Menu Depth Example EN
+  $menu_depth1 = _add_custom_menu_item_desc('<front>', 'Help', NULL,'main-menu', 1, 'en');
+  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
+  _add_custom_menu_item_desc('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);
+  
+  //Remaining Links EN
   _add_custom_menu_item_desc('<front>', 'Contact Us', NULL, 'main-menu', 2,'en');
   _add_custom_menu_item_desc('search', 'Search', NULL, 'main-menu', 3, 'en');
   _add_custom_menu_item_desc('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'en');
-  _add_custom_menu_item_desc('<front>', 'Accueil', NULL, 'main-menu', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Aide', NULL, 'main-menu', 1, 'fr');
+  
+  //Mega Menu Depth Example FR
+  $menu_depth1 = _add_custom_menu_item_desc('<front>', 'Accueil', NULL, 'main-menu', 0, 'fr');
+  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Exemple titre', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
+  _add_custom_menu_item_desc('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3);
+  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Exemple titre', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
+  _add_custom_menu_item_desc('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3);
+  
+  //Mega Menu Depth Example FR
+  $menu_depth1 = _add_custom_menu_item_desc('<front>', 'Aide', NULL, 'main-menu', 1, 'fr');
+  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
+  _add_custom_menu_item_desc('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3);
+  
+  //Remaining Links FR
   _add_custom_menu_item_desc('<front>', 'Nous Contacter', NULL, 'main-menu', 2, 'fr');
   _add_custom_menu_item_desc('search', 'Recherche', NULL, 'main-menu', 3, 'fr');
   _add_custom_menu_item_desc('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'fr');
@@ -635,10 +664,10 @@ function _add_custom_menu_item($link, $title, $menu, $language) {
     'language' => $language,
     'customized' => 1,
   );
-  menu_link_save($item);
+  return menu_link_save($item);
 }
 
-function _add_custom_menu_item_desc($link, $title, $desc, $menu, $weight, $language) {
+function _add_custom_menu_item_desc($link, $title, $desc, $menu, $weight, $language, $mlid = 0, $plid = 0) {
   
   $options = array();
   $options += array(
@@ -655,8 +684,10 @@ function _add_custom_menu_item_desc($link, $title, $desc, $menu, $weight, $langu
     'language' => $language,
     'customized' => 1,
     'options' => $options,
+    'mlid' => $mlid,
+    'plid' => $plid,
   );
-  menu_link_save($item);
+  return menu_link_save($item);
 }
 
 function _add_file($filename, $filepath) {
