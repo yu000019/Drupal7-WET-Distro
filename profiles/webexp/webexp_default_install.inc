@@ -5,7 +5,7 @@ function _default_setup_form() {
   $options = array('1' => st('Enabled'), '0' => st('Disabled'));
   $options_site = array('internet' => st('Internet'), 'intranet' => st('Intranet'));
   $options_branding = array('government' => st('Government'), 'public' => st('Public'));
-    
+
   $form = array();
   $form['webexp_govern'] = array(
     '#type' => 'radios',
@@ -21,6 +21,14 @@ function _default_setup_form() {
     '#options' => $options_site,
     '#description' => st('This option will change the default theme that will be used based on the type of site.'),
   );
+  $form['webexp_features'] = array(
+    '#type' => 'checkboxes',
+    '#title' => st('Please select the features you will need'),
+    '#default_value' => variable_get('radio_features', array('Slider','CKEditor','Styles','Workflow Rules')),
+    '#options' => drupal_map_assoc(array(t('Slider'), t('CKEditor'), t('Styles'), t('Workflow Rules'))),
+    '#description' => st('This option will change the default theme that will be used based on the type of site.'),
+  );
+  
   $form[] = array(
     '#type' => 'submit',
     '#value' => st('Save and continue'),
@@ -32,6 +40,7 @@ function _default_setup_form() {
 function _default_submit_form($form, &$form_state) {
   variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
   variable_set('radio_organization', $form_state['values']['webexp_govern']);
+  variable_set('radio_features', $form_state['values']['webexp_features']);
 }
 
 function _default_run_form() {  
@@ -85,6 +94,11 @@ function _default_run_form() {
   //Enable Features
   if (variable_get('radio_organization') == 'government')
   {
+    $rr = variable_get('radio_features');
+    foreach ($arr as $rr) {
+     
+    }
+
     $module_list = array('wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules');
     module_enable($module_list, TRUE);
     
