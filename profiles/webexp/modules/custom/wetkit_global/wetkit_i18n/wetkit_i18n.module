@@ -5,3 +5,62 @@
  */
 
 include_once('wetkit_i18n.features.inc');
+
+/**
+* Implements hook_install().
+*/
+function wetkit_i18n_install() {
+
+}
+
+/**
+* Implements hook_uninstall().
+*/
+function wetkit_i18n_uninstall() {
+  variable_del('views_pubtemp');
+}
+
+/**
+* Implements hook_init().
+*/
+function wetkit_i18n_init() {
+  if (variable_get('views_pubtemp', 1) == 1) {
+    //Set the Language for Drupal (eng and fra)
+    $languages = array (
+     'language' => 'en',
+     'name' => 'English',
+     'native' => 'English',
+     'direction' => '0',
+     'enabled' => '1',
+     'plurals' => '0',
+     'formula' => '',
+     'domain' => '',
+     'prefix' => 'eng',
+     'weight' => '0',
+     'javascript' => '',
+    );
+    $languages_obj = (object) $languages;
+    variable_set('language_default', $languages_obj);
+    db_update('languages')
+      ->fields(array(
+        'prefix' => 'eng',
+      ))
+    ->condition('language', 'en')
+    ->execute();
+    db_update('languages')
+    ->fields(array(
+      'prefix' => 'fra',
+    ))
+    ->condition('language', 'fr')
+    ->execute();
+  
+    //Multilingual Variables
+    variable_set('i18n_variable_conf', array('site_name'));
+    variable_set('i18n_variable_list', array('site_name'));
+    i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
+    
+    //Clear all caches
+    cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
+  }
+  variable_set('views_pubtemp', 0);
+}

@@ -64,23 +64,12 @@ function webexp_install() {
   $full_html_format = (object) $full_html_format;
   filter_format_save($full_html_format);
   
-  variable_set('theme_default', 'bartik');
+  //variable_set('theme_default', 'bartik');
+  //$default_theme = variable_get('theme_default', 'bartik');
 
-  // Enable some standard blocks.
-  // Enable some standard blocks.
-  $default_theme = variable_get('theme_default', 'bartik');
+  // Enable some standard blocks
   $admin_theme = 'rubik';
   $values = array(
-    array(
-      'module' => 'system',
-      'delta' => 'main',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'content',
-      'pages' => '',
-      'cache' => -1,
-    ),
     array(
       'module' => 'node',
       'delta' => 'recent',
@@ -88,36 +77,6 @@ function webexp_install() {
       'status' => 1,
       'weight' => 10,
       'region' => 'dashboard_main',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'user',
-      'delta' => 'login',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'sidebar_first',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'navigation',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'sidebar_first',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'help',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'help',
       'pages' => '',
       'cache' => -1,
     ),
@@ -427,7 +386,7 @@ function webexp_install() {
   variable_set('node_admin_theme', '1');
   
   // Enable the Deafult Theme
-  theme_enable(array('genesis_clf'));
+  //theme_enable(array('genesis_clf'));
 }
 
 /**

@@ -10,8 +10,8 @@
 function wetkit_slider_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_slider_collection-field_slider_description'
-  $fields['field_collection_item-field_slider_collection-field_slider_description'] = array(
+  // Exported field: 'node-main_slider-field_slider_description'
+  $fields['node-main_slider-field_slider_description'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -37,22 +37,28 @@ function wetkit_slider_field_default_fields() {
       'type' => 'text_long',
     ),
     'field_instance' => array(
-      'bundle' => 'field_slider_collection',
+      'bundle' => 'main_slider',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '1',
+          'weight' => 6,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
-      'entity_type' => 'field_collection_item',
+      'entity_type' => 'node',
       'field_name' => 'field_slider_description',
-      'label' => 'slider_description',
+      'label' => 'Slider Description',
       'required' => 0,
       'settings' => array(
         'text_processing' => '1',
@@ -65,13 +71,13 @@ function wetkit_slider_field_default_fields() {
           'rows' => '3',
         ),
         'type' => 'text_textarea',
-        'weight' => '2',
+        'weight' => '7',
       ),
     ),
   );
 
-  // Exported field: 'field_collection_item-field_slider_collection-field_slider_photo'
-  $fields['field_collection_item-field_slider_collection-field_slider_photo'] = array(
+  // Exported field: 'node-main_slider-field_slider_photo'
+  $fields['node-main_slider-field_slider_photo'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -100,24 +106,30 @@ function wetkit_slider_field_default_fields() {
       'type' => 'image',
     ),
     'field_instance' => array(
-      'bundle' => 'field_slider_collection',
+      'bundle' => 'main_slider',
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
-            'image_style' => 'slider',
+            'image_style' => '',
           ),
           'type' => 'image',
-          'weight' => '0',
+          'weight' => 5,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
-      'entity_type' => 'field_collection_item',
+      'entity_type' => 'node',
       'field_name' => 'field_slider_photo',
-      'label' => 'slider_photo',
+      'label' => 'Slider Photo',
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
@@ -137,67 +149,7 @@ function wetkit_slider_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '1',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-main_slider-field_slider_collection'
-  $fields['node-main_slider-field_slider_collection'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '2',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_slider_collection',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'module' => 'field_collection',
-      'settings' => array(
-        'path' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'field_collection',
-    ),
-    'field_instance' => array(
-      'bundle' => 'main_slider',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'field_collection',
-          'settings' => array(
-            'add' => 'Add',
-            'delete' => 'Delete',
-            'description' => TRUE,
-            'edit' => 'Edit',
-            'view_mode' => 'full',
-          ),
-          'type' => 'field_collection_view',
-          'weight' => 4,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_slider_collection',
-      'label' => 'Slider Collection',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'field_collection',
-        'settings' => array(),
-        'type' => 'field_collection_embed',
-        'weight' => '8',
+        'weight' => '6',
       ),
     ),
   );
@@ -265,17 +217,16 @@ function wetkit_slider_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '5',
+        'weight' => '3',
       ),
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Slider Collection');
+  t('Slider Description');
+  t('Slider Photo');
   t('Slider Title');
-  t('slider_description');
-  t('slider_photo');
 
   return $fields;
 }

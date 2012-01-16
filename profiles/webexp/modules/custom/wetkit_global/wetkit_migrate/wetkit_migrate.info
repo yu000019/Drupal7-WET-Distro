@@ -2,9 +2,10 @@ name = "WetKit Migrate"
 description = "Migration for the Web Experience Toolkit"
 package = "Development"
 core = 7.x
+dependencies[] = "features"
 dependencies[] = migrate
 dependencies[] = migrate_extras
-
+features[menu_custom][] = "menu-documentation"
 files[] = wetkit_migrate.module
 files[] = default_content.inc
 files[] = web_usability.inc

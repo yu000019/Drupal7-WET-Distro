@@ -11,6 +11,22 @@ function wetkit_migrate_migrate_api() {
   return $api;
 }
 
+function wetkit_migrate_init() {
+  //For Migrated Documentation
+  if (variable_get('features_set', 1) == 1) {
+    global $theme;
+    db_query('UPDATE {block} SET region = :region, status = :status WHERE module = :module AND theme = :theme AND delta = :delta', 
+         array( ':region' => 'sidebar_first', 
+                ':status' => '1', 
+                ':module' => 'menu',
+                ':theme' => $theme,
+                ':delta' => 'menu-documentation'));
+    drupal_flush_all_caches();
+    features_revert();
+  }
+  variable_set('features_set', 0); 
+}
+
 /* Misc Helper Function(s) */
 function _fixPath($fileName) {
  //parse "/html/"

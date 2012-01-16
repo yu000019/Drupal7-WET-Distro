@@ -9,10 +9,6 @@ function wetkit_defaults_install() {
   }
 }
 
-function wetkit_defaults_uninstall() {
-
-}
-
 /**
  * Installs the default password policy for all user roles
  */
@@ -25,7 +21,6 @@ function wetkit_defaults_create_password_policy() {
     'length' => 8,
     'username' => 1,
   );
-
   db_insert('password_policy')
     ->fields(array(
       'name' => 'WetKit',
@@ -36,10 +31,8 @@ function wetkit_defaults_create_password_policy() {
       )
     )
     ->execute();
-
   // Can't be sure the user roles have installed yet, so we can't grab from the db.
   $roles = array("2", "3");
-
   foreach ($roles as $id) {
     db_insert('password_policy_role')
       ->fields(array(

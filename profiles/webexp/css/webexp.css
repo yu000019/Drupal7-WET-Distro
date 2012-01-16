@@ -1,13 +1,17 @@
-/* Token CSS Fix */
 .token-group span.expander {
   margin-left: 0px !important;
 }
 
 body.admin-menu {
-margin-top: 0px !important;
+  margin-top: 0px !important;
 }
 
 /* Temp Fix for Rules Known Error */
 div.error {
-    display: none;
+  display: none;
+}
+
+/* Fix for Block X not assigned to Block Y */
+.db-offline .absolute-messages-message {
+  display: none !important;
 }

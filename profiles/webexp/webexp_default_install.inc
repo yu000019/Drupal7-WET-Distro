@@ -20,15 +20,7 @@ function _default_setup_form() {
     '#default_value' =>  variable_get('radio_internet_intranet', 'internet'),
     '#options' => $options_site,
     '#description' => st('This option will change the default theme that will be used based on the type of site.'),
-  );
-  $form['webexp_features'] = array(
-    '#type' => 'checkboxes',
-    '#title' => st('Please select the features you will need'),
-    '#default_value' => variable_get('radio_features', array('Slider','CKEditor','Styles','Workflow Rules')),
-    '#options' => drupal_map_assoc(array(t('Slider'), t('CKEditor'), t('Styles'), t('Workflow Rules'))),
-    '#description' => st('This option will change the default theme that will be used based on the type of site.'),
-  );
-  
+  ); 
   $form[] = array(
     '#type' => 'submit',
     '#value' => st('Save and continue'),
@@ -40,7 +32,6 @@ function _default_setup_form() {
 function _default_submit_form($form, &$form_state) {
   variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
   variable_set('radio_organization', $form_state['values']['webexp_govern']);
-  variable_set('radio_features', $form_state['values']['webexp_features']);
 }
 
 function _default_run_form() {  
@@ -64,15 +55,13 @@ function _default_run_form() {
   //If Non-Government Site
   else if (variable_get('radio_organization') == 'public') 
   {
-    theme_disable(array($GLOBALS['$gov_theme_internet']));
     theme_disable(array('bartik'));
-    
     theme_enable(array($GLOBALS['$public_theme_internet']));    
     variable_set('theme_default', $GLOBALS['$public_theme_internet']);
   }
   
   //Enable Dev Modules
-  $module_list = array('devel','devel_generate','coder','coder_review','migrate','migrate_ui','migrate_extras','querypath','qpa');
+  $module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath','qpa');
   module_enable($module_list, TRUE);
   
   //Enable Workflow Modules
@@ -87,31 +76,32 @@ function _default_run_form() {
   $module_list = array('skinr','skinr_ui');
   module_enable($module_list, TRUE);
   
-  //Enable Rules Modules
-  $module_list = array('rules','rules_scheduler','rules_admin');
+  //Enable Features
+  $module_list = array('wetkit_slider');
+  module_enable($module_list, TRUE);
+
+  $module_list = array('wetkit_ckeditor');
+  module_enable($module_list, TRUE);
+
+  $module_list = array('wetkit_styles');
+  module_enable($module_list, TRUE);
+
+  $module_list = array('wetkit_workflow_rules');
   module_enable($module_list, TRUE);
   
-  //Enable Features
+  $module_list = array('wetkit_migrate');    
+  module_enable($module_list, TRUE);
+       
+  //Enable Government Specifications
   if (variable_get('radio_organization') == 'government')
   {
-    $rr = variable_get('radio_features');
-    foreach ($arr as $rr) {
-     
-    }
-
-    $module_list = array('wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules');
-    module_enable($module_list, TRUE);
-    
     //Kinda hackish but has to be run after first set
     $module_list = array($GLOBALS['$gov_web_usability']);
-    module_enable($module_list, TRUE);
-    
+    module_enable($module_list, TRUE); 
   }
+  //Enable Public Specifications
   else if (variable_get('radio_organization') == 'public')
-  {
-    $module_list = array('wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules');
-    module_enable($module_list, TRUE);
-    
+  { 
     $module_list = array($GLOBALS['$public_web_usability']);    
     module_enable($module_list, TRUE);
   }
