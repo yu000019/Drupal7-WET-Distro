@@ -42,8 +42,8 @@
   stylesheets[all][] = wetcss/wet-boew-menubar-v1.0b5/js/support/menubar/style.css
 
 ; Subtheme THEME-GCWU-FEGC + Federal Identity Placement Layer
-  stylesheets[all][] = wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/css/framework-responsive-theme-gcwu-fegc.css
-  ;stylesheets[all][] = wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/css/framework-static-theme-gcwu-fegc.css
+  ;stylesheets[all][] = wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/css/framework-responsive-theme-gcwu-fegc.css
+  stylesheets[all][] = wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/css/framework-static-theme-gcwu-fegc.css
   stylesheets[all][] = wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/css/theme-gcwu-fegc.css
   stylesheets-conditional[IE 8][all][] = wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/css/theme-gcwu-fegc-ie8.css
   stylesheets-conditional[IE 7][all][] = wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/css/theme-gcwu-fegc-ie7.css

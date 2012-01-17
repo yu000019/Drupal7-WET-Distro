@@ -358,3 +358,17 @@
 	#cn-body-inner-2col #cn-cols .grid-12 .span-4 .calendar-month td,#cn-body-inner-2col #cn-cols .grid-12 .span-4 .calendar-month th{width:26px;height:32px;padding:2px 3px;}
 	.grid-12 .span-3 .calendar-month td,.grid-12 .span-3 .calendar-month th{width:26px;height:32px;padding:2px 3px;}
 }
+
+@media only screen and (min-width:1200px) {
+  .tabs-style-7 {width:1200px;}
+  .tabs-style-7 .tabs-panel{width:970px; }
+  .tabs-style-7 img{width:970px;}
+  .tabs-style-7 .tabs-content-pad{width:955px;}
+}
+
+@media only screen and (max-width:959px) {
+  .tabs-style-7 {width:768px;}
+  .tabs-style-7 .tabs-panel{width:538px; }
+  .tabs-style-7 img{width:538px;}
+  .tabs-style-7 .tabs-content-pad{width:523px;}
+}
