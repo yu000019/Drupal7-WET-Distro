@@ -12,12 +12,6 @@ function nodequeue_schema() {
   $schema['nodequeue_queue'] = array(
     'description' => 'Base table for queues, storing global information for each queue',
     'fields' => array(
-      'qid' => array(
-        'description' => 'The primary identifier for a queue.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE
-      ),
       'name' => array(
         'description' => 'The machine name for the queue.',
         'type' => 'varchar',
@@ -92,20 +86,15 @@ function nodequeue_schema() {
         'default' => 1,
       ),
     ), // fields
-    'primary key' => array('qid'),
-    'unique keys' => array(
-      'name' => array('name'),
-    ),
+    'primary key' => array('name'),
   ); // nodequeue_queue.
   $schema['nodequeue_roles'] = array(
     'description' => 'Defines the roles which are allowed to use a particular nodequeue.',
     'fields' => array(
-      'qid' => array(
-        'description' => 'Primary key for {nodequeue_queue}',
-        'type' => 'int',
-        'size' => 'big',
-        'unsigned' => TRUE,
-        'not null' => TRUE
+      'name' => array(
+        'description' => 'The machine name for the queue.',
+        'type' => 'varchar',
+        'length' => 128,
       ),
       'rid' => array(
         'description' => 'Primary key for roles',
@@ -116,19 +105,17 @@ function nodequeue_schema() {
       ),
     ), // fields
     'indexes' => array(
-      'qid' => array('qid'),
+      'name' => array('name'),
       'rid' => array('rid'),
     ), // indexes
   ); // nodequeue_roles
   $schema['nodequeue_types'] = array(
     'description' => 'Defines the node types which are allowed in each queue',
     'fields' => array(
-      'qid' => array(
-        'description' => 'Primary key for {nodequeue_queue}',
-        'type' => 'int',
-        'size' => 'big',
-        'unsigned' => TRUE,
-        'not null' => TRUE
+      'name' => array(
+        'description' => 'The machine name for the queue.',
+        'type' => 'varchar',
+        'length' => 128,
       ),
       'type' => array(
         'description' => 'Node Type',
@@ -138,7 +125,7 @@ function nodequeue_schema() {
       ),
     ), // fields
     'indexes' => array(
-      'qid' => array('qid'),
+      'name' => array('name'),
       'type' => array('type'),
     ), // indexes
   ); // nodequeue_types
@@ -156,11 +143,10 @@ function nodequeue_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-      'qid' => array(
-        'description' => 'Queue identifier.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
+      'name' => array(
+        'description' => 'The machine name for the queue.',
+        'type' => 'varchar',
+        'length' => 128,
       ),
       'reference' => array(
         'description' => '',
@@ -179,7 +165,7 @@ function nodequeue_schema() {
     ), // fields
     'primary key' => array('sqid'),
     'indexes' => array(
-      'qid' => array('qid'),
+      'name' => array('name'),
       'reference' => array('reference'),
       'title' => array('title'),
     ), // indexes
@@ -188,11 +174,10 @@ function nodequeue_schema() {
   $schema['nodequeue_nodes'] = array(
     'description' => 'Indicates which nodes are in which queues/subqueues.',
     'fields' => array(
-      'qid' => array(
-        'description' => 'Queue id',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
+      'name' => array(
+        'description' => 'The machine name for the queue.',
+        'type' => 'varchar',
+        'length' => 128,
       ),
       'sqid' => array(
         'description' => 'Subqueue this node is in',
@@ -223,7 +208,7 @@ function nodequeue_schema() {
     'indexes' => array(
       'sqid' => array('sqid', 'position'),
       'nid' => array('nid'),
-      'qid_nid' => array('qid', 'nid'),
+      'name_nid' => array('name', 'nid'),
     ), // indexes
   ); // nodequeue_nodes
 
@@ -412,5 +397,94 @@ function nodequeue_update_7201() {
         ->condition('qid', $queue->qid)
         ->execute();
     }
+  }
+}
+
+/**
+ * Remove qid fields and adjust keys and indexes to use machine name.
+ */
+function nodequeue_update_7300() {
+  $name_field = array(
+    'description' => 'The machine name for the queue.',
+    'type' => 'varchar',
+    'length' => 128,
+  );
+
+  // Get an array map of qid/name values before deleting qid field from
+  // nodequeue_queue table.
+  $queues = db_select('nodequeue_queue', 'nq')
+    ->fields('nq', array('qid', 'name'))
+    ->execute()
+    ->fetchAllKeyed(0, 1);
+
+  // Changes to noqueue_queue table.
+  // Change qid from serial to int first, otherwise removing the primary key
+  // isn't possible.
+  db_change_field('nodequeue_queue', 'qid', 'qid', array(
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+  ));
+  db_drop_primary_key('nodequeue_queue');
+  db_drop_unique_key('nodequeue_queue', 'name');
+  db_add_primary_key('nodequeue_queue', array('name'));
+  db_drop_field('nodequeue_queue', 'qid');
+
+  // Changes to nodequeue_roles table.
+  db_drop_index('nodequeue_roles', 'qid');
+  db_add_field('nodequeue_roles', 'name', $name_field);
+  nodequeue_update_populate_name_field('nodequeue_roles', $queues);
+  db_drop_field('nodequeue_roles', 'qid');
+  db_add_index('nodequeue_roles', 'name', array('name'));
+
+  // Changes to nodequeue_types table.
+  db_drop_index('nodequeue_types', 'qid');
+  db_add_field('nodequeue_types', 'name', $name_field);
+  nodequeue_update_populate_name_field('nodequeue_types', $queues);
+  db_drop_field('nodequeue_types', 'qid');
+  db_add_index('nodequeue_types', 'name', array('name'));
+
+  // Changes to nodequeue_subqueue table.
+  db_drop_index('nodequeue_subqueue', 'qid');
+  db_add_field('nodequeue_subqueue', 'name', $name_field);
+  nodequeue_update_populate_name_field('nodequeue_subqueue', $queues);
+  db_drop_field('nodequeue_subqueue', 'qid');
+  db_add_index('nodequeue_subqueue', 'name', array('name'));
+
+  // Changes to nodequeue_nodes table.
+  db_drop_index('nodequeue_nodes', 'qid_nid');
+  db_add_field('nodequeue_nodes', 'name', $name_field);
+  nodequeue_update_populate_name_field('nodequeue_nodes', $queues);
+  db_drop_field('nodequeue_nodes', 'qid');
+  db_add_index('nodequeue_nodes', 'name_nid', array('name', 'nid'));
+
+  // Upgrade smartqueue table here, to avoid problems, since qid is removed from
+  // nodequeue_queue table, we can't map qids to names after this update
+  // function is ran.
+  if (db_table_exists('smartqueue')) {
+    // Change qid from serial to int first, otherwise removing the primary key
+    // isn't possible.
+    db_change_field('smartqueue', 'qid', 'qid', array(
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+    ));
+    db_add_field('smartqueue', 'name', $name_field);
+    nodequeue_update_populate_name_field('smartqueue', $queues);
+    db_drop_primary_key('smartqueue');
+    db_add_primary_key('smartqueue', array('name'));
+    db_drop_field('smartqueue', 'qid');
+  }
+}
+
+/**
+ * Helper function for populating a name field.
+ */
+function nodequeue_update_populate_name_field($table, $queues) {
+  foreach ($queues as $qid => $name) {
+    db_update($table)
+      ->fields(array('name' => $name))
+      ->condition('qid', $qid)
+      ->execute();
   }
 }

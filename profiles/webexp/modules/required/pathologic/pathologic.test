@@ -30,7 +30,7 @@ class PathologicTestCase extends DrupalWebTestCase {
     $filter->callback = '_pathologic';
     $filter->settings = array(
       'absolute' => TRUE,
-      'host_names' => '',
+      'local_paths' => '',
     );
     $filter->format = 0;
 
@@ -116,7 +116,7 @@ class PathologicTestCase extends DrupalWebTestCase {
     // Test internal: and also considered local
     $filter->settings = array(
       'absolute' => TRUE,
-      'local_paths' => "example.com\nexample.org",
+      'local_paths' => "http://example.com/qux\nexample.org\/bananas",
     );
     $filter->format++;
     $this->assertEqual(
@@ -130,8 +130,8 @@ class PathologicTestCase extends DrupalWebTestCase {
       t('Path Filter compatibility (files:)')
     );
     $this->assertEqual(
-      _pathologic_filter('<a href="http://example.com/foo"><img src="http://example.org/bar.jpeg" /></a>', $filter, NULL, 'und', NULL, NULL),
-      '<a href="' . url('foo', array('absolute' => TRUE)) . '"><img src="' . url('bar.jpeg', array('absolute' => TRUE)) . '" /></a>',
+      _pathologic_filter('<a href="http://example.com/qux/foo"><img src="http://example.org/bar.jpeg" longdesc="/bananas/baz" /></a>', $filter, NULL, 'und', NULL, NULL),
+      '<a href="' . url('foo', array('absolute' => TRUE)) . '"><img src="' . url('bar.jpeg', array('absolute' => TRUE)) . '" longdesc="' . url('baz', array('absolute' => TRUE)) . '" /></a>',
       t('"Also considered local" paths')
     );
     $this->assertEqual(

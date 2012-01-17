@@ -51,12 +51,13 @@ function ckeditor_link_ckeditor_link_menu_revert($path, &$langcode) {
   }
 
   $router_item = menu_get_item($path);
-  if ($router_item && $router_item['access']) {
+  if ($router_item) {
+    if (!$router_item['access']) {
+      return FALSE;
+    }
     $link_title = db_query("SELECT link_title FROM {menu_links} WHERE link_path = :link_path AND hidden = 0 ORDER BY customized DESC", array(':link_path' => $path))->fetchField();
     return ($link_title) ? $link_title : NULL;
   }
-
-  return FALSE;
 }
 
 /**

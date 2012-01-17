@@ -19,6 +19,10 @@ function rubik_css_alter(&$css) {
   if (isset($css['modules/shortcut/shortcut.css'])) {
     $css['modules/shortcut/shortcut.css']['data'] = drupal_get_path('theme', 'rubik') . '/shortcut.css';
   }
+  // This can be removed once http://drupal.org/node/1221560 is released
+  if (isset($css['sites/all/modules/views/css/views-admin.rubik.css'])) {
+    $css['sites/all/modules/views/css/views-admin.rubik.css']['data'] = drupal_get_path('theme', 'rubik') . '/views-admin.rubik.css';
+  }
 }
 
 /**
@@ -519,7 +523,7 @@ function rubik_render_clone($elements) {
  * Helper function to submitted info theming functions.
  */
 function _rubik_submitted($node) {
-  $byline = t('Posted by !username', array('!username' => theme('username', array('name' => $node))));
+  $byline = t('Posted by !username', array('!username' => theme('username', array('account' => $node))));
   $date = format_date($node->created, 'small');
   return "<div class='byline'>{$byline}</div><div class='date'>$date</div>";
 }
@@ -544,7 +548,7 @@ function _rubik_icon_classes($path) {
 }
 
 function _rubik_local_tasks(&$vars) {
-  if (!empty($vars['secondary_local_tasks'])) {
+  if (!empty($vars['secondary_local_tasks']) && is_array($vars['primary_local_tasks'])) {
     foreach ($vars['primary_local_tasks'] as $key => $element) {
       if (!empty($element['#active'])) {
         $vars['primary_local_tasks'][$key] = $vars['primary_local_tasks'][$key] + $vars['secondary_local_tasks'];

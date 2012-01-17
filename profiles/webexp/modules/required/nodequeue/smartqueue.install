@@ -12,11 +12,10 @@ function smartqueue_schema() {
   $schema['smartqueue'] = array(
     'description' => 'Table for smartqueues, storing global information for each queue.',
     'fields' => array(
-      'qid' => array(
-        'description' => 'The primary identifier for a queue.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE
+      'name' => array(
+        'description' => 'The machine name for the queue.',
+        'type' => 'varchar',
+        'length' => 128,
       ),
       'use_parents' => array(
         'description' => "Whether a queue is to use the terms' parents when displaying the queue selection.",
@@ -25,7 +24,7 @@ function smartqueue_schema() {
         'default' => 0,
       ),
     ),
-    'primary key' => array('qid'),
+    'primary key' => array('name'),
   );
 
   return $schema;

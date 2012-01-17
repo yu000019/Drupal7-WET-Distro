@@ -48,7 +48,7 @@ function smartqueue_taxonomy_nodequeue_form($queue, &$form) {
 
   // Fields can be selected just when creating new taxonomy smartqueue.
   // Disable it after that.
-  if (!empty($queue->qid)) {
+  if (!$queue->new) {
     $form['placeholder']['taxonomy_fields']['#disabled'] = TRUE;
     $form['placeholder']['taxonomy_fields']['#default_value'] = explode('-', $queue->reference);
   }
@@ -58,7 +58,7 @@ function smartqueue_taxonomy_nodequeue_form($queue, &$form) {
  * Implements hook_nodequeue_form_validate().
  */
 function smartqueue_taxonomy_nodequeue_form_validate($queue, &$form_state, &$form) {
-  if (!isset($queue->qid)) {
+  if ($queue->new) {
     $field_names = array_keys(array_filter($form_state['values']['taxonomy_fields']));
     if (empty($field_names)) {
       form_error($form['placeholder']['taxonomy_fields'], t('You must select at least one field.'));
@@ -73,27 +73,20 @@ function smartqueue_taxonomy_nodequeue_form_validate($queue, &$form_state, &$for
  * Implements hook_nodequeue_form_submit_finish().
  */
 function smartqueue_taxonomy_nodequeue_form_submit_finish($queue, $form_state) {
-  // Check if queue already exists.
-  $qid = db_select('smartqueue', 's')
-    ->fields('s', array('qid'))
-    ->condition('qid', $queue->qid)
-    ->execute()
-    ->fetchField();
-
-  if ($qid) {
+  if (!$queue->new) {
     // Update existing queue.
     db_update('smartqueue')
       ->fields(array(
         'use_parents' => $form_state['values']['use_parents'],
       ))
-      ->condition('qid', $queue->qid)
+      ->condition('name', $queue->name)
       ->execute();
   }
   else {
     // Insert new queue.
     db_insert('smartqueue')
       ->fields(array(
-        'qid' => $queue->qid,
+        'name' => $queue->name,
         'use_parents' => $form_state['values']['use_parents'],
       ))
       ->execute();
@@ -150,7 +143,7 @@ function smartqueue_taxonomy_nodequeue_subqueues(&$queue, $node) {
   // to check to see if the references we've generated exist. If they don't,
   // we have to create them.
   $exists = array();
-  $subqueues = nodequeue_load_subqueues_by_reference(array($queue->qid => $references));
+  $subqueues = nodequeue_load_subqueues_by_reference(array($queue->name => $references));
   foreach ($subqueues as $subqueue) {
     $exists[$subqueue->reference] = TRUE;
   }
@@ -171,10 +164,10 @@ function smartqueue_taxonomy_nodequeue_subqueues(&$queue, $node) {
 function smartqueue_nodequeue_alter(&$data, $type) {
   switch ($type) {
     case 'load_queues':
-      $qids = array_keys($data);
-      $result = db_query("SELECT qid, use_parents FROM {smartqueue} WHERE qid IN (:qids)", array(':qids' => $qids));
+      $queues = array_keys($data);
+      $result = db_query("SELECT name, use_parents FROM {smartqueue} WHERE name IN (:queues)", array(':queues' => $queues));
       foreach ($result as $queue) {
-        $data[$queue->qid]->use_parents = $queue->use_parents;
+        $data[$queue->name]->use_parents = $queue->use_parents;
       }
       break;
   }
@@ -233,7 +226,7 @@ function smartqueue_taxonomy_term_update($term) {
   $result = db_query(
     "SELECT nq.reference AS reference, sq.reference AS sqref, sq.sqid
     FROM {nodequeue_queue} nq
-    INNER JOIN {nodequeue_subqueue} sq ON nq.qid = sq.qid
+    INNER JOIN {nodequeue_subqueue} sq ON nq.name = sq.name
     WHERE nq.owner = 'smartqueue_taxonomy'
     AND (sq.reference = ?
       OR sq.reference LIKE ?
@@ -258,7 +251,7 @@ function smartqueue_taxonomy_term_delete($term) {
   // Find subqueues that contain this term.
   $result = db_query(
     "SELECT sq.sqid FROM {nodequeue_subqueue} sq
-    INNER JOIN {nodequeue_queue} nq ON sq.qid = nq.qid
+    INNER JOIN {nodequeue_queue} nq ON sq.name = nq.name
     WHERE nq.owner = 'smartqueue_taxonomy'
     AND (sq.reference = ?
       OR sq.reference LIKE ?

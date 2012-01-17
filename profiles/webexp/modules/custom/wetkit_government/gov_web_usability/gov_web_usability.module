@@ -140,8 +140,8 @@ function gov_web_usability_init(){
   //Temporary Statement to run commands below one time
   if (variable_get('views_temp', 1) == 1) {
     //Update Certain Regions
-    db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_clf' AND delta = 'headlines_front_page-block'"); 
-    db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_clf_intranet' AND delta = 'headlines_front_page-block'");
+    //db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_clf' AND delta = 'headlines_front_page-block'"); 
+    //db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_clf_intranet' AND delta = 'headlines_front_page-block'");
     
     //Slider Additions
     if (module_exists('wetkit_slider'))
@@ -224,7 +224,7 @@ function gov_web_usability_init(){
       node_save($node);
       
       //Add the slider block to region
-      db_query("UPDATE {block} SET region = 'slideshow', status = '1' WHERE module = 'views' AND theme = 'genesis_clf' AND delta = 'slider-block'"); 
+      //db_query("UPDATE {block} SET region = 'slideshow', status = '1' WHERE module = 'views' AND theme = 'genesis_clf' AND delta = 'slider-block'"); 
     }
         
     //Add the Default Blocks

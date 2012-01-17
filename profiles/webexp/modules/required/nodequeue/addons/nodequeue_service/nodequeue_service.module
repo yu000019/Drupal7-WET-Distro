@@ -30,7 +30,7 @@ function nodequeue_service_service() {
       '#access callback' => 'nodequeue_service_get_nodequeues_access',
       '#file' => array('file' => 'inc', 'module' => 'nodequeue_service'),
       '#return'   => 'struct',
-      '#help'     => t('Returns a keyed array by qid of available nodequeues and their settings.')
+      '#help'     => t('Returns a keyed array by name of available nodequeues and their settings.')
     ),
     array(
       '#method'   => 'nodequeue.getSubQueues',
@@ -39,7 +39,7 @@ function nodequeue_service_service() {
       '#file' => array('file' => 'inc', 'module' => 'nodequeue_service'),
       '#args'             => array(
         array(
-          '#name' => 'qid',
+          '#name' => 'name',
           '#type' => 'int',
           '#description' => t('A parent nodequeue queue ID.'),
         ),

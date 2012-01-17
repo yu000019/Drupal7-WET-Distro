@@ -5,9 +5,9 @@ package = "Input filters"
 core = 7.x
 files[] = pathologic.module
 files[] = pathologic.test
-; Information added by drupal.org packaging script on 2011-12-27
-version = "7.x-2.x-dev"
+; Information added by drupal.org packaging script on 2011-12-31
+version = "7.x-2.0-beta1"
 core = "7.x"
 project = "pathologic"
-datestamp = "1324988930"
+datestamp = "1325344843"
 

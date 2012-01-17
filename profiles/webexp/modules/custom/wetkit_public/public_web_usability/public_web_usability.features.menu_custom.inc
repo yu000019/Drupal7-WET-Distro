@@ -26,14 +26,6 @@ function public_web_usability_menu_default_menu_custom() {
     'language' => 'und',
     'i18n_mode' => '5',
   );
-  // Exported menu: menu-wet-stayconnected
-  $menus['menu-wet-stayconnected'] = array(
-    'menu_name' => 'menu-wet-stayconnected',
-    'title' => 'WET: Stay Connected',
-    'description' => 'Stay Connected Section for Web Experience Toolkit',
-    'language' => 'und',
-    'i18n_mode' => '5',
-  );
   // Exported menu: menu-wet-contactus
   $menus['menu-wet-contactus'] = array(
     'menu_name' => 'menu-wet-contactus',
@@ -66,6 +58,14 @@ function public_web_usability_menu_default_menu_custom() {
     'language' => 'und',
     'i18n_mode' => '5',
   );
+  // Exported menu: menu-wet-stayconnected
+  $menus['menu-wet-stayconnected'] = array(
+    'menu_name' => 'menu-wet-stayconnected',
+    'title' => 'WET: Stay Connected',
+    'description' => 'Stay Connected Section for Web Experience Toolkit',
+    'language' => 'und',
+    'i18n_mode' => '5',
+  );
   // Exported menu: menu-wet-terms
   $menus['menu-wet-terms'] = array(
     'menu_name' => 'menu-wet-terms',
@@ -76,22 +76,23 @@ function public_web_usability_menu_default_menu_custom() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('WET: About Us');
-  t('WET: Contact Us');
-  t('WET: News');
-  t('WET: Stay Connected');
-  t('WET: Terms');
-  t('WET: Footer');
-  t('WET: Header');
-  t('WET: Mega Menu');
-  t('The <em>Main</em> megamenu for Web Experience Toolkit');
   t('About Us Section for Web Experience Toolkit');
-  t('Stay Connected Section for Web Experience Toolkit');
   t('Contact Us Section for Web Experience Toolkit');
   t('Footer Section for Web Experience Toolkit');
   t('Header Section for Web Experience Toolkit');
   t('News Section for Web Experience Toolkit');
+  t('Stay Connected Section for Web Experience Toolkit');
   t('Terms Section for Web Experience Toolkit');
-  
+  t('The <em>Main</em> megamenu for Web Experience Toolkit');
+  t('WET: About Us');
+  t('WET: Contact Us');
+  t('WET: Footer');
+  t('WET: Header');
+  t('WET: Mega Menu');
+  t('WET: News');
+  t('WET: Stay Connected');
+  t('WET: Terms');
+
+
   return $menus;
 }

@@ -136,7 +136,7 @@ function public_web_usability_init(){
    //Temporary If Statement to run commands below one time
   if (variable_get('views_temp', 1) == 1) {
     //Update Certain Regions
-    db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'headlines_front_page-block'"); 
+    //db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'headlines_front_page-block'"); 
     //db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_public_intranet' AND delta = 'headlines_front_page-block'");
     
     //Slider Additions
@@ -190,7 +190,7 @@ function public_web_usability_init(){
       node_save($node);
       
       //Add the slider block to region
-      db_query("UPDATE {block} SET region = 'slideshow', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'slider-block'"); 
+      //db_query("UPDATE {block} SET region = 'slideshow', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'slider-block'"); 
     }
     
     //Multilingual Variables

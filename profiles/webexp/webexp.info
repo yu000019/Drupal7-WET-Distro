@@ -85,7 +85,6 @@ dependencies[] = views_ui
 ;dependencies[] = coder
 ;dependencies[] = devel
 ;dependencies[] = devel_themer
-;dependencies[] = hacked
 ;dependencies[] = migrate
 ;dependencies[] = migrate_extras
 ;dependencies[] = querypath

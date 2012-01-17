@@ -11,22 +11,13 @@ class nodequeue_handler_relationship_nodequeue extends views_handler_relationshi
    */
   function init(&$view, &$options) {
     parent::init($view, $options);
-
-    // Tranlate an older setting which was using qids instead of machine names.
-    if (!empty($options['qids'])) {
-      $map = array_flip(nodequeue_get_qid_map());
-      foreach ($options['qids'] as $key => $value) {
-        $this->options['names'][$map[$key]] = ($value) ? $map[$key] : 0;
-      }
-      unset($this->options['qids']);
-    }
   }
 
   function option_definition() {
     $options = parent::option_definition();
 
     $options['limit']['default'] = FALSE;
-    $options['names']['default'] = array();
+    $options['queues']['default'] = array();
     return $options;
   }
 
@@ -44,18 +35,18 @@ class nodequeue_handler_relationship_nodequeue extends views_handler_relationshi
     );
 
     $options = array();
-    $queues = nodequeue_load_queues(nodequeue_get_all_qids(0, 0, TRUE), TRUE);
+    $queues = nodequeue_load_queues(nodequeue_get_all_queues(0, 0, TRUE), TRUE);
     foreach ($queues as $queue) {
       $options[$queue->name] = $queue->title;
     }
 
-    $form['names'] = array(
-      '#prefix' => '<div><div id="edit-options-names">',
+    $form['queues'] = array(
+      '#prefix' => '<div><div id="edit-options-queues">',
       '#suffix' => '</div></div>',
       '#type' => 'checkboxes',
       '#title' => t('Queues'),
       '#options' => $options,
-      '#default_value' => $this->options['names'],
+      '#default_value' => $this->options['queues'],
       '#process' => array('form_process_checkboxes', 'ctools_dependent_process'),
       '#dependency' => array('edit-options-limit' => array(TRUE)),
     );
@@ -79,18 +70,11 @@ class nodequeue_handler_relationship_nodequeue extends views_handler_relationshi
     }
 
     if (!empty($this->options['limit'])) {
-      $names = array_keys(array_filter($this->options['names']));
-      $qids = array();
-      $map = nodequeue_get_qid_map();
-      foreach ($names as $name) {
-        if (isset($map[$name])) {
-          $qids[] = $map[$name];
-        }
-      }
+      $queues = array_keys(array_filter($this->options['queues']));
 
       $join->definition['extra'] = array(array(
-        'field' => 'qid',
-        'value' => $qids,
+        'field' => 'name',
+        'value' => $queues,
       ));
     }
 

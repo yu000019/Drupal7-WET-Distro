@@ -4,9 +4,9 @@ package = Other
 core = 7.x
 configure = admin/config/system/absolute_messages
 
-; Information added by drupal.org packaging script on 2012-01-13
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2012-01-17
+version = "7.x-1.2"
 core = "7.x"
 project = "absolute_messages"
-datestamp = "1326456049"
+datestamp = "1326805837"
 

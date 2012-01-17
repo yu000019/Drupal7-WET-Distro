@@ -53,7 +53,10 @@ function ckeditor_link_ckeditor_link_i18n_menu_autocomplete($string) {
  */
 function ckeditor_link_ckeditor_link_i18n_menu_revert($path, &$langcode) {
   $router_item = menu_get_item($path);
-  if ($router_item && $router_item['access']) {
+  if ($router_item) {
+    if (!$router_item['access']) {
+      return FALSE;
+    }
     $result = db_query('SELECT mlid, link_title, language FROM {menu_links} WHERE link_path = :link_path AND hidden = 0 ORDER BY customized DESC', array(':link_path' => $path));
     $default_langcode = language_default('language');
     $link_title = NULL;
@@ -73,6 +76,4 @@ function ckeditor_link_ckeditor_link_i18n_menu_revert($path, &$langcode) {
     }
     return ($link_title) ? $link_title : NULL;
   }
-
-  return FALSE;
 }

@@ -7,17 +7,6 @@
  */
 
 /**
- * Implementation of hook_init().
- */
-function ckeditor_link_init() {
-  if (!variable_get('clean_url', 0)) {
-    module_disable(array('ckeditor_link'));
-    menu_rebuild();
-    drupal_set_message(t('<em>CKEditor Link</em> has been disabled. <a href="!url">Clean URLs</a> need to be enabled for this module to work properly.', array('!url' => url('admin/config/search/clean-urls'))), 'warning');
-  }
-}
-
-/**
  * Implementation of hook_permission().
  */
 function ckeditor_link_permission() {
@@ -162,19 +151,34 @@ function ckeditor_link_ckeditor_link_types() {
 }
 
 /**
- * Implementation of hook_form_alter().
+ * Implementation of hook_element_info_alter().
  */
-function ckeditor_link_form_alter(&$form, &$form_state) {
+function ckeditor_link_element_info_alter(&$type) {
   if (user_access('access ckeditor link')) {
-    $form['#after_build'][] = 'ckeditor_link_process_form';
+    $type['text_format']['#pre_render'][] = 'ckeditor_link_text_format_pre_render';
+    $type['form']['#post_render'][] = 'ckeditor_link_form_post_render';
   }
 }
 
-function ckeditor_link_process_form(&$form, &$form_state) {
-  static $added = FALSE;
-  if (!$added && ($js = drupal_add_js()) && isset($js['settings']['data'])) {
+function ckeditor_link_text_format_pre_render($element) {
+  _ckeditor_link_has_text_format(TRUE);
+  return $element;
+}
+
+function _ckeditor_link_has_text_format($set = FALSE) {
+  static $has = FALSE;
+  if (!$set) {
+    return $has;
+  }
+  $has = TRUE;
+}
+
+function ckeditor_link_form_post_render($content, $element) {
+  static $added;
+  if (!isset($added) && _ckeditor_link_has_text_format() && ($js = drupal_add_js()) && isset($js['settings']['data'])) {
     $settings = call_user_func_array('array_merge_recursive', $js['settings']['data']);
     if (isset($settings['ckeditor']) || isset($settings['wysiwyg']['configs']['ckeditor'])) {
+      $added = TRUE;
       drupal_add_css(drupal_get_path('module', 'ckeditor_link') .'/ckeditor_link.css');
       drupal_add_js('misc/autocomplete.js');
       drupal_add_js(array('ckeditor_link' => array(
@@ -185,10 +189,9 @@ function ckeditor_link_process_form(&$form, &$form_state) {
         'type_name' => ckeditor_link_get_link_type_name(),
         'type_selected' => (bool) variable_get('ckeditor_link_type_selected', 1),
       )), 'setting');
-      $added = TRUE;
     }
   }
-  return $form;
+  return $content;
 }
 
 /**
@@ -206,7 +209,7 @@ function ckeditor_link_ckeditor_plugin() {
  * Implementation of hook_wysiwyg_plugin().
  */
 function ckeditor_link_wysiwyg_plugin($editor, $version) {
-  if (($editor == 'ckeditor') && user_access('access ckeditor link')) {
+  if ($editor == 'ckeditor') {
     return array('drupal_path' => array(
       'path' => drupal_get_path('module', 'ckeditor_link') .'/plugins/link/',
       'load' => TRUE,
@@ -239,7 +242,7 @@ function _ckeditor_link_filter_process($matches, $langcode = NULL) {
     return;
   }
 
-  $path = $matches[1];
+  $path = urldecode($matches[1]);
 
   $langcode = $stored_langcode;
   $path = ckeditor_link_path_strip_language($path, $langcode);

@@ -36,21 +36,21 @@ function nodequeue_action_info() {
  */
 function nodequeue_add_action_form($context) {
   // Default values for form.
-  if (!isset($context['qids'])) {
-    $context['qids'] = '';
+  if (!isset($context['queues'])) {
+    $context['queues'] = '';
   }
 
-  $queues = nodequeue_load_queues(nodequeue_get_all_qids(0, 0, TRUE), TRUE);
-  foreach ($queues as $qid => $queue) {
-    $options[$qid] = $queue->title;
+  $queues = nodequeue_load_queues(nodequeue_get_all_queues(0, 0, TRUE), TRUE);
+  foreach ($queues as $name => $queue) {
+    $options[$name] = $queue->title;
   }
   $form = array();
   if (count($options)) {
     // Add form components.
-    $form['qids'] = array(
+    $form['queues'] = array(
       '#type' => 'select',
       '#title' => t("Queue"),
-      '#default_value' => $context['qids'],
+      '#default_value' => $context['queues'],
       '#multiple' => TRUE,
       '#options' => $options,
       '#required' => TRUE,
@@ -68,7 +68,7 @@ function nodequeue_add_action_form($context) {
  */
 function nodequeue_add_action_submit($form, &$form_state) {
   return array(
-    'qids' => $form_state['values']['qids'],
+    'queues' => $form_state['values']['queues'],
   );
 }
 
@@ -76,25 +76,27 @@ function nodequeue_add_action_submit($form, &$form_state) {
  * Action to add a node to a queue.
  */
 function nodequeue_add_action($node, $context) {
-  $queues = nodequeue_load_queues($context['qids'], TRUE);
-  // Filter out queues by node type. We choose not to use nodequeue_get_qids() because it checks for access control which only matters if we administering a queue.
+  $queues = nodequeue_load_queues($context['queues'], TRUE);
+  // Filter out queues by node type. We choose not to use nodequeue_get_queues()
+  // because it checks for access control which only matters if we administering
+  // a queue.
   $eligible_queues = array();
   foreach ($queues as $queue) {
     if (in_array($node->type, $queue->types)) {
-      $eligible_queues[$queue->qid] = $queue;
+      $eligible_queues[$queue->name] = $queue;
     }
   }
 
   if (!empty($eligible_queues)) {
     // Remove the node from the eligible queues (if needed).
-    nodequeue_remove_action($node, array('qids' => array_keys($eligible_queues)));
+    nodequeue_remove_action($node, array('queues' => array_keys($eligible_queues)));
 
     // Use API to get the eligible subqueues
     $eligible_subqueues = nodequeue_get_subqueues_by_node($eligible_queues, $node);
 
     // Add node to each subqueue.
     foreach ($eligible_subqueues as $subqueue) {
-      nodequeue_subqueue_add($queues[$subqueue->qid], $subqueue, $node->nid);
+      nodequeue_subqueue_add($queues[$subqueue->name], $subqueue, $node->nid);
     }
   }
 }
@@ -114,25 +116,27 @@ function action_nodequeue_add($op, $edit = array(), $node) {
       break;
 
     case 'do':
-      $queues = nodequeue_load_queues($edit['qids'], TRUE);
-      // Filter out queues by node type. We choose not to use nodequeue_get_qids() because it checks for access control which only matters if we administering a queue.
+      $queues = nodequeue_load_queues($edit['queues'], TRUE);
+      // Filter out queues by node type. We choose not to use
+      // nodequeue_get_queues() because it checks for access control which only
+      // matters if we administering a queue.
       $eligible_queues = array();
       foreach ($queues as $queue) {
         if (in_array($node->type, $queue->types)) {
-          $eligible_queues[$queue->qid] = $queue;
+          $eligible_queues[$queue->name] = $queue;
         }
       }
 
       if (!empty($eligible_queues)) {
         // Remove the node from the eligible queues (if needed).
-        action_nodequeue_remove('do', array('qids' => array_keys($eligible_queues)), $node);
+        action_nodequeue_remove('do', array('queues' => array_keys($eligible_queues)), $node);
 
         // Use API to get the eligible subqueues
         $eligible_subqueues = nodequeue_get_subqueues_by_node($eligible_queues, $node);
 
         // Add node to each subqueue.
         foreach ($eligible_subqueues as $subqueue) {
-          nodequeue_subqueue_add($queues[$subqueue->qid], $subqueue, $node->nid);
+          nodequeue_subqueue_add($queues[$subqueue->name], $subqueue, $node->nid);
         }
       }
       break;
@@ -140,20 +144,20 @@ function action_nodequeue_add($op, $edit = array(), $node) {
       // return an HTML config form for the action
     case 'form':
       // default values for form
-      if (!isset($edit['qids'])) {
-        $edit['qids'] = '';
+      if (!isset($edit['queues'])) {
+        $edit['queues'] = '';
       }
-      $queues = nodequeue_load_queues(nodequeue_get_all_qids(0, 0, TRUE), TRUE);
-      foreach ($queues as $qid => $queue) {
-        $options[$qid] = $queue->title;
+      $queues = nodequeue_load_queues(nodequeue_get_all_queues(0, 0, TRUE), TRUE);
+      foreach ($queues as $name => $queue) {
+        $options[$name] = $queue->title;
       }
       $form = array();
       if (count($options)) {
         // add form components
-        $form['qids'] = array(
+        $form['queues'] = array(
           '#type' => 'select',
           '#title' => t("Queue"),
-          '#default_value' => $edit['qids'],
+          '#default_value' => $edit['queues'],
           '#multiple' => TRUE,
           '#options' => $options,
           '#required' => TRUE,
@@ -170,7 +174,7 @@ function action_nodequeue_add($op, $edit = array(), $node) {
       // process the HTML form to store configuration
     case 'submit':
       $params = array(
-        'qids' => $edit['qids']
+        'queues' => $edit['queues']
       );
       return $params;
       break;
@@ -182,20 +186,20 @@ function action_nodequeue_add($op, $edit = array(), $node) {
  */
 function nodequeue_remove_action_form($context) {
   // Default values for form.
-  if (!isset($context['qids'])) {
-    $context['qids'] = array();
+  if (!isset($context['queues'])) {
+    $context['queues'] = array();
   }
 
-  $queues = nodequeue_load_queues(nodequeue_get_all_qids(0, 0, TRUE), TRUE);
-  foreach ($queues as $qid => $queue) {
-    $options[$qid] = $queue->title;
+  $queues = nodequeue_load_queues(nodequeue_get_all_queues(0, 0, TRUE), TRUE);
+  foreach ($queues as $name => $queue) {
+    $options[$name] = $queue->title;
   }
 
   // Add form components.
-  $form['qids'] = array(
+  $form['queues'] = array(
     '#type' => 'select',
     '#title' => t("Queues"),
-    '#default_value' => $context['qids'],
+    '#default_value' => $context['queues'],
     '#multiple' => TRUE,
     '#decription' => t('Specify the queues from which the node should be removed. If the queue is a smartqueue, the node shall be removed from all subqueues.'),
     '#required' => TRUE,
@@ -209,18 +213,18 @@ function nodequeue_remove_action_form($context) {
  */
 function nodequeue_remove_action_submit($form, &$form_state) {
   return array(
-    'qids' => $form_state['values']['qids'],
+    'queues' => $form_state['values']['queues'],
   );
 }
 
 function nodequeue_remove_action($node, $context) {
-  $qids = $context['qids'];
+  $queues = $context['queues'];
   // If a node is being deleted, ensure it's also removed from any queues.
-  $args = $qids;
+  $args = $queues;
   $result = db_select('nodequeue_nodes', 'n')
     ->fields('n')
     ->condition('nid', $node->nid)
-    ->condition('qid', $args)
+    ->condition('name', $args)
     ->execute()
     ->fetchAll();
 
@@ -246,13 +250,13 @@ function action_nodequeue_remove($op, $edit = array(), $node) {
       break;
 
     case 'do':
-      $qids = $edit['qids'];
+      $queues = $edit['queues'];
       // If a node is being deleted, ensure it's also removed from any queues.
-      $args = $qids;
+      $args = $queues;
       $result = db_select('nodequeue_nodes', 'n')
         ->fields('n')
         ->condition('nid', $node->nid)
-        ->condition('qid', $args)
+        ->condition('name', $args)
         ->execute()
         ->fetchAll();
 
@@ -266,20 +270,20 @@ function action_nodequeue_remove($op, $edit = array(), $node) {
       // return an HTML config form for the action
     case 'form':
       // default values for form
-      if (!isset($edit['qids'])) {
-        $edit['qids'] = array();
+      if (!isset($edit['queues'])) {
+        $edit['queues'] = array();
       }
 
-      $queues = nodequeue_load_queues(nodequeue_get_all_qids(0, 0, TRUE), TRUE);
-      foreach ($queues as $qid => $queue) {
-        $options[$qid] = $queue->title;
+      $queues = nodequeue_load_queues(nodequeue_get_all_queues(0, 0, TRUE), TRUE);
+      foreach ($queues as $name => $queue) {
+        $options[$name] = $queue->title;
       }
 
       // add form components
-      $form['qids'] = array(
+      $form['queues'] = array(
         '#type' => 'select',
         '#title' => t("Queues"),
-        '#default_value' => $edit['qids'],
+        '#default_value' => $edit['queues'],
         '#multiple' => TRUE,
         '#decription' => t('Specify the queues from which the node should be removed. If the queue is a smartqueue, the node shall be removed from all subqueues.'),
         '#required' => TRUE,
@@ -293,7 +297,7 @@ function action_nodequeue_remove($op, $edit = array(), $node) {
       // process the HTML form to store configuration
     case 'submit':
       $params = array(
-        'qids' => $edit['qids']
+        'queues' => $edit['queues']
       );
       return $params;
       break;

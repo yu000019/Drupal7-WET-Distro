@@ -68,7 +68,7 @@
 
     init: function(editor, pluginPath) {
       CKEDITOR.on('dialogDefinition', function(e) {
-        if ((e.editor != editor) || (e.data.name != 'link')) return;
+        if ((e.editor != editor) || (e.data.name != 'link') || !Drupal.settings.ckeditor_link) return;
 
         // Overrides definition.
         var definition = e.data.definition;

@@ -15,20 +15,28 @@ class nodequeue_handler_field_all_subqueues extends nodequeue_handler_field_all_
       }
 
       if ($nids) {
-        $queue = '';
-        if (!empty($this->options['limit']) && !empty($this->options['qids'])) {
-          $queue = " AND nn.qid IN (" . implode(', ', array_keys(array_filter($this->options['qids']))) . ")";
+        $query = db_select('nodequeue_nodes', 'nn');
+        $query->innerJoin('nodequeue_queue', 'nq', 'nn.name = nq.name');
+        $query->innerJoin('nodequeue_subqueue', 'ns', 'nn.sqid = ns.sqid');
+        $query->fields('nn', array('nid', 'sqid', 'name'));
+        $query->fields('nq', array('subqueue_title'));
+        $query->fields('ns', array('title'));
+        $query->orderby('ns.title');
+        $query->orderby('nq.subqueue_title');
+        $query->condition('nn.nid', $nids);
+        $queues = array_filter($this->options['queues']);
+        if (!empty($this->options['limit']) && !empty($queues)) {
+          $query->condition('nn.name', $queues);
         }
-
-        $result = db_query("SELECT nn.nid, nn.sqid, nn.qid, nq.subqueue_title, ns.title FROM {nodequeue_nodes} nn INNER JOIN {nodequeue_queue} nq ON nq.qid = nn.qid INNER JOIN {nodequeue_subqueue} ns on nn.sqid = ns.sqid WHERE nn.nid IN (" . implode(', ', $nids) . ")$queue ORDER BY ns.title, nq.subqueue_title");
+        $result = $query->execute();
 
         foreach ($result as $queue) {
           $title = empty($queue->subqueue_title) ? $queue->title : str_replace('%subqueue', $queue->title, $queue->subqueue_title);
-          if (empty($this->options['link_to_queue'])) {
-            $this->items[$queue->nid][$queue->sqid] = check_plain($title);
-          }
-          else {
-            $this->items[$queue->nid][$queue->sqid] = l($title, "admin/structure/nodequeue/$queue->qid/view/$queue->sqid");
+          $this->items[$queue->nid][$queue->sqid]['title'] = check_plain($title);
+
+          if (!empty($this->options['link_to_queue'])) {
+            $this->items[$queue->nid][$queue->sqid]['make_link'] = TRUE;
+            $this->items[$queue->nid][$queue->sqid]['path'] = 'admin/structure/nodequeue/' . $queue->name . '/view/' . $queue->sqid;
           }
         }
       }
