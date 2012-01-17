@@ -61,7 +61,7 @@ function _default_run_form() {
   }
   
   //Enable Dev Modules
-  $module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath','qpa');
+  $module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath');
   module_enable($module_list, TRUE);
   
   //Enable Workflow Modules

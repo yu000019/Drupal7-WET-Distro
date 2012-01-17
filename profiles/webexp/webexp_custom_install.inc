@@ -49,13 +49,6 @@ function _custom_setup_form() {
     '#options' => $options,
     '#description' => st('Modules that deal with Skinning Integration.'),
   );
-  $form['webexp_nodecontent'] = array(
-    '#type' => 'radios',
-    '#title' => st('Add Default Node Content'),
-    '#default_value' =>  variable_get('radio_nodecontent', 1),
-    '#options' => $options,
-    '#description' => st('Programmatically Created Node Content.'),
-  );
   $form['webexp_clf3'] = array(
     '#type' => 'radios',
     '#title' => st('Enable CLF3 Prototype'),
@@ -84,7 +77,6 @@ function _custom_submit_form($form, &$form_state) {
   variable_set('radio_workflow', $form_state['values']['webexp_workflow']);
   variable_set('radio_wysiwyg', $form_state['values']['webexp_wysiwyg']);
   variable_set('radio_skinr', $form_state['values']['webexp_skinr']);
-  variable_set('radio_nodecontent', $form_state['values']['webexp_nodecontent']);
   variable_set('radio_web_usability', $form_state['values']['webexp_clf3']);
   variable_set('radio_organization', $form_state['values']['webexp_govern']);
   variable_set('radio_features', $form_state['values']['webexp_features']);
@@ -119,7 +111,7 @@ function _custom_run_form() {
   //Enable Dev Modules
   if (variable_get('radio_development', 0) == 1)
   {
-    $module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath','qpa');
+    $module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath');
     module_enable($module_list, TRUE);
   }
   
@@ -193,7 +185,6 @@ function _custom_flush_vars() {
   variable_del('radio_workflow');
   variable_del('radio_wysiwyg');
   variable_del('radio_skinr');
-  variable_del('radio_nodecontent');
   variable_del('radio_web_usability');
   variable_del('radio_rules');
   variable_del('radio_internet_intranet');

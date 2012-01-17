@@ -41,12 +41,14 @@ function wetkit_i18n_init() {
     );
     $languages_obj = (object) $languages;
     variable_set('language_default', $languages_obj);
+    
     db_update('languages')
       ->fields(array(
         'prefix' => 'eng',
       ))
     ->condition('language', 'en')
     ->execute();
+    
     db_update('languages')
     ->fields(array(
       'prefix' => 'fra',
