@@ -152,3 +152,17 @@ Conditions régissant l'utilisation : http://tbs-sct.ircan.gc.ca/projects/gcwwwt
 .embedded-grid,.embedded-grid .tabs-panel{border:none;padding:0;}
 .embedded-grid .tabs{margin:0 10px 10px;}
 .span-1 .tabs,.span-2 .tabs,.span-3 .tabs,.span-4 .tabs,.span-5 .tabs,.span-6 .tabs{margin:0;}
+
+@media only screen and (min-width:1200px) {
+  .tabs-style-7 {width:1200px;}
+  .tabs-style-7 .tabs-panel{width:970px; }
+  .tabs-style-7 img{width:970px;}
+  .tabs-style-7 .tabs-content-pad{width:955px;}
+}
+
+@media only screen and (max-width:959px) {
+  .tabs-style-7 {width:768px;}
+  .tabs-style-7 .tabs-panel{width:538px; }
+  .tabs-style-7 img{width:538px;}
+  .tabs-style-7 .tabs-content-pad{width:523px;}
+}
