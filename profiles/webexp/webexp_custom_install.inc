@@ -140,7 +140,7 @@ function _custom_run_form() {
   //Enable Skinr Modules
   if (variable_get('radio_skinr', 0) == 1)
   {
-    $module_list = array('skinr','skinr_ui');
+    $module_list = array('skinr');
     module_enable($module_list, TRUE);
   }
   

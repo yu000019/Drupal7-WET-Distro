@@ -193,6 +193,7 @@ function wetkit_content_types_field_default_fields() {
             'vocabulary' => 'tags',
           ),
         ),
+        'options_list_callback' => 'i18n_taxonomy_allowed_values',
       ),
       'translatable' => '0',
       'type' => 'taxonomy_term_reference',

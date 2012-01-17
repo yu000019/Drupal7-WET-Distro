@@ -73,7 +73,7 @@ function _default_run_form() {
   module_enable($module_list, TRUE);
   
   //Enable Skinr Modules
-  $module_list = array('skinr','skinr_ui');
+  $module_list = array('skinr');
   module_enable($module_list, TRUE);
   
   //Enable Features

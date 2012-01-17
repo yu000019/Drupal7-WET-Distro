@@ -47,20 +47,5 @@ function wetkit_workflow_rules_default_rules_configuration() {
       ]
     }
   }');
-  $items['rules_scheduler_content_to_be_published'] = entity_import('rules_config', '{ "rules_scheduler_content_to_be_published" : {
-      "LABEL" : "Scheduler: Content to be published",
-      "PLUGIN" : "rule",
-      "TAGS" : [ "scheduler" ],
-      "REQUIRES" : [ "workbench_moderation" ],
-      "USES VARIABLES" : { "scheduler_node" : { "label" : "Scheduler: Node", "type" : "node", "parameter" : false } },
-      "IF" : [
-        { "contents_current_state" : { "node" : [ "scheduler-node" ], "moderation_state" : "needs_review" } }
-      ],
-      "DO" : [
-        { "workbench_moderation_set_state" : { "node" : [ "scheduler-node" ], "moderation_state" : "published" } }
-      ],
-      "PROVIDES VARIABLES" : [ "scheduler_node" ]
-    }
-  }');
   return $items;
 }

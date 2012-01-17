@@ -3,7 +3,8 @@
  * @file
  */
 
-// Drupal needs this blank file.
+include_once('wetkit_defaults.features.inc');
+
 
 function wetkit_defaults_init() {
   $module_path = drupal_get_path('module', 'wetkit');
