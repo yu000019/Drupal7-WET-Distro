@@ -10,3 +10,5 @@ sites/*/private
 
 sites/all/modules/ottu_web_usability/
 sites/all/themes/genesis_ottu/
+sites/all/modules/examples/
+sites/all/modules/potx/

@@ -14,7 +14,7 @@ function gov_web_usability_menu_default_menu_custom() {
   $menus['main-menu'] = array(
     'menu_name' => 'main-menu',
     'title' => 'WET: Mega Menu',
-    'description' => 'The <em>Main</em> megamenu for the Web Experience Toolkit',
+    'description' => 'The <em>Main</em> megamenu for Web Experience Toolkit',
     'language' => 'und',
     'i18n_mode' => '5',
   );
@@ -84,7 +84,7 @@ function gov_web_usability_menu_default_menu_custom() {
   t('WET: Footer');
   t('WET: Header');
   t('WET: Mega Menu');
-  t('The <em>Main</em> megamenu for the Web Experience Toolkit');
+  t('The <em>Main</em> megamenu for Web Experience Toolkit');
   t('About Us Section for Web Experience Toolkit');
   t('Stay Connected Section for Web Experience Toolkit');
   t('Contact Us Section for Web Experience Toolkit');

@@ -5,132 +5,114 @@
  */
 
 include_once('gov_web_usability.features.inc');
+include_once('gov_web_usability.blocks.inc');
 
 /**
 * Implements hook_install().
 */
 function gov_web_usability_install() {
-  
-  /* ADD MEGAMENU */
   //Mega Menu Depth Example EN
-  $menu_depth1 = _add_custom_menu_item_desc('<front>', 'Home', NULL, 'main-menu', 0, 'en');
-  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
-  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
-  _add_custom_menu_item_desc('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);
-  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
-  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
-  _add_custom_menu_item_desc('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);
-  
+  $menu_depth1 = _add_custom_menu('<front>', 'Home', NULL, 'main-menu', 0, 'en');
+  $menu_depth2 = _add_custom_menu('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
+  _add_custom_menu('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);
+  $menu_depth2 = _add_custom_menu('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
+  _add_custom_menu('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);
   //Mega Menu Depth Example EN
-  $menu_depth1 = _add_custom_menu_item_desc('<front>', 'Help', NULL,'main-menu', 1, 'en');
-  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
-  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
-  _add_custom_menu_item_desc('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);
-  
+  $menu_depth1 = _add_custom_menu('<front>', 'Help', NULL,'main-menu', 1, 'en');
+  $menu_depth2 = _add_custom_menu('<front>', 'menu-col', NULL, 'main-menu', 0, 'en', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu('<front>', 'Sample Title', NULL, 'main-menu', 0, 'en', 0, $menu_depth2);
+  _add_custom_menu('<front>', 'Sample Content', NULL, 'main-menu', 0, 'en', 0, $menu_depth3);  
   //Remaining Links EN
-  _add_custom_menu_item_desc('<front>', 'Contact Us', NULL, 'main-menu', 2,'en');
-  _add_custom_menu_item_desc('search', 'Search', NULL, 'main-menu', 3, 'en');
-  _add_custom_menu_item_desc('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'en');
+  _add_custom_menu('<front>', 'Contact Us', NULL, 'main-menu', 2,'en');
+  _add_custom_menu('search', 'Search', NULL, 'main-menu', 3, 'en');
+  _add_custom_menu('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'en');  
   
   //Mega Menu Depth Example FR
-  $menu_depth1 = _add_custom_menu_item_desc('<front>', 'Accueil', NULL, 'main-menu', 0, 'fr');
-  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
-  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Exemple titre', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
-  _add_custom_menu_item_desc('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3);
-  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
-  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Exemple titre', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
-  _add_custom_menu_item_desc('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3);
-  
+  $menu_depth1 = _add_custom_menu('<front>', 'Accueil', NULL, 'main-menu', 0, 'fr');
+  $menu_depth2 = _add_custom_menu('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu('<front>', 'Exemple titre', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
+  _add_custom_menu('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3);
+  $menu_depth2 = _add_custom_menu('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu('<front>', 'Exemple titre', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
+  _add_custom_menu('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3);  
   //Mega Menu Depth Example FR
-  $menu_depth1 = _add_custom_menu_item_desc('<front>', 'Aide', NULL, 'main-menu', 1, 'fr');
-  $menu_depth2 = _add_custom_menu_item_desc('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
-  $menu_depth3 = _add_custom_menu_item_desc('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
-  _add_custom_menu_item_desc('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3);
-  
+  $menu_depth1 = _add_custom_menu('<front>', 'Aide', NULL, 'main-menu', 1, 'fr');
+  $menu_depth2 = _add_custom_menu('<front>', 'menu-col', NULL, 'main-menu', 0, 'fr', 0, $menu_depth1);
+  $menu_depth3 = _add_custom_menu('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth2);
+  _add_custom_menu('<front>', 'Exemple contenu', NULL, 'main-menu', 0, 'fr', 0, $menu_depth3); 
   //Remaining Links FR
-  _add_custom_menu_item_desc('<front>', 'Nous Contacter', NULL, 'main-menu', 2, 'fr');
-  _add_custom_menu_item_desc('search', 'Recherche', NULL, 'main-menu', 3, 'fr');
-  _add_custom_menu_item_desc('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'fr');
+  _add_custom_menu('<front>', 'Nous Contacter', NULL, 'main-menu', 2, 'fr');
+  _add_custom_menu('search', 'Recherche', NULL, 'main-menu', 3, 'fr');
+  _add_custom_menu('http://www.canada.gc.ca', 'canada.gc.ca', NULL, 'main-menu', 4, 'fr');
   
   /* Add Menu Items to Gov Nav Bar */
-  _add_custom_menu_item('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', 'menu-wet-header', 'en');
-  _add_custom_menu_item('http://www.servicecanada.gc.ca/eng/home.shtml', 'Services', 'menu-wet-header', 'en');
-  _add_custom_menu_item('http://www.canada.gc.ca/depts/major/depind-eng.html', 'Departments', 'menu-wet-header', 'en');
-  _add_custom_menu_item('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', 'menu-wet-header', 'fr');
-  _add_custom_menu_item('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Services', 'menu-wet-header', 'fr');
-  _add_custom_menu_item('http://www.canada.gc.ca/depts/major/depind-fra.html', 'Ministères', 'menu-wet-header', 'fr');
+  _add_custom_menu('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', NULL,'menu-wet-header', 0, 'en');
+  _add_custom_menu('http://www.servicecanada.gc.ca/eng/home.shtml', 'Services', NULL, 'menu-wet-header', 1, 'en');
+  _add_custom_menu('http://www.canada.gc.ca/depts/major/depind-eng.html', 'Departments', NULL, 'menu-wet-header', 2, 'en');
+  _add_custom_menu('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', NULL, 'menu-wet-header', 0, 'fr');
+  _add_custom_menu('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Services', NULL, 'menu-wet-header', 1, 'fr');
+  _add_custom_menu('http://www.canada.gc.ca/depts/major/depind-fra.html', 'Ministères', NULL, 'menu-wet-header', 2, 'fr');
   
   /* Add Menu Items to Gov Footer Bar */
-  _add_custom_menu_item_desc('http://healthycanadians.gc.ca/index-eng.php', 'Health', 'healthycanadians.gc.ca', 'menu-wet-footer', 0, 'en');
-  _add_custom_menu_item_desc('http://www.voyage.gc.ca/index-eng.asp', 'Travel', 'travel.gc.ca', 'menu-wet-footer', 1, 'en');
-  _add_custom_menu_item_desc('http://www.servicecanada.gc.ca/eng/home.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-wet-footer', 2, 'en');
-  _add_custom_menu_item_desc('http://www.jobbank.gc.ca/intro-eng.aspx', 'Jobs', 'jobbank.gc.ca', 'menu-wet-footer', 3, 'en');
-  _add_custom_menu_item_desc('http://actionplan.gc.ca/eng/index.asp', 'Economy', 'actionplan.gc.ca', 'menu-wet-footer', 4, 'en');
-  _add_custom_menu_item_desc('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', NULL, 'menu-wet-footer', 5, 'en');
-  _add_custom_menu_item_desc('http://canadiensensante.gc.ca/index-fra.php', 'Santé', 'canadiensensante.gc.ca', 'menu-wet-footer', 0, 'fr');
-  _add_custom_menu_item_desc('http://voyage.gc.ca/index-fra.asp', 'Voyage', 'voyage.gc.ca', 'menu-wet-footer', 1, 'fr');
-  _add_custom_menu_item_desc('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-wet-footer', 2, 'fr');
-  _add_custom_menu_item_desc('http://www.guichetemplois.gc.ca/Intro-fra.aspx', 'Emplois', 'guichetemplois.gc.ca', 'menu-wet-footer', 3, 'fr');
-  _add_custom_menu_item_desc('http://www.plandaction.gc.ca/', 'Économie', 'plandaction.gc.ca', 'menu-wet-footer', 4, 'fr');
-  _add_custom_menu_item_desc('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', NULL, 'menu-wet-footer', 5, 'fr');
+  _add_custom_menu('http://healthycanadians.gc.ca/index-eng.php', 'Health', 'healthycanadians.gc.ca', 'menu-wet-footer', 0, 'en');
+  _add_custom_menu('http://www.voyage.gc.ca/index-eng.asp', 'Travel', 'travel.gc.ca', 'menu-wet-footer', 1, 'en');
+  _add_custom_menu('http://www.servicecanada.gc.ca/eng/home.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-wet-footer', 2, 'en');
+  _add_custom_menu('http://www.jobbank.gc.ca/intro-eng.aspx', 'Jobs', 'jobbank.gc.ca', 'menu-wet-footer', 3, 'en');
+  _add_custom_menu('http://actionplan.gc.ca/eng/index.asp', 'Economy', 'actionplan.gc.ca', 'menu-wet-footer', 4, 'en');
+  _add_custom_menu('http://www.canada.gc.ca/home.html', 'Canada.gc.ca', NULL, 'menu-wet-footer', 5, 'en');
+  _add_custom_menu('http://canadiensensante.gc.ca/index-fra.php', 'Santé', 'canadiensensante.gc.ca', 'menu-wet-footer', 0, 'fr');
+  _add_custom_menu('http://voyage.gc.ca/index-fra.asp', 'Voyage', 'voyage.gc.ca', 'menu-wet-footer', 1, 'fr');
+  _add_custom_menu('http://www.servicecanada.gc.ca/fra/accueil.shtml', 'Service Canada', 'servicecanada.gc.ca', 'menu-wet-footer', 2, 'fr');
+  _add_custom_menu('http://www.guichetemplois.gc.ca/Intro-fra.aspx', 'Emplois', 'guichetemplois.gc.ca', 'menu-wet-footer', 3, 'fr');
+  _add_custom_menu('http://www.plandaction.gc.ca/', 'Économie', 'plandaction.gc.ca', 'menu-wet-footer', 4, 'fr');
+  _add_custom_menu('http://www.canada.gc.ca/accueil.html', 'Canada.gc.ca', NULL, 'menu-wet-footer', 5, 'fr');
   
   /* Add Menu Items to Gov About Us Bar */
-  _add_custom_menu_item_desc('<front>', 'About Us', NULL, 'menu-wet-aboutus', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Our Mandate', NULL, 'menu-wet-aboutus', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Our Minister', NULL, 'menu-wet-aboutus', 2, 'en');
-  _add_custom_menu_item_desc('<front>', 'À propos de nous', NULL, 'menu-wet-aboutus', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Notre mandat', NULL, 'menu-wet-aboutus', 1, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Le ministre', NULL, 'menu-wet-aboutus', 2, 'fr');
+  _add_custom_menu('<front>', 'About Us', NULL, 'menu-wet-aboutus', 0, 'en');
+  _add_custom_menu('<front>', 'Our Mandate', NULL, 'menu-wet-aboutus', 1, 'en');
+  _add_custom_menu('<front>', 'Our Minister', NULL, 'menu-wet-aboutus', 2, 'en');
+  _add_custom_menu('<front>', 'À propos de nous', NULL, 'menu-wet-aboutus', 0, 'fr');
+  _add_custom_menu('<front>', 'Notre mandat', NULL, 'menu-wet-aboutus', 1, 'fr');
+  _add_custom_menu('<front>', 'Le ministre', NULL, 'menu-wet-aboutus', 2, 'fr'); 
   
   /* Add Menu Items to Gov News Bar */
-  _add_custom_menu_item_desc('<front>', 'News', NULL, 'menu-wet-news', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'News Releases', NULL, 'menu-wet-news', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Media Advisories', NULL, 'menu-wet-news', 2, 'en');
-  _add_custom_menu_item_desc('<front>', 'Multimedia', NULL, 'menu-wet-news', 3, 'en');
-  _add_custom_menu_item_desc('<front>', 'Média', NULL, 'menu-wet-news', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Communiqués', NULL, 'menu-wet-news', 1, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Avis aux médias', NULL, 'menu-wet-news', 2, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Multimedia', NULL, 'menu-wet-news', 3, 'fr');
+  _add_custom_menu('<front>', 'News', NULL, 'menu-wet-news', 0, 'en');
+  _add_custom_menu('<front>', 'News Releases', NULL, 'menu-wet-news', 1, 'en');
+  _add_custom_menu('<front>', 'Media Advisories', NULL, 'menu-wet-news', 2, 'en');
+  _add_custom_menu('<front>', 'Multimedia', NULL, 'menu-wet-news', 3, 'en');
+  _add_custom_menu('<front>', 'Média', NULL, 'menu-wet-news', 0, 'fr');
+  _add_custom_menu('<front>', 'Communiqués', NULL, 'menu-wet-news', 1, 'fr');
+  _add_custom_menu('<front>', 'Avis aux médias', NULL, 'menu-wet-news', 2, 'fr');
+  _add_custom_menu('<front>', 'Multimedia', NULL, 'menu-wet-news', 3, 'fr');  
   
   /* Add Menu Items to Gov Contact Us Bar */
-  _add_custom_menu_item_desc('<front>', 'Contact Us', NULL, 'menu-wet-contactus', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Phone Numbers', NULL, 'menu-wet-contactus', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Find an Employee', NULL, 'menu-wet-contactus', 2, 'en');
-  _add_custom_menu_item_desc('<front>', 'Contactez-nous', NULL, 'menu-wet-contactus', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Numéros de téléphone', NULL, 'menu-wet-contactus', 1, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Trouvez un(e) employé(e)', NULL, 'menu-wet-contactus', 2, 'fr');
+  _add_custom_menu('<front>', 'Contact Us', NULL, 'menu-wet-contactus', 0, 'en');
+  _add_custom_menu('<front>', 'Phone Numbers', NULL, 'menu-wet-contactus', 1, 'en');
+  _add_custom_menu('<front>', 'Find an Employee', NULL, 'menu-wet-contactus', 2, 'en');
+  _add_custom_menu('<front>', 'Contactez-nous', NULL, 'menu-wet-contactus', 0, 'fr');
+  _add_custom_menu('<front>', 'Numéros de téléphone', NULL, 'menu-wet-contactus', 1, 'fr');
+  _add_custom_menu('<front>', 'Trouvez un(e) employé(e)', NULL, 'menu-wet-contactus', 2, 'fr'); 
   
   /* Add Menu Items to Gov Stay Connected Bar */
-  _add_custom_menu_item_desc('<front>', 'Stay Connected', NULL, 'menu-wet-stayconnected', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Youtube', NULL, 'menu-wet-stayconnected', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Twitter', NULL, 'menu-wet-stayconnected', 2, 'en');
-  _add_custom_menu_item_desc('<front>', 'Feeds', NULL, 'menu-wet-stayconnected', 3, 'en');
-  _add_custom_menu_item_desc('<front>', 'Restez branchés', NULL, 'menu-wet-stayconnected', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Youtube', NULL, 'menu-wet-stayconnected', 1, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Twitter', NULL, 'menu-wet-stayconnected', 2, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Fils de nouvelles', NULL, 'menu-wet-stayconnected', 3, 'fr');
+  _add_custom_menu('<front>', 'Stay Connected', NULL, 'menu-wet-stayconnected', 0, 'en');
+  _add_custom_menu('<front>', 'Youtube', NULL, 'menu-wet-stayconnected', 1, 'en');
+  _add_custom_menu('<front>', 'Twitter', NULL, 'menu-wet-stayconnected', 2, 'en');
+  _add_custom_menu('<front>', 'Feeds', NULL, 'menu-wet-stayconnected', 3, 'en');
+  _add_custom_menu('<front>', 'Restez branchés', NULL, 'menu-wet-stayconnected', 0, 'fr');
+  _add_custom_menu('<front>', 'Youtube', NULL, 'menu-wet-stayconnected', 1, 'fr');
+  _add_custom_menu('<front>', 'Twitter', NULL, 'menu-wet-stayconnected', 2, 'fr');
+  _add_custom_menu('<front>', 'Fils de nouvelles', NULL, 'menu-wet-stayconnected', 3, 'fr');
   
   /* Add Menu Items to Gov Terms + Trans Bar */
-  _add_custom_menu_item_desc('<front>', 'Terms and Conditions', NULL, 'menu-wet-terms', 0, 'en');
-  _add_custom_menu_item_desc('<front>', 'Transparency', NULL, 'menu-wet-terms', 1, 'en');
-  _add_custom_menu_item_desc('<front>', 'Avis', NULL, 'menu-wet-terms', 0, 'fr');
-  _add_custom_menu_item_desc('<front>', 'Transparence', NULL, 'menu-wet-terms', 1, 'fr');
+  _add_custom_menu('<front>', 'Terms and Conditions', NULL, 'menu-wet-terms', 0, 'en');
+  _add_custom_menu('<front>', 'Transparency', NULL, 'menu-wet-terms', 1, 'en');
+  _add_custom_menu('<front>', 'Avis', NULL, 'menu-wet-terms', 0, 'fr');
+  _add_custom_menu('<front>', 'Transparence', NULL, 'menu-wet-terms', 1, 'fr'); 
   
   //Clears all menu caches
   menu_cache_clear_all();
-  
-  $module_list = array('wetkit_migrate');    
-  module_enable($module_list, TRUE);
-    
-  if (module_exists('wetkit_migrate')) {
-    migrate_flush_caches();  
-    $migration = Migration::getInstance('XML_Default_Content');
-    $result = $migration->processImport();
-    $migration = Migration::getInstance('XML_Web_Usability');
-    $result = $migration->processImport();
-    $migration = Migration::getInstance('HTML_Documentation');
-    $result = $migration->processImport();
-  }
 }
 
 /**
@@ -138,23 +120,14 @@ function gov_web_usability_install() {
 */
 function gov_web_usability_uninstall() {
   variable_del('views_temp');
-  if (module_exists('wetkit_migrate')) {
-    $migration = Migration::getInstance('XML_Default_Content');
-    $result = $migration->processRollback();
-    $migration = Migration::getInstance('XML_Web_Usability');
-    $result = $migration->processRollback();
-    $migration = Migration::getInstance('XML_Documentation');
-    $result = $migration->processRollback();
-    cache_clear_all();
-  }
 }
 
 /**
 * Implements hook_page_alter().
 */
 function gov_web_usability_page_alter(&$page) {
-  global $user;
   //Hides the toolbar module from adminstrators
+  global $user;
   if (in_array("administrator", $user->roles)) {
     unset($page['page_top']['toolbar']);
   }
@@ -164,10 +137,8 @@ function gov_web_usability_page_alter(&$page) {
 * Implements hook_enable().
 */
 function gov_web_usability_init(){
-  
-  //Temporary If Statement to run commands below one time
+  //Temporary Statement to run commands below one time
   if (variable_get('views_temp', 1) == 1) {
-    
     //Update Certain Regions
     db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_clf' AND delta = 'headlines_front_page-block'"); 
     db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_clf_intranet' AND delta = 'headlines_front_page-block'");
@@ -194,75 +165,68 @@ function gov_web_usability_init(){
       $node = new stdClass();
       $node->type = 'main_slider';
       node_object_prepare($node);
-      $node->title = 'FrontPage Slider Official';
+      $node->title = 'FrontPage Slider Official 1';
       $node->language = 'en';
       $node->status = 1;
       $node->uid = 1;
       $node->tnid = 3;
       $node->field_slider_title['und'][0]['value'] = 'First Slide Title';
-      $node->field_slider_title['und'][1]['value'] = 'Second Slide Title';
-      node_save($node);
-
-      // Create and save field collection for the Slider
-      $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_slider_collection'));
-      $field_collection_item->setHostEntity('node', $node);
-      $field_collection_item->field_slider_photo['und'][0] = (array)$file1;
-      $field_collection_item->field_slider_description['und'][0]['value'] = $field_text_1_en;
-      $field_collection_item->field_slider_description['und'][0]['format'] = 'full_html';
-      $field_collection_item->field_slider_description['und'][0]['safe_value'] = $field_text_1_en;
-      $field_collection_item->save();
-
-      $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_slider_collection'));
-      $field_collection_item->setHostEntity('node', $node);
-      $field_collection_item->field_slider_photo['und'][0] = (array)$file2;
-      $field_collection_item->field_slider_description['und'][0]['value'] = $field_text_1_en;
-      $field_collection_item->field_slider_description['und'][0]['format'] = 'full_html';
-      $field_collection_item->field_slider_description['und'][0]['safe_value'] = $field_text_1_en;
-      $field_collection_item->save(); 
+      $node->field_slider_photo['und'][0] = (array)$file1;
+      $node->field_slider_description['und'][0]['value'] = $field_text_1_en;
+      $node->field_slider_description['und'][0]['format'] = 'full_html';
+      $node->field_slider_description['und'][0]['safe_value'] = $field_text_1_en;
+      node_save($node); 
+      
+      $node = new stdClass();
+      $node->type = 'main_slider';
+      node_object_prepare($node);
+      $node->title = 'FrontPage Slider Official 2';
+      $node->language = 'en';
+      $node->status = 1;
+      $node->uid = 1;
+      $node->tnid = 3;
+      $node->field_slider_title['und'][0]['value'] = 'Second Slide Title';
+      $node->field_slider_photo['und'][0] = (array)$file2;
+      $node->field_slider_description['und'][0]['value'] = $field_text_1_en;
+      $node->field_slider_description['und'][0]['format'] = 'full_html';
+      $node->field_slider_description['und'][0]['safe_value'] = $field_text_1_en;
+      node_save($node); 
 
       //Create Slider French
       $node = new stdClass();
       $node->type = 'main_slider';
       node_object_prepare($node);
-      $node->title = 'FrontPage Curseur officiel';
+      $node->title = 'FrontPage Curseur officiel 1';
       $node->language = 'fr';
       $node->status = 1;
       $node->uid = 1;
       $node->tnid = 3;
       $node->field_slider_title['und'][0]['value'] = 'Titre Première diapositive';
-      $node->field_slider_title['und'][1]['value'] = 'Titre deuxième diapositive';
+      $node->field_slider_photo['und'][0] = (array)$file1;
+      $node->field_slider_description['und'][0]['value'] = $field_text_1_fr;
+      $node->field_slider_description['und'][0]['format'] = 'full_html';
+      $node->field_slider_description['und'][0]['safe_value'] = $field_text_1_fr;
       node_save($node);
-
-      // Create and save field collection for the Slider
-      $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_slider_collection'));
-      $field_collection_item->setHostEntity('node', $node);
-      $field_collection_item->field_slider_photo['und'][0] = (array)$file1;
-      $field_collection_item->field_slider_description['und'][0]['value'] = $field_text_1_fr;
-      $field_collection_item->field_slider_description['und'][0]['format'] = 'full_html';
-      $field_collection_item->field_slider_description['und'][0]['safe_value'] = $field_text_1_fr;
-      $field_collection_item->save();
-
-      $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_slider_collection'));
-      $field_collection_item->setHostEntity('node', $node);
-      $field_collection_item->field_slider_photo['und'][0] = (array)$file2;
-      $field_collection_item->field_slider_description['und'][0]['value'] = $field_text_1_fr;
-      $field_collection_item->field_slider_description['und'][0]['format'] = 'full_html';
-      $field_collection_item->field_slider_description['und'][0]['safe_value'] = $field_text_1_fr;
-      $field_collection_item->save(); 
+      
+      $node = new stdClass();
+      $node->type = 'main_slider';
+      node_object_prepare($node);
+      $node->title = 'FrontPage Curseur officiel 2';
+      $node->language = 'fr';
+      $node->status = 1;
+      $node->uid = 1;
+      $node->tnid = 3;
+      $node->field_slider_title['und'][0]['value'] = 'Titre Dieuxème diapositive';
+      $node->field_slider_photo['und'][0] = (array)$file2;
+      $node->field_slider_description['und'][0]['value'] = $field_text_1_fr;
+      $node->field_slider_description['und'][0]['format'] = 'full_html';
+      $node->field_slider_description['und'][0]['safe_value'] = $field_text_1_fr;
+      node_save($node);
       
       //Add the slider block to region
       db_query("UPDATE {block} SET region = 'slideshow', status = '1' WHERE module = 'views' AND theme = 'genesis_clf' AND delta = 'slider-block'"); 
     }
-    
-    //Multilingual Variables
-    variable_set('i18n_variable_conf', array('site_name'));
-    variable_set('i18n_variable_list', array('site_name'));
-    i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
-    
-    //Clear all caches
-    cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
-    
-    
+        
     //Add the Default Blocks
     db_insert('i18n_block_language')->fields(array(
       'module' => 'gov_web_usability',
@@ -312,370 +276,24 @@ function gov_web_usability_init(){
       'language' => 'fr',
     ))->execute();
     
-    //Set the Language for Drupal (eng and fra)
-    $languages = array (
-     'language' => 'en',
-     'name' => 'English',
-     'native' => 'English',
-     'direction' => '0',
-     'enabled' => '1',
-     'plurals' => '0',
-     'formula' => '',
-     'domain' => '',
-     'prefix' => 'eng',
-     'weight' => '0',
-     'javascript' => '',
-    );
-    $languages_obj = (object) $languages;
-    variable_set('language_default', $languages_obj);
-    db_update('languages')
-      ->fields(array(
-        'prefix' => 'eng',
-      ))
-      ->condition('language', 'en')
-      ->execute();
-    
-    db_update('languages')
-      ->fields(array(
-        'prefix' => 'fra',
-      ))
-      ->condition('language', 'fr')
-      ->execute();
+    drupal_set_message(t('Please run migration scripts for default content from !module.', array('!module' => l(t('wetkit_migrate'), 'admin/content/migrate'))), 'status');
+    drupal_set_message(t('Please read the provided !documentation.', array('!documentation' => l(t('Documentation'), 'documentation/styleguide/css-e'))), 'warning');
   }
   variable_set('views_temp', 0);
-  
-  //For Migrated Documentation
-  if (variable_get('features_set', 1) == 1) {
-    global $theme;
-    db_query('UPDATE {block} SET region = :region, status = :status WHERE module = :module AND theme = :theme AND delta = :delta', 
-         array( ':region' => 'sidebar_first', 
-                ':status' => '1', 
-                ':module' => 'menu',
-                ':theme' => $theme,
-                ':delta' => 'menu-documentation'));
-    drupal_flush_all_caches();
-    features_revert();
-  }
-  variable_set('features_set', 0);
 }
 
+/* HELPER FUNCTIONS */
 
 /**
-* Implements hook_block_info().
+* Implements _add_custom_menu().
 */
-function gov_web_usability_block_info(){
-  $blocks['videos_blocks'] = array(
-    'info' => t('Videos Block'),
-    'status' => TRUE,
-    'region' => 'videos',
-    'weight' => 0,
-    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
-  );
-  $blocks['videos_blocks2'] = array(
-    'info' => t('Bloc Vidéos'),
-    'status' => TRUE,
-    'region' => 'videos',
-    'weight' => 0,
-    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
-  );
-  $blocks['priorities_blocks'] = array(
-    'info' => t('Priorities Block'),
-    'status' => TRUE,
-    'region' => 'priorities',
-    'weight' => 0,
-    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
-  );
-  $blocks['priorities_blocks_fr'] = array(
-    'info' => t('Bloc Priorités'),
-    'status' => TRUE,
-    'region' => 'priorities',
-    'weight' => 0,
-    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
-  );
-  $blocks['minister_blocks'] = array(
-    'info' => t('Minister Block'),
-    'status' => TRUE,
-    'region' => 'minister',
-    'weight' => 0,
-    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
-  );
-  $blocks['minister_blocks_fr'] = array(
-    'info' => t('Bloc Ministère'),
-    'status' => TRUE,
-    'region' => 'minister',
-    'weight' => 0,
-    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
-  );
-  $blocks['connected_blocks'] = array(
-    'info' => t('Connected Block'),
-    'status' => TRUE,
-    'region' => 'connected',
-    'weight' => 0,
-    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
-  );
-  $blocks['connected_blocks_fr'] = array(
-    'info' => t('Bloc Connectés'),
-    'status' => TRUE,
-    'region' => 'connected',
-    'weight' => 0,
-    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
-  );
-  return $blocks;
-}
-
-/**
-* Implements hook_block_view().
-*/
-function gov_web_usability_block_view($delta = '') {
-  global $language;
-  $block = array();
-  switch ($delta) {
-    case 'videos_blocks':
-      $block['subject'] = t('Videos');
-      $block['content'] = gov_web_usability_block_contents($delta);
-      break;
-    case 'videos_blocks2':
-      $block['subject'] = t('Vidéos');
-      $block['content'] = gov_web_usability_block_contents($delta);
-      break;
-    case 'priorities_blocks':
-      $block['subject'] = t('Priorities');
-      $block['content'] = gov_web_usability_block_contents($delta);
-      break;
-    case 'priorities_blocks_fr':
-      $block['subject'] = t('Priorités');
-      $block['content'] = gov_web_usability_block_contents($delta);
-      break;
-    case 'minister_blocks':
-      $block['subject'] = t('Minister');
-      $block['content'] = gov_web_usability_block_contents($delta);
-      break;
-    case 'minister_blocks_fr':
-      $block['subject'] = t('Ministère');
-      $block['content'] = gov_web_usability_block_contents($delta);
-      break;
-    case 'connected_blocks':
-      $block['subject'] = t('Stay Connected');
-      $block['content'] = gov_web_usability_block_contents($delta);
-      break;
-    case 'connected_blocks_fr':
-      $block['subject'] = t('Restez connecté');
-      $block['content'] = gov_web_usability_block_contents($delta);
-      break;
-  }
-  return $block;
-}
-
-/**
-* Implements hook_block_configure().
-*/
-function gov_web_usability_block_configure($delta) {
-  $form = array();
-  switch($delta) {
-  case 'videos_blocks':
-    $form['videos_blocks_content'] = array(
-      '#type' => 'text_format',
-      '#title' => t('Configure Video Block'),
-      '#size' => 255,
-      '#description' => t('Enter the appropriate markup for the Video Region.'),
-      '#default_value' => variable_get('videos_block_content'),
-      '#format' => 'full_html',
-    );
-    break;
-  case 'videos_blocks2':
-    $form['videos_blocks_content_fr'] = array(
-      '#type' => 'text_format',
-      '#title' => t('Configure Video Block'),
-      '#size' => 255,
-      '#description' => t('Enter the appropriate markup for the Video Region.'),
-      '#default_value' => variable_get('videos_block_content_fr'),
-      '#format' => 'full_html',
-    );
-    break;
-  case 'priorities_blocks':
-    $form['priorities_blocks_content'] = array(
-      '#type' => 'text_format',
-      '#title' => t('Configure Priorities Block'),
-      '#size' => 255,
-      '#description' => t('Enter the appropriate markup for the Priorities Region.'),
-      '#default_value' => variable_get('priorities_block_content'),
-      '#format' => 'full_html',
-    );
-    break;
-  case 'priorities_blocks_fr':
-    $form['priorities_blocks_content_fr'] = array(
-      '#type' => 'text_format',
-      '#title' => t('Configure Priorities Block'),
-      '#size' => 255,
-      '#description' => t('Enter the appropriate markup for the Priorities Region.'),
-      '#default_value' => variable_get('priorities_block_content_fr'),
-      '#format' => 'full_html',
-    );
-    break;
-  case 'minister_blocks':
-    $form['minister_blocks_content'] = array(
-      '#type' => 'text_format',
-      '#title' => t('Configure Minister Block'),
-      '#size' => 255,
-      '#description' => t('Enter the appropriate markup for the Minister Region.'),
-      '#default_value' => variable_get('minister_block_content'),
-      '#format' => 'full_html',
-    );
-    break;
-  case 'minister_blocks_fr':
-    $form['minister_blocks_content_fr'] = array(
-      '#type' => 'text_format',
-      '#title' => t('Configure Minister Block'),
-      '#size' => 255,
-      '#description' => t('Enter the appropriate markup for the Minister Region.'),
-      '#default_value' => variable_get('minister_block_content_fr'),
-      '#format' => 'full_html',
-    );
-    break;
-  case 'connected_blocks':
-    $form['connected_blocks_content'] = array(
-      '#type' => 'text_format',
-      '#title' => t('Configure Connected Block'),
-      '#size' => 255,
-      '#description' => t('Enter the appropriate markup for the Connected Region.'),
-      '#default_value' => variable_get('connected_block_content'),
-      '#format' => 'full_html',
-    );
-    break;
-  case 'connected_blocks_fr':
-    $form['connected_blocks_content_fr'] = array(
-      '#type' => 'text_format',
-      '#title' => t('Configure Connected Block'),
-      '#size' => 255,
-      '#description' => t('Enter the appropriate markup for the Connected Region.'),
-      '#default_value' => variable_get('connected_block_content_fr'),
-      '#format' => 'full_html',
-    );
-    break;
-  }
-  return $form;
-}
-
-/**
-* Implements hook_block_save().
-*/
-function gov_web_usability_block_save($delta = '', $edit = array()) {
-  //dpm($edit);
-  switch($delta) {
-    case 'videos_blocks':
-      variable_set('videos_block_content', (string)$edit['videos_blocks_content']['value']);
-      break;
-    case 'videos_blocks2':
-      variable_set('videos_block_content_fr', (string)$edit['videos_blocks_content_fr']['value']);
-      break;
-    case 'priorities_blocks':
-      variable_set('priorities_block_content', (string)$edit['priorities_blocks_content']['value']);
-      break;
-    case 'priorities_blocks_fr':
-      variable_set('priorities_block_content_fr', (string)$edit['priorities_blocks_content_fr']['value']);
-      break;
-    case 'minister_blocks':
-      variable_set('minister_block_content', (string)$edit['minister_blocks_content']['value']);
-      break;
-    case 'minister_blocks_fr':
-      variable_set('minister_block_content_fr', (string)$edit['minister_blocks_content_fr']['value']);
-      break;
-    case 'connected_blocks':
-      variable_set('connected_block_content', (string)$edit['connected_blocks_content']['value']);
-      break;
-    case 'connected_blocks_fr':
-      variable_set('connected_block_content_fr', (string)$edit['connected_blocks_content_fr']['value']);
-      break;
-  }
-  return;
-}
-
-/**
-* Implements hook_block_contents().
-*/
-function gov_web_usability_block_contents($delta) {
-  $block = array();
-  switch ($delta) {
-    case 'videos_blocks':
-      global $theme;
-      if ($theme == 'genesis_clf' || $theme == 'genesis_clf_intranet') {
-        $markup_video = variable_get('videos_block_content');
-        return $markup_video;
-      }
-      break;
-    case 'videos_blocks2':
-      global $theme;
-      if ($theme == 'genesis_clf' || $theme == 'genesis_clf_intranet') {
-        $markup_video = variable_get('videos_block_content_fr');
-        return $markup_video;
-      }
-      break;
-    case 'priorities_blocks':
-      global $theme;
-      if ($theme == 'genesis_clf' || $theme == 'genesis_clf_intranet') {
-        $markup_priorities = variable_get('priorities_block_content');
-        return $markup_priorities;
-      }
-      break;
-    case 'priorities_blocks_fr':
-      global $theme;
-      if ($theme == 'genesis_clf' || $theme == 'genesis_clf_intranet') {
-        $markup_priorities = variable_get('priorities_block_content_fr');
-        return $markup_priorities;
-      }
-      break;
-    case 'minister_blocks':
-      global $theme;
-      if ($theme == 'genesis_clf' || $theme == 'genesis_clf_intranet') {
-        $markup_minister = variable_get('minister_block_content');
-        return $markup_minister;
-      }
-      break;
-    case 'minister_blocks_fr':
-      global $theme;
-      if ($theme == 'genesis_clf' || $theme == 'genesis_clf_intranet') {
-        $markup_minister = variable_get('minister_block_content_fr');
-        return $markup_minister;
-      }
-      break;
-    case 'connected_blocks':
-      global $theme;
-      if ($theme == 'genesis_clf' || $theme == 'genesis_clf_intranet') {
-        $markup_connected = variable_get('connected_block_content');
-        return $markup_connected;
-      }
-      break;
-    case 'connected_blocks_fr':
-      global $theme;
-      if ($theme == 'genesis_clf' || $theme == 'genesis_clf_intranet') {
-        $markup_connected = variable_get('connected_block_content_fr');
-        return $markup_connected;
-      }
-      break;
-  }
-  return $block;
-}
-
-function _add_custom_menu_item($link, $title, $menu, $language) {
-  $item = array(
-    'link_path' => $link,
-    'link_title' => $title,
-    'menu_name' => $menu,
-    'language' => $language,
-    'customized' => 1,
-  );
-  return menu_link_save($item);
-}
-
-function _add_custom_menu_item_desc($link, $title, $desc, $menu, $weight, $language, $mlid = 0, $plid = 0) {
-  
+function _add_custom_menu($link, $title, $desc, $menu, $weight, $language, $mlid = 0, $plid = 0) {
   $options = array();
   $options += array(
     'attributes' => array(
       'title' => $desc,
     ), 
   );
-  
   $item = array(
     'link_path' => $link,
     'link_title' => $title,
@@ -690,6 +308,9 @@ function _add_custom_menu_item_desc($link, $title, $desc, $menu, $weight, $langu
   return menu_link_save($item);
 }
 
+/**
+* Implements _add_file().
+*/
 function _add_file($filename, $filepath) {
   $file = new StdClass();
   $file->uid = 6;
@@ -701,6 +322,5 @@ function _add_file($filename, $filepath) {
   $file = file_copy($file, $dest);
   $file->display = 1;
   $file->description = ""; 
-  
   return $file;
 }

@@ -8,10 +8,10 @@
  */
  
  /* Possibly Bad Classes */
- footer.submitted {
-     margin-left: 10px;
-     margin-bottom: 10px;
- }
+footer.submitted {
+   margin-left: 10px;
+   margin-bottom: 10px;
+}
 
 menu.node-links {
     padding: 0px;
@@ -60,7 +60,7 @@ z-index: 500 !important;
 }
 
 #cn-psnb .wet-boew-megamenu,
-#cn-psnb .wet-boew-menubar{
+#cn-psnb .wet-boew-menu {
   z-index: 499 !important;
 }
 
@@ -70,27 +70,6 @@ z-index: 500 !important;
 margin: 0px;
   font-family: Arial,Helvetica,sans-serif;
 }
-
-/* Flash Object Video */
-
-.mediaplayer object {
-  width: 339px !important;
-  height: 191px !important;
-}
-
-.wet-boew-toolbar {
-  width: 339px !important;
-}
-
-/* Override grid medium css file */
-#cn-body-inner-1col #cn-centre-col-inner {
-width: 960px;
-}
-
-#cn-centre-col-inner {
-  left: 0px !important;
-}
-
 
 /* Override grid module css file */
 

@@ -4,7 +4,6 @@ core = 7.x
 
 ;CORE
 dependencies[] = block
-dependencies[] = color
 dependencies[] = comment
 dependencies[] = contextual
 dependencies[] = dashboard
@@ -27,11 +26,12 @@ dependencies[] = rdf
 dependencies[] = statistics
 dependencies[] = aggregator
 dependencies[] = simpletest
-dependencies[] = trigger
 
 ;REQUIRED
+dependencies[] = absolute_messages
 dependencies[] = admin
 dependencies[] = advanced_help
+dependencies[] = boxes
 dependencies[] = conditional_styles
 dependencies[] = context
 dependencies[] = context_layouts
@@ -42,16 +42,19 @@ dependencies[] = custom_formatters
 dependencies[] = diff
 dependencies[] = elements
 dependencies[] = features
-dependencies[] = field_collection
 dependencies[] = field_group
 dependencies[] = html5_tools
 dependencies[] = libraries
 dependencies[] = link
 dependencies[] = module_filter
+dependencies[] = nice_menus
+dependencies[] = nodequeue
 dependencies[] = pathauto
 dependencies[] = pathauto_persist
 dependencies[] = pathologic
 dependencies[] = rules
+dependencies[] = rules_admin
+dependencies[] = rules_scheduler
 dependencies[] = scheduler
 dependencies[] = skinr
 dependencies[] = stringoverrides
@@ -65,29 +68,50 @@ dependencies[] = variable_realm
 dependencies[] = variable_store
 dependencies[] = views
 dependencies[] = views_ui
-dependencies[] = views_bulk_operations
-dependencies[] = nice_menus
-
-;ENTITY
-dependencies[] = entity
-dependencies[] = entity_token
 
 ;BREAKS SITE WITH ENTITY TRANSLATION
 ;dependencies[] = uuid
 
+;ACCESSIBILITY
+;dependencies[] = a11y_titles
+;dependencies[] = cck_accessibility
+;dependencies[] = pagestyle
+
+;AUTHENTICATION
+;dependencies[] = ldap
+
+;DEVELOPMENT
+;dependencies[] = backup_migrate
+;dependencies[] = coder
+;dependencies[] = devel
+;dependencies[] = devel_themer
+;dependencies[] = hacked
+;dependencies[] = migrate
+;dependencies[] = migrate_extras
+;dependencies[] = querypath
+
+;ENTITY
+dependencies[] = entity
+dependencies[] = entity_token
+;dependencies[] = entity_translation
+;dependencies[] = title
+
 ;SEARCH
 dependencies[] = facetapi
 dependencies[] = metatag
-dependencies[] = xmlsitemap
 dependencies[] = search404
+dependencies[] = xmlsitemap
 
 ;SECURITY
 dependencies[] = hacked
 dependencies[] = password_policy
 dependencies[] = security_review
 
-;CUSTOM MODULES AND FEATURES (DEFAULTS + MULTILINGUAL WORK)
-dependencies[] = wetkit
+;THEMING
+;dependencies[] = delta
+;dependencies[] = omega_tools
+
+;CUSTOM MODULES AND FEATURES
 dependencies[] = wetkit_defaults
 dependencies[] = wetkit_i18n
 dependencies[] = wetkit_content_types

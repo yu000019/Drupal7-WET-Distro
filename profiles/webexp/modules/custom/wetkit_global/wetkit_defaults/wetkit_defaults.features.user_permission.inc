@@ -443,12 +443,6 @@ function wetkit_defaults_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: create about_us content
-  $permissions['create about_us content'] = array(
-    'name' => 'create about_us content',
-    'roles' => array(),
-  );
-
   // Exported permission: create article content
   $permissions['create article content'] = array(
     'name' => 'create article content',
@@ -491,12 +485,6 @@ function wetkit_defaults_user_default_permissions() {
     'module' => 'path',
   );
 
-  // Exported permission: delete any about_us content
-  $permissions['delete any about_us content'] = array(
-    'name' => 'delete any about_us content',
-    'roles' => array(),
-  );
-
   // Exported permission: delete any article content
   $permissions['delete any article content'] = array(
     'name' => 'delete any article content',
@@ -528,12 +516,6 @@ function wetkit_defaults_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: delete own about_us content
-  $permissions['delete own about_us content'] = array(
-    'name' => 'delete own about_us content',
-    'roles' => array(),
   );
 
   // Exported permission: delete own article content
@@ -596,12 +578,6 @@ function wetkit_defaults_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: edit any about_us content
-  $permissions['edit any about_us content'] = array(
-    'name' => 'edit any about_us content',
-    'roles' => array(),
-  );
-
   // Exported permission: edit any article content
   $permissions['edit any article content'] = array(
     'name' => 'edit any article content',
@@ -633,12 +609,6 @@ function wetkit_defaults_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: edit own about_us content
-  $permissions['edit own about_us content'] = array(
-    'name' => 'edit own about_us content',
-    'roles' => array(),
   );
 
   // Exported permission: edit own article content

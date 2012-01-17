@@ -1,0 +1,20 @@
+@charset "utf-8";
+/*!
+ * CSS presentation layer v1.3b4 / Couche présentation de CSS v1.3b4
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * Terms and conditions of use: http://tbs-sct.ircan.gc.ca/projects/gcwwwtemplates/wiki/Terms
+ * Conditions régissant l'utilisation : http://tbs-sct.ircan.gc.ca/projects/gcwwwtemplates/wiki/Conditions
+ */
+
+/** Screen and print CSS **/
+@media screen,print {
+}
+
+/** Screen-only CSS **/
+@media screen {
+	#cn-cols {margin-bottom: -20px;}
+}
+
+/** Print-only CSS **/
+@media print {
+}

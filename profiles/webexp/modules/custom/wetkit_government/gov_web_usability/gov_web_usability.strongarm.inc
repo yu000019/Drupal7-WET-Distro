@@ -47,7 +47,7 @@ function gov_web_usability_strongarm() {
   $strongarm->value = '<h3>Meet the Minister</h3>
 <div class="cn-minister-inner">
 	<div class="cn-minister-image">
-		<div><img alt="The Honourable minister name" height="149" src="/profiles/webexp/themes/genesis_clf/css/theme-gcwu-fegc/images/minister.JPG" width="99" /></div>
+		<div><img alt="The Honourable minister name" height="149" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/minister.JPG" width="99" /></div>
 	</div>
 	<div class="cn-minister-info">
 		<p>The Honourable<br />
@@ -70,7 +70,7 @@ function gov_web_usability_strongarm() {
   $strongarm->value = '<h3>Rencontrez le ministre</h3>
 <div class="cn-minister-inner">
 	<div class="cn-minister-image">
-		<div><img alt="Le nom de l\'honorable ministre" height="149" src="/profiles/webexp/themes/genesis_clf/css/theme-gcwu-fegc/images/minister.JPG" width="99" /></div>
+		<div><img alt="Le nom de l\'honorable ministre" height="149" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/minister.JPG" width="99" /></div>
 	</div>
 	<div class="cn-minister-info">
 		<p>L\'honorable<br />
@@ -93,11 +93,11 @@ function gov_web_usability_strongarm() {
   $strongarm->value = '<div id="cn-gc-priorities-inner">
 	<ul>
 		<li>
-			<img alt="Image 1 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/css/theme-gcwu-fegc/images/priorities-image1.JPG" title="Image 1 (220x70)" width="220" /></li>
+			<img alt="Image 1 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/prio1-eng.png" title="Image 1 (220x70)" width="220" /></li>
 		<li>
-			<img alt="Image 2 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/css/theme-gcwu-fegc/images/priorities-image2.JPG" title="Image 2 (220x70)" width="220" /></li>
+			<img alt="Image 2 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/prio2-eng.png" title="Image 2 (220x70)" width="220" /></li>
 		<li>
-			<img alt="Image 3 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/css/theme-gcwu-fegc/images/priorities-image3.JPG" title="Image 3 (220x70)" width="220" /></li>
+			<img alt="Image 3 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/prio3-eng.png" title="Image 3 (220x70)" width="220" /></li>
 	</ul>
 </div>
 
@@ -111,11 +111,11 @@ function gov_web_usability_strongarm() {
   $strongarm->value = '<div id="cn-gc-priorities-inner">
 	<ul>
 		<li>
-			<img alt="Image 1 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/css/theme-gcwu-fegc/images/priorities-image1.JPG" title="Image 1 (220x70)" width="220" /></li>
+			<img alt="Image 1 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/prio1-fra.png" title="Image 1 (220x70)" width="220" /></li>
 		<li>
-			<img alt="Image 2 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/css/theme-gcwu-fegc/images/priorities-image2.JPG" title="Image 2 (220x70)" width="220" /></li>
+			<img alt="Image 2 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/prio2-fra.png" title="Image 2 (220x70)" width="220" /></li>
 		<li>
-			<img alt="Image 3 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/css/theme-gcwu-fegc/images/priorities-image3.JPG" title="Image 3 (220x70)" width="220" /></li>
+			<img alt="Image 3 (220x70)" height="70" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/prio3-fra.png" title="Image 3 (220x70)" width="220" /></li>
 	</ul>
 </div>
 

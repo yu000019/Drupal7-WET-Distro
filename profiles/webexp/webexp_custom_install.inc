@@ -63,13 +63,13 @@ function _custom_setup_form() {
     '#options' => $options,
     '#description' => st('CLF3 Prototype theme integrated with WET (80%).'),
   );
-  $form['webexp_rules'] = array(
-    '#type' => 'radios',
-    '#title' => st('Enable Rules Functionality (Recommended)'),
-    '#default_value' =>  variable_get('radio_rules', 1),
-    '#options' => $options,
-    '#description' => st('Enable the Rules Suite of Modules + Wet Features related to workflows.'),
-  );
+  $form['webexp_features'] = array(
+    '#type' => 'checkboxes',
+    '#title' => st('Please select the features you will need'),
+    '#default_value' => variable_get('radio_features', array('Slider','CKEditor','Styles','Workflow Rules')),
+    '#options' => drupal_map_assoc(array(t('Slider'), t('CKEditor'), t('Styles'), t('Workflow Rules'))),
+    '#description' => st('This option will change the default theme that will be used based on the type of site.'),
+  );  
   $form[] = array(
     '#type' => 'submit',
     '#value' => st('Save and continue'),
@@ -86,8 +86,8 @@ function _custom_submit_form($form, &$form_state) {
   variable_set('radio_skinr', $form_state['values']['webexp_skinr']);
   variable_set('radio_nodecontent', $form_state['values']['webexp_nodecontent']);
   variable_set('radio_web_usability', $form_state['values']['webexp_clf3']);
-  variable_set('radio_rules', $form_state['values']['webexp_rules']);
   variable_set('radio_organization', $form_state['values']['webexp_govern']);
+  variable_set('radio_features', $form_state['values']['webexp_features']);
 }
 
 function _custom_run_form() {
@@ -111,9 +111,7 @@ function _custom_run_form() {
   //If Non-Government Site
   else if (variable_get('radio_organization') == 'public') 
   {
-    theme_disable(array($GLOBALS['$gov_theme_internet']));
     theme_disable(array('bartik'));
-    
     theme_enable(array($GLOBALS['$public_theme_internet']));
     variable_set('theme_default', $GLOBALS['$public_theme_internet']);
   }
@@ -121,7 +119,7 @@ function _custom_run_form() {
   //Enable Dev Modules
   if (variable_get('radio_development', 0) == 1)
   {
-    $module_list = array('devel','devel_generate','coder','coder_review','migrate','migrate_ui','migrate_extras','querypath','qpa');
+    $module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath','qpa');
     module_enable($module_list, TRUE);
   }
   
@@ -146,34 +144,47 @@ function _custom_run_form() {
     module_enable($module_list, TRUE);
   }
   
-  //Enable Rules Modules
-  if (variable_get('radio_rules', 0) == 1)
-  {
-    $module_list = array('rules','rules_scheduler','rules_admin');
-    module_enable($module_list, TRUE);
+  $module_list = array('wetkit_migrate');    
+  module_enable($module_list, TRUE);
+
+  //Enable Features
+  $array_features= variable_get('radio_features');
+  foreach ($array_features as $key => $value) {
+    if ($value == 'Slider')
+    {
+      $module_list = array('wetkit_slider');
+      module_enable($module_list, TRUE);
+    }
+    if ($value == 'CKEditor')
+    {
+      $module_list = array('wetkit_ckeditor');
+      module_enable($module_list, TRUE);
+    }
+    if ($value == 'Styles')
+    {
+      $module_list = array('wetkit_styles');
+      module_enable($module_list, TRUE);
+    }
+    if ($value == 'Workflow Rules')
+    {
+      $module_list = array('wetkit_workflow_rules');
+      module_enable($module_list, TRUE);
+    }
   }
   
-  //Enable Features
+  //Enable Government Specifications
   if (variable_get('radio_organization') == 'government')
   {
-    $module_list = array('wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules');
-    module_enable($module_list, TRUE);
-    
-    //Kinda hackish but has to be run after first set
     $module_list = array($GLOBALS['$gov_web_usability']);
-    module_enable($module_list, TRUE);
-    
+    module_enable($module_list, TRUE);  
   }
   
+  //Enable Public Specifications
   else if (variable_get('radio_organization') == 'public')
-  {
-    $module_list = array('wetkit_ckeditor','wetkit_styles','wetkit_slider','wetkit_workflow_rules');
-    module_enable($module_list, TRUE);
-    
+  {    
     $module_list = array($GLOBALS['$public_web_usability']);
     module_enable($module_list, TRUE);
   }
-  
 }
 
 function _custom_flush_vars() {
