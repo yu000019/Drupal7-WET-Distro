@@ -1,0 +1,34 @@
+#cn-sig,#cn-sig-inner,#cn-sig img{height:20px !important;}
+h2{border-bottom:1px solid #28507a;}
+h3{border-bottom:1px solid #ccc;}
+#cn-banner{background-color:#28507a;}
+#cn-search-box #cn-search:focus,#cn-search-box #cn-search:active{background:#f0fcff;}
+.cn-subsite-1{background:#618000 url(../images/cn-subsite-1.gif) repeat-x 0 top;}
+#cn-psnb .wet-boew-menu .nav-current,#cn-psnb .wet-boew-menu .submenuopen,#cn-psnb .wet-boew-menu .toplevel a:hover,#cn-psnb .wet-boew-menu .toplevel a:focus,#cn-psnb .wet-boew-menu .toplevel a:active{background:#28507a;}
+#cn-psnb .wet-boew-menu{background-color:#1b5a9f;}
+#cn-psnb .wet-boew-menu li{border-left-color:#1b5a9f;border-right-color:#3874bd;}
+#cn-psnb .wet-boew-menu .toplevel a:hover,#cn-psnb .wet-boew-menu .toplevel a:focus,#cn-psnb .wet-boew-menu .toplevel a:active{color:#fff;}
+#cn-psnb .wet-boew-menu li:first-child .toplevel:hover,#cn-psnb .wet-boew-menu li:first-child .toplevel:focus,#cn-psnb .wet-boew-menu .toplevel:hover,#cn-psnb .wet-boew-menu .toplevel:focus,#cn-psnb .wet-boew-menu > li:hover a.nav-current,#cn-psnb .wet-boew-menu > li:active a.nav-current,#cn-psnb .wet-boew-menu > li:focus a.nav-current,#cn-psnb .wet-boew-menu li:hover a{background:#28507a;color:#fff;border-left-color:#28507a;border-right-color:#28507a;}
+#cn-psnb .wet-boew-menu .showcase-visible{background-color:#28507a;}
+#cn-psnb .wet-boew-menu .nav-current-sub,#cn-psnb .wet-boew-menu .showcase-visible a:hover,#cn-psnb .wet-boew-menu .showcase-visible a:focus,#cn-psnb .wet-boew-menu .showcase-visible a:active{background:#162b42;box-shadow:inset 0 0 2px 2px #222;-moz-box-shadow:inset 0 0 2px 2px #222;-webkit-box-shadow:inset 0 0 2px 2px #222;border-color:#000;}
+#cn-cols-inner div #cn-decoration-bar{background:#28507a;}
+#cn-site-title-left a,#cn-site-title-right a{color:#28507a;}
+
+/* Overrides from util.css */
+.embedded-nav a,.embedded-nav a:visited,.embedded-nav a:link{background:#276cb9;border-color:#276cb9;}
+.embedded-nav .embedded-link-active{color:#276cb9;}
+.embedded-nav a:hover,.embedded-nav a:focus{border-color:#276cb9;}
+.table-accent{border-color:#276cb9;}
+.table-accent th{background-color:#276cb9 !important;}
+.table-accent td{border-color:#276cb9;}
+.background-accent{background-color:#276cb9 !important;}
+td.calendar-today{border-color:#276cb9;}
+h2.background-accent,h3.background-accent,h4.background-accent,h5.background-accent,h6.background-accent{background-color:#b84000 !important;background-image:url(../images/bg-accent.gif) !important;}
+.module-welcomepage h2{background:#276cb9;}
+.module-billboard li{background-color:#276cb9;}
+.module-news h2 a,.module-news h3 a{color:#276cb9;}
+.module-news .module-news-article a{background:#276cb9;}
+.module-news .module-news-article span a{color:#276cb9;}
+.module-spotlight li span a{color:#276cb9;}
+.teaser-1{background-color:#2e5b86;background-image:url(../images/teaser-1.gif);}
+input:focus, input:active, select:active, select:focus, textarea:active, textarea:focus{background:#f0fcff;}

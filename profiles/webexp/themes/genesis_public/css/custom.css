@@ -71,27 +71,6 @@ margin: 0px;
   font-family: Arial,Helvetica,sans-serif;
 }
 
-/* Flash Object Video */
-
-.mediaplayer object {
-  width: 339px !important;
-  height: 191px !important;
-}
-
-.wet-boew-toolbar {
-  width: 339px !important;
-}
-
-/* Override grid medium css file */
-#cn-body-inner-1col #cn-centre-col-inner {
-width: 960px;
-}
-
-#cn-centre-col-inner {
-  left: 0px !important;
-}
-
-
 /* Override grid module css file */
 
 #diff-node-revisions {

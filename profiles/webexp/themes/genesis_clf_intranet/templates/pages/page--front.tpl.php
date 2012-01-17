@@ -83,13 +83,13 @@
                 <div id="cn-sig-inner">
                   <?php if ($language->language == 'en'): ?>
                     <div id="fip-pcim-sig-eng" title="Government of Canada">
-                      <img src="/<?php print(drupal_get_path('theme', 'genesis_clf_intranet'));?>/css/theme-gcwu-fegc/fip-pcim/images/sig-eng.gif" width="214" height="20" alt="Government of Canada">
+                      <img src="/<?php print(drupal_get_path('theme', 'genesis_clf_intranet'));?>/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/fip-pcim/images/sig-eng.gif" width="214" height="20" alt="Government of Canada">
                     </div>
                   <?php endif;?>
 
                   <?php if ($language->language == 'fr'): ?>
                     <div id="fip-pcim-sig-fra" title="Gouvernement du Canada">
-                      <img src="/<?php print(drupal_get_path('theme', 'genesis_clf_intranet'));?>/css/theme-gcwu-fegc/fip-pcim/images/sig-fra.gif" width="214" height="20" alt="Gouvernement du Canada">
+                      <img src="/<?php print(drupal_get_path('theme', 'genesis_clf_intranet'));?>/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/fip-pcim/images/sig-fra.gif" width="214" height="20" alt="Gouvernement du Canada">
                     </div>
                   <?php endif;?>  
                 </div>
@@ -105,11 +105,11 @@
               <div id="cn-wmms">
                 <div id="cn-wmms-inner">
                   <?php if ($language->language == 'en'): ?>
-                    <div id="fip-pcim-wmms" title="Symbol of the Government of Canada"><img src="/<?php print(drupal_get_path('theme', 'genesis_clf_intranet'));?>/css/theme-gcwu-fegc/fip-pcim/images/wmms.gif" width="126" height="30" alt="Symbol of the Government of Canada"></div>
+                    <div id="fip-pcim-wmms" title="Symbol of the Government of Canada"><img src="/<?php print(drupal_get_path('theme', 'genesis_clf_intranet'));?>/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/fip-pcim/images/wmms.gif" width="126" height="30" alt="Symbol of the Government of Canada"></div>
                   <?php endif;?>
 
                   <?php if ($language->language == 'fr'): ?>
-                    <div id="fip-pcim-wmms" title="Symbole du gouvernement du Canada"><img src="/<?php print(drupal_get_path('theme', 'genesis_clf_intranet'));?>/css/theme-gcwu-fegc/fip-pcim/images/wmms.gif" width="126" height="30" alt="Symbole du gouvernement du Canada"></div>
+                    <div id="fip-pcim-wmms" title="Symbole du gouvernement du Canada"><img src="/<?php print(drupal_get_path('theme', 'genesis_clf_intranet'));?>/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/fip-pcim/images/wmms.gif" width="126" height="30" alt="Symbole du gouvernement du Canada"></div>
                   <?php endif;?>
                 </div>
               </div>  
@@ -163,7 +163,7 @@
       </div>
       <!-- Banner ends / Fin de la bannière -->
       
-      <div class="cn-subsite-1" id="cn-subsite">
+      <div id="cn-subsite" class="cn-subsite-1">
 	  		<p><a href="#">Sub site name</a></p>
       </div>
    
