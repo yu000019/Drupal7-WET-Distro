@@ -109,6 +109,29 @@ function public_web_usability_install() {
   
   //Clears all menu caches
   menu_cache_clear_all();
+  
+  //Languages
+  db_update('languages')
+    ->fields(array(
+      'prefix' => 'eng',
+    ))
+  ->condition('language', 'en')
+  ->execute();
+
+  db_update('languages')
+    ->fields(array(
+      'prefix' => 'fra',
+    ))
+  ->condition('language', 'fr')
+  ->execute();
+
+  //Multilingual Variables
+  variable_set('i18n_variable_conf', array('site_name'));
+  variable_set('i18n_variable_list', array('site_name'));
+  i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
+
+  //Clear all caches
+  cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
 }
 
 /**
@@ -191,16 +214,7 @@ function public_web_usability_init(){
       
       //Add the slider block to region
       //db_query("UPDATE {block} SET region = 'slideshow', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'slider-block'"); 
-    }
-    
-    //Multilingual Variables
-    variable_set('i18n_variable_conf', array('site_name'));
-    variable_set('i18n_variable_list', array('site_name'));
-    i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
-    
-    //Clear all caches
-    cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
-    
+    } 
     
     //Add the Default Blocks
     db_insert('i18n_block_language')->fields(array(

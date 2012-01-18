@@ -26,17 +26,6 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
   $search_box = drupal_render(drupal_get_form('search_form'));
   $vars['search_box'] = $search_box;
 
-  //Locale Language Block
-  if(module_exists('i18n')) {
-    $block = block_load('locale', 'language_content');
-    $block_content = _block_render_blocks(array($block));
-    $build = _block_get_renderable_array($block_content);
-    $vars['language_switcher'] = $build['locale_language_content']['#markup'];
-  } else {
-    $vars['language_switcher'] = '';
-  }
-
-   
   //Panels
   if (module_exists('panels')) {
     $page = panels_get_current_page_display();
@@ -55,6 +44,38 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
     }
   }
   
+  //New Language Switcher Code
+  $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
+  if ($path == '') $path = '<front>';
+  if (module_exists('pathauto')){
+     $path = drupal_get_path_alias($path);
+  }
+  $menu_languages = language_list('enabled');
+  $language_links = array();
+  foreach ($menu_languages[1] as $menu_language) {
+    if ($menu_language->language != i18n_language()->language) 
+    {
+      $language_links[$menu_language->language] = array(
+        'href' => $path,
+        'title' => $menu_language->native,
+        'language' => $menu_language,
+        'attributes' => array('class' => 'language-link'),
+      );
+    }
+  }
+  drupal_alter('translation_link', $language_links, $path);
+  //if (is_array($language_links) && is_array($primary_links)) {
+  //$primary_links = array_merge($language_links, $primary_links)
+  //}
+  $lang_val = theme('links', array(
+    'links' => $language_links,
+    'attributes' => array(
+        'id' => 'menu_goc_nav_bar',
+        'class' => array('links', 'clearfix'),
+      ),
+  )); 
+  $vars['menu_lang_bar'] = $lang_val;  
+  
   //Nav Bar GoC + Language Switcher
   $menu = ($is_multilingual) ? i18n_menu_navigation_links('menu-wet-header') : menu_navigation_links('menu-wet-header');
   $goc_nav_bar_markup = theme('links__menu_goc_nav_bar', array(
@@ -65,7 +86,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
       ),
    )); 
   $goc_nav_bar_markup = strip_tags($goc_nav_bar_markup, '<li><a>');
-  $language_link_markup = '<li id="cn-gcnb-lang" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">'. strip_tags($vars['language_switcher'],'<a><span>') . '</li>';
+  $language_link_markup = '<li id="cn-gcnb-lang" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">'. strip_tags($vars['menu_lang_bar'],'<a><span>') . '</li>';
   $vars['menu_gov_bar'] = '<ul id="menu_goc_nav_bar" class="links">' . $goc_nav_bar_markup . $language_link_markup . '</ul>';
   
   //Footer Bar GoC + Language Switcher
