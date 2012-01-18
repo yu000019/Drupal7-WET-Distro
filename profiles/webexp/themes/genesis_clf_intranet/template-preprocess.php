@@ -63,7 +63,7 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
       );
     }
   }
-  drupal_alter('translation_link', $language_links, $path);
+  //drupal_alter('translation_link', $language_links, $path);
   //if (is_array($language_links) && is_array($primary_links)) {
   //$primary_links = array_merge($language_links, $primary_links)
   //}
