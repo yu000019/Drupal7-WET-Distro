@@ -81,8 +81,8 @@ function wetkit_ckeditor_ckeditor_profile_defaults() {
     'CKEditor Global Profile' => array(
       'name' => 'CKEditor Global Profile',
       'settings' => array(
-        'ckeditor_path' => 'profiles/webexp/libraries/ckeditor',
-        'ckeditor_plugins_path' => 'profiles/webexp/libraries/ckeditor',
+        'ckeditor_path' => '/profiles/webexp/libraries/ckeditor',
+        'ckeditor_plugins_path' => '/profiles/webexp/libraries/ckeditor',
       ),
       'input_formats' => array(),
     ),
