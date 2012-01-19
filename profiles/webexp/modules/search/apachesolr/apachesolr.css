@@ -29,7 +29,6 @@ table.admin-apachesolr tr {
 
 table.admin-apachesolr tr td.default-environment {
   font-weight: bold;
-  font-style: italic;
 }
 
 table.admin-apachesolr tr.error td.status-icon div {
