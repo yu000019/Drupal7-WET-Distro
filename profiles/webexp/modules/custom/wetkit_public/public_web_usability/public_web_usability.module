@@ -266,7 +266,6 @@ function public_web_usability_init(){
     ))->execute();
   
     drupal_set_message(t('Please run migration scripts for default content from: !module.', array('!module' => l(t('wetkit_migrate'), 'admin/content/migrate'))), 'status');
-    drupal_set_message(t('Enable UI for Views, Context, Skinr, and Rules: !module', array('!module' => l(t('wetkit_post_install_ui'), 'admin/structure/features'))), 'status');
     drupal_set_message(t('Please read the provided !documentation.', array('!documentation' => l(t('Documentation'), 'documentation/styleguide/css-e'))), 'warning');
   }
   variable_set('views_temp', 0);

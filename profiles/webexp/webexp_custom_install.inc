@@ -56,6 +56,13 @@ function _custom_setup_form() {
     '#options' => $options,
     '#description' => st('CLF3 Prototype theme integrated with WET (80%).'),
   );
+  $form['webexp_userinterface'] = array(
+    '#type' => 'radios',
+    '#title' => st('Enable User Interface(s)'),
+    '#default_value' =>  variable_get('radio_userinterface', 1),
+    '#options' => $options,
+    '#description' => st('Enable User Interfaces for Context, Skinr, Rules and Views'),
+  );
   $form['webexp_features'] = array(
     '#type' => 'checkboxes',
     '#title' => st('Please select the features you will need'),
@@ -79,6 +86,7 @@ function _custom_submit_form($form, &$form_state) {
   variable_set('radio_skinr', $form_state['values']['webexp_skinr']);
   variable_set('radio_web_usability', $form_state['values']['webexp_clf3']);
   variable_set('radio_organization', $form_state['values']['webexp_govern']);
+  variable_set('radio_userinterface', $form_state['values']['webexp_userinterface']);
   variable_set('radio_features', $form_state['values']['webexp_features']);
 }
 
@@ -164,6 +172,13 @@ function _custom_run_form() {
     }
   }
   
+  //Enable UI Modules
+  if (variable_get('radio_userinterface', 0) == 1)
+  {
+    $module_list = array('context_ui','skinr_ui','rules_admin','views_ui');    
+    module_enable($module_list, TRUE);
+  }
+  
   //Enable Government Specifications
   if (variable_get('radio_organization') == 'government')
   {
@@ -189,4 +204,6 @@ function _custom_flush_vars() {
   variable_del('radio_rules');
   variable_del('radio_internet_intranet');
   variable_del('radio_organization');
+  variable_del('radio_userinterface');
+  variable_del('radio_features');
 }

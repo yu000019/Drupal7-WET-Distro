@@ -134,3 +134,20 @@ function webexp_install_tasks_alter(&$tasks, $install_state) {
   unset($tasks['install_import_locales_remaining']);
 }
 
+/**
+ * Implements hook_appstore_stores_info
+ */
+function webexp_apps_servers_info() {
+ $info =  drupal_parse_info_file(dirname(__file__) . '/webexp.info');
+ return array(
+   'openpublic' => array(
+     'title' => 'WebExp',
+     'description' => "Apps for the Openpublic distribution",
+     'manifest' => 'http://appserver.openpublicapp.com/app/query',
+     'profile' => 'webexp',
+     'profile_version' => isset($info['version']) ? $info['version'] : '7.x-1.0-beta1',
+     'server_name' => $_SERVER['SERVER_NAME'],
+     'server_ip' => $_SERVER['SERVER_ADDR'],
+   ),
+ );
+}

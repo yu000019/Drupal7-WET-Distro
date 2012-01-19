@@ -91,6 +91,9 @@ function _default_run_form() {
   
   $module_list = array('wetkit_migrate');    
   module_enable($module_list, TRUE);
+  
+  $module_list = array('context_ui','skinr_ui','rules_admin','views_ui');    
+  module_enable($module_list, TRUE);
        
   //Enable Government Specifications
   if (variable_get('radio_organization') == 'government')
