@@ -228,6 +228,8 @@
             <!-- cn-content begins / Début du cn-content -->
             <div id="cn-content"> 
               
+              <?php print render($page['content']['metatags']); ?>
+              
               <div id="cn-headlines" class="span-3">
                  <?php if ($headlines = render($page['headlines'])): ?>
                    <?php print $headlines; ?>

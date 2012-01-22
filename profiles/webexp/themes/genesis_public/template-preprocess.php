@@ -59,14 +59,13 @@ function genesis_public_preprocess_page(&$vars) {
         'href' => $path,
         'title' => $menu_language->native,
         'language' => $menu_language,
-        'attributes' => array('class' => 'language-link'),
+        'attributes' => array(
+          'lang' => $menu_language->language,
+          'class' => 'language-link',
+        ),
       );
     }
   }
-  //drupal_alter('translation_link', $language_links, $path);
-  //if (is_array($language_links) && is_array($primary_links)) {
-  //$primary_links = array_merge($language_links, $primary_links)
-  //}
   $lang_val = theme('links', array(
     'links' => $language_links,
     'attributes' => array(
@@ -185,4 +184,7 @@ function genesis_public_preprocess_page(&$vars) {
 function genesis_public_preprocess_node(&$vars) {
   $node = $vars['node'];
   $vars['date'] = format_date($node->created, 'custom', 'l, d/m/Y');
+  $vars['content']['links']['translation']['#links']['translation_fr']['attributes']['lang'] = 'fr';
+  $vars['content']['links']['translation']['#links']['translation_fr']['attributes']['lang'] = 'en';
+
 }
