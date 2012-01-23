@@ -278,11 +278,14 @@ function public_web_usability_init(){
 */
 function _add_custom_menu($link, $title, $desc, $menu, $weight, $language, $mlid = 0, $plid = 0) {
   $options = array();
-  $options += array(
-    'attributes' => array(
-      'title' => $desc,
-    ), 
-  );
+  if ($desc != NULL)
+  {
+    $options += array(
+      'attributes' => array(
+        'title' => $desc,
+      ), 
+    );
+  }
   $item = array(
     'link_path' => $link,
     'link_title' => $title,

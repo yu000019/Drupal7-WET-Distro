@@ -18,14 +18,27 @@ function genesis_clf_preprocess_html(&$vars) {
 }
 
 function genesis_clf_preprocess_page(&$vars) { 
+  //Internationalization Exists
   if(module_exists('i18n_menu')) {
     $is_multilingual = 1;
   } 
   
-  //Search Form
-  $search_box = drupal_render(drupal_get_form('search_form'));
-  $vars['search_box'] = $search_box;
-
+  //Search
+  if(module_exists('custom_search')) {
+    //Custom Dropdown Search Box
+    drupal_add_css(drupal_get_path('theme', 'genesis_clf') . '/css/custom_searchbar.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE));
+    $vars['custom_search'] = drupal_get_form('custom_search_blocks_form_1');
+    $vars['custom_search']['#id'] = 'search-form';
+    $vars['custom_search']['custom_search_blocks_form_1']['#id'] = 'cn-search';
+    $vars['custom_search']['actions']['submit']['#id'] = 'cn-search-submit';
+    $vars['search_box'] = render($vars['custom_search']);  
+  }
+  else {
+     //Default Drupal Search Box
+    $search_box = drupal_render(drupal_get_form('search_form'));
+    $vars['search_box'] = $search_box;
+  }
+  
   //Panels
   if (module_exists('panels')) {
     $page = panels_get_current_page_display();

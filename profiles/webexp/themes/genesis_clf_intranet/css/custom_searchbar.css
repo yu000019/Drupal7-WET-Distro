@@ -1,0 +1,20 @@
+/** Classes for Custom Search **/
+
+.search-form .form-item-custom-search-blocks-form-1 {
+  display: inline;
+}
+.search-form #edit-actions {
+  display: inline;
+}
+
+#cn-head, #cn-head-inner, #cn-banner,  #cn-banner-inner {
+  overflow: visible !important;
+}
+
+fieldset.custom_search-popup {
+  background-color: white;
+}
+
+fieldset.custom_search-popup a{
+  color: black !important;
+}

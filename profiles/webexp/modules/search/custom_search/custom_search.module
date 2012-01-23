@@ -347,12 +347,14 @@ function custom_search_submit($form, &$form_state) {
 
   if (module_exists('apachesolr_search')) {
     // Apache Solr search
-    $type = "search/apachesolr_search/$originalkeywords";
+    // Get core search path.
+    $solr_info = apachesolr_search_page_load('core_search');
+    $type = $solr_info->search_path . '/' . $originalkeywords;
     $keys = array();
-    if (count($types) && !in_array('all', $types)) $keys[] = 'type:' . implode('%20type:', $types);
+    if (count($types) && !in_array('all', $types)) $keys[] = 'bundle:' . implode('%20bundle:', $types);
     if (module_exists('taxonomy') && count($terms)) $keys[] = 'tid:' . implode('%20tid:', $terms);
     if (count($keys)) {
-      $args_delimiter = '?filters=';
+      $args_delimiter = '?f[0]=';
       $keys = implode('%20', $keys);
     }
     else $args_delimiter = $keys = '';
