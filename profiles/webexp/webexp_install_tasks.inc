@@ -28,15 +28,16 @@ function webexp_type_install_form() {
   drupal_set_title(st('Web Experience Toolkit'));
   drupal_set_message(st('The following areas will assist in adding a more tailored user experience based on business requirements. Configuration will be will further differentiated based on the type of site and whether for governmental use.'),'status', FALSE);  
 
-  $options_install = array('default' => st('Default'), 'custom' => st('Custom'));
+  //$options_install = array('default' => st('Default'), 'custom' => st('Custom'));
+  $options_install = array('default' => st('Default'));
   
   $form = array();
   $form['webexp_type_install'] = array(
     '#type' => 'radios',
-    '#title' => st('What is the type of install you wish to use?'),
+    '#title' => st('Type of wetkit install'),
     '#default_value' =>  variable_get('radio_type_install', 'default'),
     '#options' => $options_install,
-    '#description' => st('Please select your installation method. It is recommended to install the default package if you are not sure.'),
+    '#description' => st('Please select the type of installation you wish to use with WetKit'),
   );
   $form[] = array(
     '#type' => 'submit',

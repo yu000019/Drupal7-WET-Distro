@@ -1,0 +1,13 @@
+name = "WetKit Development"
+description = "Extra Feature: Installs and configures useful development modules"
+core = "7.x"
+package = "WetKit Extra"
+version = "7.x-1.0"
+project = "wetkit_wizard"
+dependencies[] = "coder"
+dependencies[] = "coder_review"
+dependencies[] = "devel"
+dependencies[] = "devel_generate"
+dependencies[] = "devel_node_access"
+dependencies[] = "features"
+features['features_api']['api:1'] = TRUE;

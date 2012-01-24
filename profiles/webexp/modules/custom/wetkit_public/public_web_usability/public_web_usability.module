@@ -161,61 +161,7 @@ function public_web_usability_init(){
     //Update Certain Regions
     //db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'headlines_front_page-block'"); 
     //db_query("UPDATE {block} SET region = 'headlines', status = '1' WHERE module = 'views' AND theme = 'genesis_public_intranet' AND delta = 'headlines_front_page-block'");
-    
-    //Slider Additions
-    if (module_exists('wetkit_slider'))
-    {
-      // Create managed File object and associate with file field.
-      $file1 = _add_file('parliamenthill_official.png', drupal_get_path('theme', 'genesis_public') . '/images/parliamenthill.png');
-      $file2 = _add_file('canada_official.png', drupal_get_path('theme', 'genesis_public') . '/images/canada.png');
-
-      // Slider Content
-      $field_text_1_en = '<div class="tabs-content-pad">
-        <p>Take Note: <a href="http://news.gc.ca">Recent National News</a><br />
-          Learn more about the <a href="http://canada.gc.ca">Government of Canada</a></p>
-      </div>';
-
-      $field_text_1_fr = '<div class="tabs-content-pad">
-        <p>Prenez note: <a href="http://news.gc.ca">Dernières Nouvelles nationales</a><br />
-         En savoir plus sur le <a href="http://canada.gc.ca">Gouvernement du Canada</a></p>
-      </div>';
-
-      //Create Slider English
-      $node = new stdClass();
-      $node->type = 'main_slider';
-      node_object_prepare($node);
-      $node->title = 'FrontPage Slider Official';
-      $node->language = 'en';
-      $node->status = 1;
-      $node->uid = 1;
-      $node->tnid = 3;
-      $node->field_slider_title['und'][0]['value'] = 'First Slide Title';
-      $node->field_slider_photo['und'][0] = (array)$file1;
-      $node->field_slider_description['und'][0]['value'] = $field_text_1_en;
-      $node->field_slider_description['und'][0]['format'] = 'full_html';
-      $node->field_slider_description['und'][0]['safe_value'] = $field_text_1_en;
-      node_save($node);
-
-      //Create Slider French
-      $node = new stdClass();
-      $node->type = 'main_slider';
-      node_object_prepare($node);
-      $node->title = 'FrontPage Curseur officiel';
-      $node->language = 'fr';
-      $node->status = 1;
-      $node->uid = 1;
-      $node->tnid = 3;
-      $node->field_slider_title['und'][0]['value'] = 'Titre Première diapositive';
-      $node->field_slider_photo['und'][0] = (array)$file1;
-      $node->field_slider_description['und'][0]['value'] = $field_text_1_fr;
-      $node->field_slider_description['und'][0]['format'] = 'full_html';
-      $node->field_slider_description['und'][0]['safe_value'] = $field_text_1_fr;
-      node_save($node);
       
-      //Add the slider block to region
-      //db_query("UPDATE {block} SET region = 'slideshow', status = '1' WHERE module = 'views' AND theme = 'genesis_public' AND delta = 'slider-block'"); 
-    } 
-    
     //Add the Default Blocks
     db_insert('i18n_block_language')->fields(array(
       'module' => 'public_web_usability',
@@ -264,11 +210,12 @@ function public_web_usability_init(){
       'delta' => 'connected_blocks_fr',
       'language' => 'fr',
     ))->execute();
+    
+    drupal_set_message(t('Please proceed to the !features section to run the Wizard or Custom setup.', array('!features' => l(t('FEATURES'), 'admin/structure/features'))), 'status');
+    drupal_set_message(t('Please read the provided !documentation.', array('!documentation' => l(t('DOCUMENTATION'), 'documentation/styleguide/css-e'))), 'warning');
   
-    drupal_set_message(t('Please run migration scripts for default content from: !module.', array('!module' => l(t('wetkit_migrate'), 'admin/content/migrate'))), 'status');
-    drupal_set_message(t('Please read the provided !documentation.', array('!documentation' => l(t('Documentation'), 'documentation/styleguide/css-e'))), 'warning');
+    variable_set('views_temp', 0);
   }
-  variable_set('views_temp', 0);
 }
 
 /* HELPER FUNCTIONS */
@@ -298,21 +245,4 @@ function _add_custom_menu($link, $title, $desc, $menu, $weight, $language, $mlid
     'plid' => $plid,
   );
   return menu_link_save($item);
-}
-
-/**
-* Implements _add_file().
-*/
-function _add_file($filename, $filepath) {
-  $file = new StdClass();
-  $file->uid = 6;
-  $file->uri = $filepath;
-  $file->filename = $filename;
-  $file->filemime = file_get_mimetype($file->uri);
-  $file->status = 1;      
-  $dest = file_default_scheme() . '://'.$filename; // Subdirectory name within files directory. ($dest is optional.)
-  $file = file_copy($file, $dest);
-  $file->display = 1;
-  $file->description = ""; 
-  return $file;
 }

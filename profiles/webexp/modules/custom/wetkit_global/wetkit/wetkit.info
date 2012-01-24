@@ -1,8 +1,0 @@
-name = WetKit
-description = A library of Enhancements for the Government of Canada focused on WCAG and Accessibility.
-package = WET
-core = 7.x
-version = 7.x-1.0-dev
-
-;dependencies
- dependencies[] = libraries

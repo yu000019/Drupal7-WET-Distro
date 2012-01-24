@@ -1,0 +1,13 @@
+name = "WetKit Wizard Default"
+description = "Wizard Feature: Installs a default selection of wetkit extra features"
+core = "7.x"
+package = "WetKit Wizard"
+version = "7.x-1.0"
+project = "wetkit_wizard"
+dependencies[] = "wetkit_ckeditor"
+dependencies[] = "wetkit_migrate"
+dependencies[] = "wetkit_slider"
+dependencies[] = "wetkit_styles"
+dependencies[] = "wetkit_workflow_rules"
+dependencies[] = "features"
+features['features_api']['api:1'] = TRUE;

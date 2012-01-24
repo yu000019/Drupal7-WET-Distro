@@ -61,39 +61,39 @@ function _default_run_form() {
   }
   
   //Enable Dev Modules
-  $module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath');
-  module_enable($module_list, TRUE);
+  //$module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath');
+  //module_enable($module_list, TRUE);
   
   //Enable Workflow Modules
-  $module_list = array('workbench','workbench_access','workbench_files','workbench_moderation');
-  module_enable($module_list, TRUE);
+  //$module_list = array('workbench','workbench_access','workbench_files','workbench_moderation');
+  //module_enable($module_list, TRUE);
   
   //Enable WYSIWYG Modules
-  $module_list = array('ckeditor','ckeditor_link','imce');
-  module_enable($module_list, TRUE);
+  //$module_list = array('ckeditor','ckeditor_link','imce');
+  //module_enable($module_list, TRUE);
   
   //Enable Skinr Modules
-  $module_list = array('skinr');
-  module_enable($module_list, TRUE);
+  //$module_list = array('skinr');
+  //module_enable($module_list, TRUE);
   
   //Enable Features
-  $module_list = array('wetkit_slider');
-  module_enable($module_list, TRUE);
+  //$module_list = array('wetkit_slider');
+  //module_enable($module_list, TRUE);
 
-  $module_list = array('wetkit_ckeditor');
-  module_enable($module_list, TRUE);
+  //$module_list = array('wetkit_ckeditor');
+  //module_enable($module_list, TRUE);
 
-  $module_list = array('wetkit_styles');
-  module_enable($module_list, TRUE);
+  //$module_list = array('wetkit_styles');
+  //module_enable($module_list, TRUE);
 
-  $module_list = array('wetkit_workflow_rules');
-  module_enable($module_list, TRUE);
+  //$module_list = array('wetkit_workflow_rules');
+  //module_enable($module_list, TRUE);
   
-  $module_list = array('wetkit_migrate');    
-  module_enable($module_list, TRUE);
+  //$module_list = array('wetkit_migrate');    
+  //module_enable($module_list, TRUE);
   
-  $module_list = array('context_ui','skinr_ui','rules_admin','views_ui');    
-  module_enable($module_list, TRUE);
+  //$module_list = array('context_ui','skinr_ui','rules_admin','views_ui');    
+  //module_enable($module_list, TRUE);
        
   //Enable Government Specifications
   if (variable_get('radio_organization') == 'government')

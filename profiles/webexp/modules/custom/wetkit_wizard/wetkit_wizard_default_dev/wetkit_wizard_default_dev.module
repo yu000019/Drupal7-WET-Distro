@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ */
+
+// Drupal needs this blank file.
+
+/**
+* Implements hook_install().
+*/
+function wetkit_wizard_default_init() {
+  if (variable_get('wizard_default_dev', 1) == 1) {
+    //For Migration
+    migrate_flush_caches();  
+    $migration = Migration::getInstance('XML_Default_Content');
+    $result = $migration->processImport();
+    $migration = Migration::getInstance('XML_Web_Usability');
+    $result = $migration->processImport();
+    $migration = Migration::getInstance('HTML_Documentation');
+    $result = $migration->processImport();
+    variable_set('wizard_default_dev', 0);
+  }  
+}

@@ -1,6 +1,0 @@
-name = "wetkit_styles"
-description = A module containing grid styles for Skinr.
-core = 7.x
-dependencies[] = skinr
-package = Skinr
-version = 7.x-1.0

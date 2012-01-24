@@ -1,10 +1,13 @@
 name = WebExp
-description = Required: Install Profile created for the Web Experience Toolkit using Drupal 7
+description = Install Profile created for the Web Experience Toolkit using Drupal 7
 core = 7.x
 
-;CORE
+;THE FOLLOWING MODULES ARE REQUIRED FOR BASIC DISTRO OPERATIONS
+;FEATURES CAN BE ENABLED POST INSTALL THAT DEPEND ON MORE MODULES WITH DISTRO
+;THESE FEATURES CONTAIN VARIOUS WET CONFIGURATIONS THAT PROVE USEFUL
+
+;DRUPAL CORE
 dependencies[] = block
-dependencies[] = comment
 dependencies[] = contextual
 dependencies[] = dashboard
 dependencies[] = help
@@ -18,24 +21,22 @@ dependencies[] = taxonomy
 dependencies[] = dblog
 dependencies[] = search
 dependencies[] = shortcut
-dependencies[] = toolbar
 dependencies[] = overlay
 dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = rdf
 dependencies[] = statistics
-dependencies[] = aggregator
 dependencies[] = simpletest
 
-;REQUIRED
+;BASE CONTRIB REQUIRED
 dependencies[] = absolute_messages
 dependencies[] = admin
-dependencies[] = advanced_help
 dependencies[] = apps
 dependencies[] = boxes
 dependencies[] = conditional_styles
 dependencies[] = context
 dependencies[] = context_layouts
+dependencies[] = context_ui
 dependencies[] = ctools
 dependencies[] = custom_breadcrumbs
 dependencies[] = custom_formatters
@@ -47,11 +48,8 @@ dependencies[] = libraries
 dependencies[] = link
 dependencies[] = module_filter
 dependencies[] = nice_menus
-dependencies[] = nodequeue
 dependencies[] = pathauto
 dependencies[] = pathauto_persist
-dependencies[] = rules
-dependencies[] = skinr
 dependencies[] = stringoverrides
 dependencies[] = strongarm
 dependencies[] = token
@@ -62,49 +60,18 @@ dependencies[] = variable_advanced
 dependencies[] = variable_realm
 dependencies[] = variable_store
 dependencies[] = views
+dependencies[] = views_ui
 
-;BREAKS SITE WITH ENTITY TRANSLATION
-;dependencies[] = uuid
-
-;ACCESSIBILITY
-;dependencies[] = a11y_titles
-;dependencies[] = cck_accessibility
-;dependencies[] = pagestyle
-
-;AUTHENTICATION
-;dependencies[] = ldap
-
-;DEVELOPMENT
-;dependencies[] = backup_migrate
-;dependencies[] = coder
-;dependencies[] = devel
-;dependencies[] = devel_themer
-;dependencies[] = migrate
-;dependencies[] = migrate_extras
-;dependencies[] = querypath
-
-;ENTITY
+;BASE CONTRIB ENTITY
 dependencies[] = entity
 dependencies[] = entity_token
-;dependencies[] = entity_translation
-;dependencies[] = title
+dependencies[] = entity_translation
+dependencies[] = title
 
-;SEARCH
-dependencies[] = facetapi
-dependencies[] = metatag
-dependencies[] = search404
-dependencies[] = xmlsitemap
-
-;SECURITY
-dependencies[] = hacked
+;BASE CONTRIB SECURITY
 dependencies[] = password_policy
-dependencies[] = security_review
 
-;THEMING
-;dependencies[] = delta
-;dependencies[] = omega_tools
-
-;CUSTOM MODULES AND FEATURES
+;BASE WET FEATURES
 dependencies[] = wetkit_defaults
 dependencies[] = wetkit_i18n
 dependencies[] = wetkit_content_types

@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ */
+
+include_once('wetkit_defaults.features.inc');
+
+/**
+* Implements hook_init().
+*/
+function wetkit_defaults_init() {
+  //Add WET pe-ap.js on hook_init
+  if (function_exists('libraries_get_path')) {
+    $library_path = libraries_get_path('wet-boew-jquery-v1.3b2');
+    drupal_add_js($library_path  . '/js/pe-ap.js'); 
+    variable_set('libraries_check', 0);
+  }
+}
