@@ -23,34 +23,32 @@ function wetkit_i18n_uninstall() {
 /**
 * Implements hook_init().
 */
-function wetkit_i18n_init() {
+function wetkit_i18n_language_init() {
+  
+  //global $language, $conf;
+
+  //switch ($language->language) {
+  //  case 'fr':
+  //    $conf['site_name'] = 'Mon site Drupal';
+  //    break;
+  //}
+  
   //Set Flag
-  if (module_exists('webexp')) {
-    drupal_language_initialize();
-    
-    if (variable_get('views_i18n', 1) == 1) { 
-      //Languages
-      db_update('languages')
-        ->fields(array(
-          'prefix' => 'eng',
-        ))
-      ->condition('language', 'en')
-      ->execute();
+  if (variable_get('views_i18n', 1) == 1) { 
+    //French Language (Strongarm Takes care of English)
+    db_update('languages')
+      ->fields(array(
+        'prefix' => 'fra',
+      ))
+    ->condition('language', 'fr')
+    ->execute();
 
-      db_update('languages')
-        ->fields(array(
-          'prefix' => 'fra',
-        ))
-      ->condition('language', 'fr')
-      ->execute();
+    //Multilingual Variables
+    i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
 
-      //Multilingual Variables
-      i18n_variable_set('site_name', 'Toolkit Expérience Web', 'fr');
+    //Clear all caches
+    cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
 
-      //Clear all caches
-      cache_clear_all('*', I18N_VARIABLE_CACHE, TRUE);
-      variable_set('views_i18n', 0);
-    }
-    
+    variable_set('views_i18n', 0);
   }
 }
