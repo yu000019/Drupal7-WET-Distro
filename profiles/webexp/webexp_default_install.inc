@@ -12,21 +12,39 @@ function _default_setup_form() {
     '#title' => st('Is this for Government or Public Use?'),
     '#default_value' =>  variable_get('radio_organization', 'government'),
     '#options' => $options_branding,
-    '#description' => st('Please be certain that the wetkit module is included in the base install platform for this operation to succeed.'),
+    '#description' => st('This option will help to further assist between government and non-government branded solutions.'),
   );
   $form['webexp_site'] = array(
     '#type' => 'radios',
     '#title' => st('Site intended to be used for which of type of website?'),
     '#default_value' =>  variable_get('radio_internet_intranet', 'internet'),
     '#options' => $options_site,
-    '#description' => st('This option will change the default theme that will be used based on the type of site.'),
-  ); 
+    '#description' => st('This option will change the default theme based on the type of site.'),
+  );
+  $form['webexp_prefix_language_en'] = array(
+    '#type' => 'textfield',
+    '#title' => t('English Prefix'),
+    '#required' => TRUE,
+    '#default_value' => 'eng',
+    '#description' => "Please enter the English Language Prefix for domains (Defaults if unsure)",
+    '#size' => 20,
+    '#maxlength' => 20,
+  );
+  $form['webexp_prefix_language_fr'] = array(
+    '#type' => 'textfield',
+    '#title' => t('French Prefix'),
+    '#required' => TRUE,
+    '#default_value' => 'fra',
+    '#description' => "Please enter the French Language Prefix for domains (Defaults if unsure)",
+    '#size' => 20,
+    '#maxlength' => 20,
+  );
   $form['webexp_domain_language_en'] = array(
     '#type' => 'textfield',
     '#title' => t('English Domain (Optional)'),
     '#required' => FALSE,
     '#default_value' => NULL,
-    '#description' => "Please enter the English Language Domain (If don't know what this is best to leave alone)",
+    '#description' => "Please enter the English Language Domain (Leave Blank if unsure)",
     '#size' => 20,
     '#maxlength' => 20,
   );
@@ -35,7 +53,7 @@ function _default_setup_form() {
     '#title' => t('French Domain (Optional)'),
     '#required' => FALSE,
     '#default_value' => NULL,
-    '#description' => "Please enter the French Language Domain  (If don't know what this is best to leave alone)",
+    '#description' => "Please enter the French Language Domain  (Leave Blank if unsure)",
     '#size' => 20,
     '#maxlength' => 20,
   );
@@ -50,6 +68,8 @@ function _default_setup_form() {
 function _default_submit_form($form, &$form_state) {
   variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
   variable_set('radio_organization', $form_state['values']['webexp_govern']);
+  variable_set('radio_prefix_domain_en', $form_state['values']['webexp_prefix_language_en']);
+  variable_set('radio_prefix_domain_fr', $form_state['values']['webexp_prefix_language_fr']);
   variable_set('radio_language_domain_en', $form_state['values']['webexp_domain_language_en']);
   variable_set('radio_language_domain_fr', $form_state['values']['webexp_domain_language_fr']);
 }
@@ -71,64 +91,22 @@ function _default_run_form() {
       theme_enable(array($GLOBALS['$gov_theme_intranet']));
       variable_set('theme_default', $GLOBALS['$gov_theme_intranet']);
     }
+    
+    //Kinda hackish but has to be run after first set
+    $module_list = array($GLOBALS['$gov_web_usability']);
+    module_enable($module_list, TRUE);
   }
+  
   //If Non-Government Site
   else if (variable_get('radio_organization') == 'public') 
   {
     theme_disable(array('bartik'));
     theme_enable(array($GLOBALS['$public_theme_internet']));    
     variable_set('theme_default', $GLOBALS['$public_theme_internet']);
-  }
-  
-  //Enable Dev Modules
-  //$module_list = array('devel','devel_generate','migrate','migrate_ui','migrate_extras','querypath');
-  //module_enable($module_list, TRUE);
-  
-  //Enable Workflow Modules
-  //$module_list = array('workbench','workbench_access','workbench_files','workbench_moderation');
-  //module_enable($module_list, TRUE);
-  
-  //Enable WYSIWYG Modules
-  //$module_list = array('ckeditor','ckeditor_link','imce');
-  //module_enable($module_list, TRUE);
-  
-  //Enable Skinr Modules
-  //$module_list = array('skinr');
-  //module_enable($module_list, TRUE);
-  
-  //Enable Features
-  //$module_list = array('wetkit_slider');
-  //module_enable($module_list, TRUE);
-
-  //$module_list = array('wetkit_ckeditor');
-  //module_enable($module_list, TRUE);
-
-  //$module_list = array('wetkit_styles');
-  //module_enable($module_list, TRUE);
-
-  //$module_list = array('wetkit_workflow_rules');
-  //module_enable($module_list, TRUE);
-  
-  //$module_list = array('wetkit_migrate');    
-  //module_enable($module_list, TRUE);
-  
-  //$module_list = array('context_ui','skinr_ui','rules_admin','views_ui');    
-  //module_enable($module_list, TRUE);
-       
-  //Enable Government Specifications
-  if (variable_get('radio_organization') == 'government')
-  {
-    //Kinda hackish but has to be run after first set
-    $module_list = array($GLOBALS['$gov_web_usability']);
-    module_enable($module_list, TRUE); 
-  }
-  //Enable Public Specifications
-  else if (variable_get('radio_organization') == 'public')
-  { 
+    
     $module_list = array($GLOBALS['$public_web_usability']);    
     module_enable($module_list, TRUE);
   }
-  
 }
 
 function _default_flush_vars() {
