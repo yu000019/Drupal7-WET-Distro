@@ -24,13 +24,15 @@ function wetkit_i18n_uninstall() {
 * Implements hook_language_init().
 */
 function wetkit_i18n_language_init() {  
+  
   //Set Flag
-  if (variable_get('views_i18n', 1) == 1) { 
+  if ((variable_get('views_i18n', 1) == 1) && ($GLOBALS['conf']['install_task'] == 'done')) { 
     
     //Take care of language + domain
      db_update('languages')
       ->fields(array(
         'prefix' => 'eng',
+        'domain' => variable_get('radio_language_domain_en'),
       ))
     ->condition('language', 'en')
     ->execute();
@@ -38,6 +40,7 @@ function wetkit_i18n_language_init() {
     db_update('languages')
       ->fields(array(
         'prefix' => 'fra',
+        'domain' => variable_get('radio_language_domain_fr'),
       ))
     ->condition('language', 'fr')
     ->execute();
