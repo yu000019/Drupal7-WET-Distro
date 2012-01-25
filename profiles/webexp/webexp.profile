@@ -101,12 +101,12 @@ function webexp_install_tasks() {
       'type' => 'batch', 
       'run' => $webexp_needs_batch_processing ? INSTALL_TASK_RUN_IF_NOT_COMPLETED : INSTALL_TASK_SKIP,
     ),
-    'webexp_type_install_form' => array(
-      'display_name' => st('Web Experience Toolkit: Installation Type'), 
-      'type' => 'form',
-    ), 
+    //'webexp_type_install_form' => array(
+    //  'display_name' => st('Web Experience Toolkit: Installation Type'), 
+    //  'type' => 'form',
+    //), 
     'webexp_configuration_form' => array(
-      'display_name' => st('Web Experience Toolkit: Further Configuration'), 
+      'display_name' => st('Web Experience Toolkit: Configuration'), 
       'type' => 'form',
     ), 
     'webexp_final_setup' => array(
@@ -121,15 +121,7 @@ function webexp_install_tasks() {
  * Alters the profile that setups and defines tasks.
  */
 function webexp_install_tasks_alter(&$tasks, $install_state) {
-  //Get Locale Language
-  //global $install_state;
-  //$lang_val = isset($install_state['parameters']['locale']);
-  
   //If using French Locale as default remove associated Install Task
-  //if ($lang_val == 'fr')
-  //{
-  //  unset($tasks['webexp_batch_processing']);
-  //}
   unset($tasks['install_import_locales']);
   unset($tasks['install_import_locales_remaining']);
 }
@@ -140,9 +132,9 @@ function webexp_install_tasks_alter(&$tasks, $install_state) {
 function webexp_apps_servers_info() {
  $info =  drupal_parse_info_file(dirname(__file__) . '/webexp.info');
  return array(
-   'openpublic' => array(
+   'webexp' => array(
      'title' => 'WebExp',
-     'description' => "Apps for the Openpublic distribution",
+     'description' => "Apps for the Web Experience Toolkit Drupal distro",
      'manifest' => 'http://appserver.openpublicapp.com/app/query',
      'profile' => 'webexp',
      'profile_version' => isset($info['version']) ? $info['version'] : '7.x-1.0-beta1',

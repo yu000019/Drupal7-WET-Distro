@@ -21,6 +21,24 @@ function _default_setup_form() {
     '#options' => $options_site,
     '#description' => st('This option will change the default theme that will be used based on the type of site.'),
   ); 
+  $form['webexp_domain_language_en'] = array(
+    '#type' => 'textfield',
+    '#title' => t('English Domain (Optional)'),
+    '#required' => FALSE,
+    '#default_value' => NULL,
+    '#description' => "Please enter the English Language Domain (If don't know what this is best to leave alone)",
+    '#size' => 20,
+    '#maxlength' => 20,
+  );
+  $form['webexp_domain_language_fr'] = array(
+    '#type' => 'textfield',
+    '#title' => t('French Domain (Optional)'),
+    '#required' => FALSE,
+    '#default_value' => NULL,
+    '#description' => "Please enter the French Language Domain  (If don't know what this is best to leave alone)",
+    '#size' => 20,
+    '#maxlength' => 20,
+  );
   $form[] = array(
     '#type' => 'submit',
     '#value' => st('Save and continue'),
@@ -32,6 +50,8 @@ function _default_setup_form() {
 function _default_submit_form($form, &$form_state) {
   variable_set('radio_internet_intranet', $form_state['values']['webexp_site']);
   variable_set('radio_organization', $form_state['values']['webexp_govern']);
+  variable_set('radio_language_domain_en', $form_state['values']['webexp_domain_language_en']);
+  variable_set('radio_language_domain_fr', $form_state['values']['webexp_domain_language_fr']);
 }
 
 function _default_run_form() {  

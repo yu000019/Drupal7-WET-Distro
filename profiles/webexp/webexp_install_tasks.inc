@@ -62,6 +62,11 @@ function webexp_type_install_form_submit($form, &$form_state) {
  * THIRD TASK: Allows the profile to create the setup form.
  */
 function webexp_configuration_form() {
+  
+  //Override when install form disabled
+  variable_set('radio_type_install', 'default');
+  
+  
   //Custom Installation
   if (variable_get('radio_type_install') == 'custom') {
     return _custom_setup_form();
@@ -94,6 +99,7 @@ function webexp_configuration_form_submit($form, &$form_state) {
  * FINAL TASK: Allows the profile to perform final tasks based on gathered information.
  */
 function webexp_final_setup() {
+
   //Custom Installation
   if (variable_get('radio_type_install') == 'custom') {
     _custom_run_form();
