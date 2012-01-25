@@ -24,9 +24,9 @@ function wetkit_i18n_uninstall() {
 * Implements hook_language_init().
 */
 function wetkit_i18n_language_init() {  
-  
   //Set Flag
-  if ((variable_get('views_i18n', 1) == 1) && ($GLOBALS['conf']['install_task'] == 'done')) { 
+  global $install_state;
+  if ((variable_get('views_i18n', 1) == 1) && ($install_state['install_finished'] == 1)) { 
     
     //Take care of language + domain
      db_update('languages')
