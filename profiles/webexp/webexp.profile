@@ -95,12 +95,6 @@ function webexp_install_tasks() {
   
   $webexp_needs_batch_processing = variable_get('webexp_needs_batch_processing', TRUE);
   $tasks = array(
-    'webexp_batch_processing' => array(
-      'display_name' => st('Import Additional Language(s)'), 
-      'display' => $webexp_needs_batch_processing, 
-      'type' => 'batch', 
-      'run' => $webexp_needs_batch_processing ? INSTALL_TASK_RUN_IF_NOT_COMPLETED : INSTALL_TASK_SKIP,
-    ),
     //'webexp_type_install_form' => array(
     //  'display_name' => st('Web Experience Toolkit: Installation Type'), 
     //  'type' => 'form',
@@ -109,6 +103,12 @@ function webexp_install_tasks() {
       'display_name' => st('Web Experience Toolkit: Configuration'), 
       'type' => 'form',
     ), 
+    'webexp_batch_processing' => array(
+      'display_name' => st('Import Additional Language(s)'), 
+      'display' => $webexp_needs_batch_processing, 
+      'type' => 'batch', 
+      'run' => $webexp_needs_batch_processing ? INSTALL_TASK_RUN_IF_NOT_COMPLETED : INSTALL_TASK_SKIP,
+    ),
     'webexp_final_setup' => array(
     ),
   );

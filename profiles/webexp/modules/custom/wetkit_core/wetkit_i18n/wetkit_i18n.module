@@ -25,10 +25,8 @@ function wetkit_i18n_uninstall() {
 */
 function wetkit_i18n_language_init() {  
   //Set Flag
-  global $install_state;
-  if ((variable_get('views_i18n', 1) == 1) && ($install_state['install_finished'] == 1)) { 
-    
-    //Take care of language + domain
+  if (variable_get('views_i18n', 1) == 1) { 
+      //Take care of language + domain
      db_update('languages')
       ->fields(array(
         'prefix' => 'eng',
