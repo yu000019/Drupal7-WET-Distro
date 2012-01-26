@@ -74,7 +74,7 @@ function _default_submit_form($form, &$form_state) {
   variable_set('radio_language_domain_fr', $form_state['values']['webexp_domain_language_fr']);
 }
 
-function _default_run_form() {  
+function _default_run_form() {
   //If Government Site
   if (variable_get('radio_organization') == 'government')
   {

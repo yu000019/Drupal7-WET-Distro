@@ -15,3 +15,8 @@ div.error {
 .db-offline .absolute-messages-message {
   display: none !important;
 }
+
+.ckeditor_links {
+  margin-bottom: 20px;
+  display: block;
+}

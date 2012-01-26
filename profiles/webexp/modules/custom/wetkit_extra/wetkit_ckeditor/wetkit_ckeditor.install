@@ -1,0 +1,11 @@
+<?php
+/**
+ * @file
+ */
+
+// Drupal needs this blank file.
+
+function wetkit_ckeditor_install() {
+  $arr['ckeditor_path'] = 'profiles/profilename/libraries/ckeditor'; 
+  db_insert('ckeditor_settings')->fields(array("name" => "CKEditor Global Profile", "settings" => serialize($arr)))->execute();
+}
