@@ -85,47 +85,6 @@ function wetkit_ckeditor_strongarm() {
         ),
       ),
     ),
-    3 => array(
-      'name' => 'Global Profile',
-      'usertab' => 1,
-      'filesize' => '0',
-      'quota' => '0',
-      'tuquota' => '0',
-      'extensions' => '*',
-      'dimensions' => '1200x1200',
-      'filenum' => '0',
-      'directories' => array(
-        0 => array(
-          'name' => '.',
-          'subnav' => 1,
-          'browse' => 1,
-          'upload' => 1,
-          'thumb' => 1,
-          'delete' => 1,
-          'resize' => 1,
-        ),
-      ),
-      'thumbnails' => array(
-        0 => array(
-          'name' => 'Small',
-          'dimensions' => '90x90',
-          'prefix' => 'small_',
-          'suffix' => '',
-        ),
-        1 => array(
-          'name' => 'Medium',
-          'dimensions' => '120x120',
-          'prefix' => 'medium_',
-          'suffix' => '',
-        ),
-        2 => array(
-          'name' => 'Large',
-          'dimensions' => '180x180',
-          'prefix' => 'large_',
-          'suffix' => '',
-        ),
-      ),
-    ),
   );
   $export['imce_profiles'] = $strongarm;
 
