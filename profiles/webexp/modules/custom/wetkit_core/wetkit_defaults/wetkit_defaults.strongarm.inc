@@ -20,6 +20,8 @@ function wetkit_defaults_strongarm() {
     'search' => 'search',
     'entity_token' => 'entity_token',
     'wetkit_ckeditor' => 'wetkit_ckeditor',
+    'wetkit_wizard_default' => 'wetkit_wizard_default',
+    'wetkit_wizard_default_dev' => 'wetkit_wizard_default_dev',
   );
   $export['features_ignored_orphans'] = $strongarm;
 
