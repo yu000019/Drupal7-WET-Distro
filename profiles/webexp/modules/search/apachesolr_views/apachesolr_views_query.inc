@@ -60,7 +60,9 @@ class apachesolr_views_query extends views_plugin_query {
 
       // Execute the search.
       $params = array();
-      $params['q'] = isset($this->params['q']) ? $this->params['q'] : '*:*';
+      if (isset($this->params['q'])) {
+        $params['q'] =  $this->params['q'];
+      }
 
       $params['rows'] = $this->pager->options['items_per_page'];
       $params['start'] = $this->pager->current_page * $this->pager->options['items_per_page'];
@@ -86,8 +88,15 @@ class apachesolr_views_query extends views_plugin_query {
         $solrsort = implode(', ', $this->params['sort']);
       }
 
+      // Get the Apache Solr "environment id".
+      $env_id = NULL;
+      if (strpos($view->base_table, 'apachesolr__') === 0) {
+        $env_id = substr($view->base_table, 12);
+      }
+
       // Load search query and execute it.
-      $solr = apachesolr_get_solr();
+      // $solr = apachesolr_get_solr();
+      $solr = apachesolr_get_solr($env_id);
       $query = new SolrBaseQuery('apachesolr', $solr, $params, $solrsort, '');
 
       $params = array(
