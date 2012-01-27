@@ -92,6 +92,7 @@
 ; Shorcuts link, set to 1 enable. Disabled by default since this 
 ; will seldom make sense in a front end theme.
   settings[shortcut_module_link] = 0
+  settings[sub_site_name] = Sub-site_name
 
 
 

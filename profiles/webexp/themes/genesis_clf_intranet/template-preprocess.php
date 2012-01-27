@@ -191,7 +191,9 @@ function genesis_clf_intranet_preprocess_page(&$vars) {
         )
       )
     );
-  } 
+  }
+  
+  $vars['sub_site_name'] = theme_get_setting('sub_site_name');
 }
 
 function genesis_clf_intranet_preprocess_node(&$vars) {
