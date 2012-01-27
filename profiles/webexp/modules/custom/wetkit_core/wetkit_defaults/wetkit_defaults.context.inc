@@ -13,9 +13,9 @@ function wetkit_defaults_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'content_defaults';
-  $context->description = 'Defaults for Content Layout';
-  $context->tag = 'Defaults';
+  $context->name = 'sitewide_defaults';
+  $context->description = 'Default sitewide Blocks and Boxes for WET Distro';
+  $context->tag = 'Sitewide';
   $context->conditions = array(
     'sitewide' => array(
       'values' => array(
@@ -26,9 +26,27 @@ function wetkit_defaults_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'locale-language_content' => array(
+          'module' => 'locale',
+          'delta' => 'language_content',
+          'region' => 'sidebar_first',
+          'weight' => '-25',
+        ),
+        'shortcut-shortcuts' => array(
+          'module' => 'shortcut',
+          'delta' => 'shortcuts',
+          'region' => 'sidebar_first',
+          'weight' => '-24',
+        ),
         'system-navigation' => array(
           'module' => 'system',
           'delta' => 'navigation',
+          'region' => 'sidebar_first',
+          'weight' => '-23',
+        ),
+        'admin-account' => array(
+          'module' => 'admin',
+          'delta' => 'account',
           'region' => 'sidebar_first',
           'weight' => '-10',
         ),
@@ -51,9 +69,9 @@ function wetkit_defaults_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Defaults');
-  t('Defaults for Content Layout');
-  $export['content_defaults'] = $context;
+  t('Default sitewide Blocks and Boxes for WET Distro');
+  t('Sitewide');
+  $export['sitewide_defaults'] = $context;
 
   return $export;
 }

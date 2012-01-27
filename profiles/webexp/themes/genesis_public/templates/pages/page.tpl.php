@@ -268,11 +268,6 @@
                 <?php print $sidebar_first; ?>
               </div>
             <?php endif; ?>
-            <?php if ($secondary_menu_links): ?>
-              <nav id="secondary-menu-wrapper" class="clearfix" role="navigation">
-                <div class="secondary-menu-inner"><?php print $secondary_menu_links; ?></div>
-              </nav>
-            <?php endif; ?>
             <!-- GC Web Usability theme ends / Fin du thème de la facilité d'emploi GC -->
           </div>
         </nav>
