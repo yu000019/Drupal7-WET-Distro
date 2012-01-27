@@ -164,7 +164,7 @@
       <!-- Banner ends / Fin de la bannière -->
       
       <div class="cn-subsite-1" id="cn-subsite">
-	  		<p><a href="#">Sub site name</a></p>
+	  		<p><a href="#"><?php print t($sub_site_name);?></a></p>
       </div>
    
       <nav role="navigation">
