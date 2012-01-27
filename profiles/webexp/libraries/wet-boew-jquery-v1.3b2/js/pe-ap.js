@@ -12,11 +12,13 @@ var PE = {
 	   /** Page Language - is set by the Meta Data Element [ dc.language ] **/
 	    PE.language =  this.find_language();
 	   /** Page Language - end **/
-	   /** JS Location - The browser helps set this up for us **/
+	   
+     /** JS Location - The browser helps set this up for us **/
       PE.liblocation = '/profiles/webexp/libraries/wet-boew-jquery-v1.3b2/js/'; 
-	    //PE.liblocation = jQuery("script[id='progressive']").attr('src').replace("pe-ap.js","");
-	    /** JS Location - end **/
-	    PE.uiloaded = false;
+      //PE.liblocation = jQuery("script[id='progressive']").attr('src').replace("pe-ap.js","");
+	   /** JS Location - end **/
+	   
+     PE.uiloaded = false;
 	    /** jquery ui load state **/
 
 	    /** Load mandatory supporting library and plugins features **/
@@ -136,7 +138,7 @@ jQuery(document).ready(function() {
 	jQuery("#cssTest").remove();
 	
 	 //Set the metadata type (HTML5 or XHTML)
-	if (jQuery("html").attr("xml:lang")  == undefined || jQuery("html").attr("xml:lang")  == ""){
+	if (jQuery("html").attr("lang")  == undefined || jQuery("html").attr("lang")  == ""){
 		jQuery.metadata.setType("html5"); 
 	}
 });

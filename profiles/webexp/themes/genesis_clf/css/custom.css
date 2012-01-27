@@ -233,3 +233,9 @@ div.panels-ipe-draghandle {
   display: block;
   padding: 4px 5px;
 }
+
+/* Margin Fixes for Grids */
+dt, dd {
+margin-left: 10px !important;
+margin-right: 10px !important;
+}
