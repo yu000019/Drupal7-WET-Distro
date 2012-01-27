@@ -72,6 +72,7 @@ dependencies[] = title
 dependencies[] = password_policy
 
 ;BASE WET FEATURES
+dependencies[] = wetkit_box
 dependencies[] = wetkit_defaults
 dependencies[] = wetkit_i18n
 dependencies[] = wetkit_content_types

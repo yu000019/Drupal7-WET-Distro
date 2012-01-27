@@ -42,3 +42,21 @@ function genesis_clf_intranet_form_alter(&$form, &$form_state, $form_id){
   }
 }
 
+/**
+ * Theme function for the form.
+ */
+function genesis_clf_intranet_boxes_box($variables) {
+  $block = $variables['block'];
+  $output = "<div id='boxes-box-" . $block['delta'] . "' class='boxes-box" . (!empty($block['editing']) ? ' boxes-box-editing' : '') . "'>";
+  $output .= '<div class="boxes-box-content">' . $block['content'] . '</div>';
+  if (!empty($block['controls'])) {
+    //$output .= '<div class="boxes-box-controls">';
+    //$output .= $block['controls'];
+    //$output .= '</div>';
+  }
+  if (!empty($block['editing'])) {
+    $output .= '<div class="box-editor">' . drupal_render($block['editing']) . '</div>';
+  }
+  $output .= '</div>';
+  return $output;
+}

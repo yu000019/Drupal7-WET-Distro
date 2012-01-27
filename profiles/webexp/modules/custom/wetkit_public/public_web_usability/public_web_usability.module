@@ -5,7 +5,6 @@
  */
 
 include_once('public_web_usability.features.inc');
-include_once('public_web_usability.blocks.inc');
 
 /**
 * Implements hook_install().
@@ -134,55 +133,6 @@ function public_web_usability_page_alter(&$page) {
 function public_web_usability_init(){
   //Set Flag
   if (variable_get('views_temp', 1) == 1) {  
-    //Add the Default Blocks
-    db_insert('i18n_block_language')->fields(array(
-      'module' => 'public_web_usability',
-      'delta' => 'videos_blocks',
-      'language' => 'en',
-    ))->execute();
-    
-    db_insert('i18n_block_language')->fields(array(
-      'module' => 'public_web_usability',
-      'delta' => 'priorities_blocks',
-      'language' => 'en',
-    ))->execute();
-    
-    db_insert('i18n_block_language')->fields(array(
-      'module' => 'public_web_usability',
-      'delta' => 'minister_blocks',
-      'language' => 'en',
-    ))->execute();
-    
-    db_insert('i18n_block_language')->fields(array(
-      'module' => 'public_web_usability',
-      'delta' => 'connected_blocks',
-      'language' => 'en',
-    ))->execute();
-    
-    db_insert('i18n_block_language')->fields(array(
-      'module' => 'public_web_usability',
-      'delta' => 'videos_blocks2',
-      'language' => 'fr',
-    ))->execute();
-    
-    db_insert('i18n_block_language')->fields(array(
-      'module' => 'public_web_usability',
-      'delta' => 'priorities_blocks_fr',
-      'language' => 'fr',
-    ))->execute();
-    
-    db_insert('i18n_block_language')->fields(array(
-      'module' => 'public_web_usability',
-      'delta' => 'minister_blocks_fr',
-      'language' => 'fr',
-    ))->execute();
-    
-    db_insert('i18n_block_language')->fields(array(
-      'module' => 'public_web_usability',
-      'delta' => 'connected_blocks_fr',
-      'language' => 'fr',
-    ))->execute();
-    
     drupal_set_message(t('Please proceed to the !features section to run the Wizard or Custom setup.', array('!features' => l(t('FEATURES'), 'admin/structure/features'))), 'status');
     drupal_set_message(t('Please read the provided !documentation.', array('!documentation' => l(t('DOCUMENTATION'), 'documentation/styleguide/css-e'))), 'warning');
   

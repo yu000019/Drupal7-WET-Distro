@@ -8,6 +8,7 @@ files[] = apachesolr.install
 files[] = apachesolr.module
 files[] = apachesolr.admin.inc
 files[] = apachesolr.index.inc
+files[] = apachesolr.interface.inc
 files[] = Drupal_Apache_Solr_Service.php
 files[] = Apache_Solr_Document.php
 files[] = Solr_Base_Query.php

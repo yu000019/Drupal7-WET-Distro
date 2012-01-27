@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the wetkit_boxes_content feature.
+ */
+
+include_once('wetkit_boxes_content.features.inc');

@@ -14,7 +14,7 @@ function wetkit_defaults_context_default_contexts() {
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'sitewide_defaults';
-  $context->description = 'Default sitewide Blocks and Boxes for WET Distro';
+  $context->description = 'Default Sitewide Blocks for WET Distro';
   $context->tag = 'Sitewide';
   $context->conditions = array(
     'sitewide' => array(
