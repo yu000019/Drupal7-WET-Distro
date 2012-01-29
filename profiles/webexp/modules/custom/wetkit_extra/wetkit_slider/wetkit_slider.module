@@ -30,8 +30,8 @@ function wetkit_slider_init(){
     drupal_flush_all_caches();
     
     //Create managed File object and associate with file field.
-    $file1 = _slider_add_file('parliamenthill_official.png', drupal_get_path('theme', 'genesis_clf') . '/images/parliamenthill.png');
-    $file2 = _slider_add_file('canada_official.png', drupal_get_path('theme', 'genesis_clf') . '/images/canada.png');
+    $file1 = _slider_add_file('default_sliderpic1.png', drupal_get_path('theme', variable_get('theme_default')) . '/images/slider01.png');
+    $file2 = _slider_add_file('default_sliderpic2.png', drupal_get_path('theme', variable_get('theme_default')) . '/images/slider02.png');
 
     //Slider Content
     $field_text_1_en = '<div class="tabs-content-pad">
