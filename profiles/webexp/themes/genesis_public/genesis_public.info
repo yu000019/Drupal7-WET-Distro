@@ -59,9 +59,6 @@
 ; JavaScript
   scripts[] = js/wet.js
 
-; Panels layouts. You can place multiple layouts under the "layouts" folder.
-  ;plugins[panels][layouts] = css/layouts
-
 ; The regions defined in the page.tpl.php file. The name in brackets is the 
 ; name of the variable. The text after the = sign is the short description 
 ; you see on the block configuration page.

@@ -111,11 +111,10 @@
     <?php print render($content['comments']); ?>
 
   </div>
-  <!-- Date Modified begins / Début de la date de modification -->
+  
   <dl id="cn-doc-dates" role="contentinfo">
     <dt><?php print t('Date modified:'); ?></dt>
     <dd><span><time pubdate="pubdate" itemprop="dateModified"><?php print $date; ?></time></span></dd>
 	</dl>
   <div class="clear"></div>
-  <!-- Date Modified ends / Fin de la date de modification -->
 </article>

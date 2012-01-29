@@ -67,69 +67,59 @@
  */
 ?>
 
-<!-- Header begins / Début de l'en-tête -->
 <div id="cn-head">
   <div id="cn-head-inner">
     <header itemscope="itemscope" itemtype="http://schema.org/WPHeader">
-      <!-- GC Web Usability theme begins / Début du thème de la facilité d'emploi GC -->
-      
-      <!-- GC navigation bar begins / Début de la barre de menu GC -->    
+
       <nav role="navigation">
         <div id="cn-gcnb">
-          <h2><?php print t('Government of Canada navigation bar'); ?></h2>
+          <h2><?php print t('Public Organization navigation bar'); ?></h2>
           <div id="cn-gcnb-inner">
             <div id="fip-pcim-gcnb" itemscope="itemscope" itemtype="http://schema.org/WPAdBlock">
               <div id="cn-sig">
                 <div id="cn-sig-inner">
                   <?php if ($language->language == 'en'): ?>
-                    <div id="fip-pcim-sig-eng" title="Government of Canada">
-                      <img src="/<?php print(drupal_get_path('theme', 'genesis_public'));?>/css/theme-gcwu-fegc/fip-pcim/images/sig-eng.gif" width="214" height="20" alt="Government of Canada">
+                    <div id="fip-pcim-sig-eng" title="Public Organization">
+                      <img src="/<?php print(drupal_get_path('theme', 'genesis_public'));?>/css/theme-gcwu-fegc/fip-pcim/images/sig-eng.gif" width="214" height="20" alt="Public Organization">
                     </div>
                   <?php endif;?>
 
                   <?php if ($language->language == 'fr'): ?>
-                    <div id="fip-pcim-sig-fra" title="Gouvernement du Canada">
-                      <img src="/<?php print(drupal_get_path('theme', 'genesis_public'));?>/css/theme-gcwu-fegc/fip-pcim/images/sig-fra.gif" width="214" height="20" alt="Gouvernement du Canada">
+                    <div id="fip-pcim-sig-fra" title="organisation publique">
+                      <img src="/<?php print(drupal_get_path('theme', 'genesis_public'));?>/css/theme-gcwu-fegc/fip-pcim/images/sig-fra.gif" width="214" height="20" alt="organisation publique">
                     </div>
                   <?php endif;?>  
                 </div>
               </div>
-              <!-- Custom Drupal WET: Header -->
               <?php print $menu_gov_bar; ?>
-              <!-- /Custom Drupal WET: Header -->
             </div>
           </div>
         </div>
       </nav>
-      <!-- GC navigation bar ends / Fin de la barre de navigation GC -->
-      
-      <!-- Banner begins / Début de la bannière -->
+
       <div id="cn-banner" role="banner">
         <div id="cn-banner-inner">
           <div id="cn-wmms">
             <div id="cn-wmms-inner">
               <?php if ($language->language == 'en'): ?>
-                <div id="fip-pcim-wmms" title="Symbol of the Government of Canada"><img src="/<?php print(drupal_get_path('theme', 'genesis_public'));?>/css/theme-gcwu-fegc/fip-pcim/images/wmms.gif" width="126" height="30" alt="Symbol of the Government of Canada"></div>
+                <div id="fip-pcim-wmms" title="Symbol of the Public Organization"><img src="/<?php print(drupal_get_path('theme', 'genesis_public'));?>/css/theme-gcwu-fegc/fip-pcim/images/wmms.gif" width="126" height="30" alt="Symbol of the Public Organization"></div>
               <?php endif;?>
 
               <?php if ($language->language == 'fr'): ?>
-                <div id="fip-pcim-wmms" title="Symbole du gouvernement du Canada"><img src="/<?php print(drupal_get_path('theme', 'genesis_public'));?>/css/theme-gcwu-fegc/fip-pcim/images/wmms.gif" width="126" height="30" alt="Symbole du gouvernement du Canada"></div>
+                <div id="fip-pcim-wmms" title="Symbole du organisation publique"><img src="/<?php print(drupal_get_path('theme', 'genesis_public'));?>/css/theme-gcwu-fegc/fip-pcim/images/wmms.gif" width="126" height="30" alt="Symbole du organisation publique"></div>
               <?php endif;?>
             </div>
           </div>  
 
-          <!-- Drupal Content Begins -->
           <?php if ($linked_site_logo || $site_name || $site_slogan): ?>
             <div id="branding">
               <?php if ($site_name || $site_slogan): ?>
                 <hgroup<?php if (!$site_slogan && $hide_site_name): ?> class="<?php print $visibility; ?>"<?php endif; ?>>
                   <div id="cn-site-title">
 
-                    <!-- Site title begins / Début du titre du site -->
                     <?php if ($site_name): ?>
                       <p id="cn-site-title-inner"<?php if ($hide_site_name): ?> class="<?php print $visibility; ?>"<?php endif; ?>><?php print $site_name; ?></p>
                     <?php endif; ?>
-                    <!-- Site title ends / Fin du titre du site -->
 
                     <?php if ($site_slogan): ?>
                       <h2 id="site-slogan"><?php print $site_slogan; ?></h2>
@@ -140,9 +130,7 @@
               <?php endif; ?>
             </div>        
           <?php endif; ?>
-          <!-- Drupal Content Ends -->
-          
-          <!-- Site search begins / Début de la recherche du site -->
+
           <section role ="search">
             <div id="cn-search-box">
               <h2><?php print t('Search'); ?></h2>
@@ -151,16 +139,11 @@
               <?php endif; ?>
             </div>
           </section>
-          <!-- Site search ends / Fin de la recherche du site -->
-          
+
         </div>
       </div>
-      <!-- Banner ends / Fin de la bannière -->
-        
-
    
       <nav role="navigation">
-        <!-- Primary site navigation bar begins / Début de la barre de navigation primaire du site -->
         <div id="cn-psnb">
           <h2><?php print t('Primary site navigation bar'); ?></h2>
           <div id="cn-psnb-inner">
@@ -180,37 +163,26 @@
           
           </div>
         </div>
-        <!-- Primary site navigation bar ends / Fin de la barre de navigation primaire du site -->
-
-        <!-- Breadcrumbs begins / Début du fil d'Ariane -->
         <div id="cn-bc">
           <h2><?php print t('Breadcrumbs'); ?></h2>
           <div id="cn-bc-inner">
             <?php print $breadcrumb; ?>
           </div>
-        </div>
-        <!-- Breadcrumbs end / Fin du fil d'Ariane -->
+        </div>     
       </nav>
       
-      <!-- GC Web Usability theme ends / Fin du thème de la facilité d'emploi GC -->
     </header>
   </div>
 </div>
-<!-- Header ends / Fin de l'en-tête -->    
 
-<!-- Columns begin / Début des colonnes -->
 <div id="cn-cols">
   <div id="cn-cols-inner" class="equalize">
-    
-    <!-- Main content begins / Début du contenu principal -->
-      <div id="cn-centre-col" role="main" itemprop="mainContentOfPage">
-        <div id="cn-centre-col-inner">
+  
+    <div id="cn-centre-col" role="main" itemprop="mainContentOfPage">
+      <div id="cn-centre-col-inner">
               
-          <!-- Content title begins / Début du titre du contenu -->
-          <h1 id="cn-cont" class="cn-invisible">Government of Canada - Drupal CLF3</h1>
-          <!-- Content Title ends / Fin du titre du contenu -->
-                      
-          <!-- GC Web Usability theme begins / Début du thème de la facilité d'emploi GC -->
+          <h1 id="cn-cont" class="cn-invisible">Public Organization - Drupal CLF3</h1>
+         
           <section>
             <?php print $messages; ?>
             <?php if ($help = render($page['help'])): print $help; endif; ?>
@@ -251,76 +223,59 @@
               </div>
             </div>
           </section>
-          <!-- GC Web Usability theme ends / Fin du thème de la facilité d'emploi GC -->
+       
         </div>
       </div>
-    <!-- Main content ends / Fin du contenu principal -->
-          
-    <!-- Primary navigation (left column) begins / Début de la navigation principale (colonne gauche) -->
+
     <div id="cn-left-col">
       <div id="cn-left-col-inner" style="min-height: 680px; ">
         <nav role="navigation">
           <h2 id="cn-nav">Primary navigation (left column)</h2>
           <div class="cn-left-col-default">
-            <!-- GC Web Usability theme begins / Début du thème de la facilité d'emploi GC -->
             <?php if ($sidebar_first = render($page['sidebar_first'])): ?>
               <div id="sidebar-first" class="sidebar">
                 <?php print $sidebar_first; ?>
               </div>
             <?php endif; ?>
-            <!-- GC Web Usability theme ends / Fin du thème de la facilité d'emploi GC -->
           </div>
         </nav>
       </div>
     </div>
-    <!-- Primary navigation (left column) ends / Fin de la navigation principale (colonne gauche) -->
+
   </div>
 </div>
-<!-- Columns end / Fin des colonnes -->    
-      
-<!-- Footer begins / Début du pied de page -->
+
 <div id="cn-foot"><div id="cn-foot-inner">
 	<footer itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 		<h2 id="cn-nav"><?php print t('Footer'); ?></h2>
-    <!-- GC Web Usability theme begins / Début du thème de la facilité d'emploi GC -->
-		<!-- Site footer begins / Début du pied de page du site -->
-		<nav role="navigation">
+    
+    <nav role="navigation">
 			<div id="cn-sft">
 				<h3><?php print t('Site Footer'); ?></h3>
 				<div id="cn-sft-inner" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
 					<div id="cn-ft-tctr">
-            <!-- Custom Drupal WET: Terms -->
             <?php print $menu_gov_terms_bar; ?>
-            <!-- /Custom Drupal WET: Terms -->
-					</div>
+        	</div>
 					<div class="clear"></div>
 					<section>
 						<div class="span-2">
-              <!-- Custom Drupal GOC About Bar -->
               <?php print $menu_gov_about_bar; ?>
-              <!-- /Custom Drupal GOC About Bar -->
-						</div>
+        		</div>
 					</section>
 					<section>
 						<div class="span-2">
-              <!-- Custom Drupal WET: News -->
               <?php print $menu_gov_news_bar; ?>
-              <!-- /Custom Drupal WET: News -->
-						</div>
+        		</div>
 					</section>
 					<section>
 						<div class="span-2">
-              <!-- Custom Drupal GOC Contact Bar -->
               <?php print $menu_gov_contact_bar; ?>
-              <!-- /Custom Drupal GOC Contact Bar -->
-						</div>
+    				</div>
 					</section>
 					<section>
 						<div class="span-2">
-              <!-- Custom Drupal GOC Connected Bar -->
               <?php print $menu_gov_connected_bar; ?>
-              <!-- /Custom Drupal GOC Connected Bar -->
-						</div>
+    				</div>
 					</section>
           
         <?php if ($tertiary_content = render($page['tertiary_content'])): ?>
@@ -334,24 +289,18 @@
 				</div>
 			</div>
 		</nav>
-		<!-- Site footer ends / Fin du pied de page du site -->
-
-		<!-- GC footer begins / Début du pied de page GC -->
-		<nav role="navigation">
+	
+    <nav role="navigation">
 			<div id="cn-gcft">
-				<h3><?php print t('Government of Canada Footer'); ?></h3>
+				<h3><?php print t('Public Organization Footer'); ?></h3>
 				<div id="cn-gcft-inner">
 					<div id="fip-pcim-gcft" itemscope="itemscope" itemtype="http://schema.org/WPAdBlock">
-              <!-- Custom Drupal WET: Footer -->
               <?php print $menu_gov_footer_bar; ?>
-              <!-- /Custom Drupal WET: Footer -->
-					</div>
+  				</div>
 				</div>
 			</div>
 		</nav>
-		<!-- GC footer ends / Fin du pied de page GC -->
-  <!-- GC Web Usability theme ends / Fin du thème de la facilité d'emploi GC -->
-	</footer>
+
+  </footer>
 	</div>
 </div>
-<!-- Footer ends / Fin du pied de page -->
