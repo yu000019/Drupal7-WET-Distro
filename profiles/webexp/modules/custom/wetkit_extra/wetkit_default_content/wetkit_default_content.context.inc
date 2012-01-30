@@ -17,9 +17,9 @@ function wetkit_default_content_context_default_contexts() {
   $context->description = 'Default Multilingual Boxes for WET Distro';
   $context->tag = 'Boxes';
   $context->conditions = array(
-    'path' => array(
+    'sitewide' => array(
       'values' => array(
-        '<front>' => '<front>',
+        1 => 1,
       ),
     ),
   );
