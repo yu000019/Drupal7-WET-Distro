@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * wetkit_default_content.box.inc
+ * public_web_usability.box.inc
  */
 
 /**
  * Implements hook_default_box().
  */
-function wetkit_default_content_default_box() {
+function public_web_usability_default_box() {
   $export = array();
 
   $box = new stdClass;

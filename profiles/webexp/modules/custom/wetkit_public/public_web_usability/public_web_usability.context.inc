@@ -13,19 +13,43 @@ function public_web_usability_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'front_page_views';
-  $context->description = 'Views for Front Page';
-  $context->tag = 'views';
+  $context->name = 'wetkit_default_boxes';
+  $context->description = 'Default Multilingual Boxes for WET Distro';
+  $context->tag = 'Boxes';
   $context->conditions = array(
-    'path' => array(
+    'sitewide' => array(
       'values' => array(
-        '<front>' => '<front>',
+        1 => 1,
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'boxes-videos_box' => array(
+          'module' => 'boxes',
+          'delta' => 'videos_box',
+          'region' => 'videos',
+          'weight' => '-10',
+        ),
+        'boxes-priorities_box' => array(
+          'module' => 'boxes',
+          'delta' => 'priorities_box',
+          'region' => 'priorities',
+          'weight' => '-10',
+        ),
+        'boxes-minister_box' => array(
+          'module' => 'boxes',
+          'delta' => 'minister_box',
+          'region' => 'minister',
+          'weight' => '-10',
+        ),
+        'boxes-connected_box' => array(
+          'module' => 'boxes',
+          'delta' => 'connected_box',
+          'region' => 'connected',
+          'weight' => '-10',
+        ),
         'views-headlines_front_page-block' => array(
           'module' => 'views',
           'delta' => 'headlines_front_page-block',
@@ -45,9 +69,9 @@ function public_web_usability_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Views for Front Page');
-  t('views');
-  $export['front_page_views'] = $context;
+  t('Boxes');
+  t('Default Multilingual Boxes for Distro');
+  $export['stayconnected_boxes'] = $context;
 
   return $export;
 }
