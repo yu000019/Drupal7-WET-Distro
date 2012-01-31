@@ -17,8 +17,8 @@ function wetkit_metatag_metatag_config_default_alter(array &$configs) {
           'dc.title' => array('value' => '[current-page:title]'),
           'dc.site_name' => array('value' => '[site:name]'),
           'dc.url' => array('value' => '[current-page:url]'),
-          'dc.creator' => array('value' => 'Web Experience Toolkit | Toolkit Expérience Web'),
-          'dc.language' => array('value' => 'eng'),
+          'dc.creator' => array('value' => '[site:name]'),
+          'dc.language' => array('value' => wetkit_current_lang()),
         );
         break;
       case 'global:frontpage':
@@ -47,7 +47,6 @@ function wetkit_metatag_metatag_config_default_alter(array &$configs) {
         break;
       case 'user':
         $config->config += array(
-          'dc.type' => array('value' => 'profile'),
           'dc.title' => array('value' => '[user:name]'),
         );
         break;

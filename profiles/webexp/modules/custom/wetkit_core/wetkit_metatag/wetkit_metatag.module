@@ -1,5 +1,7 @@
 <?php
 
+global $language;
+  
 /**
  * Implements hook_ctools_plugin_api().
  */
@@ -53,10 +55,8 @@ function theme_wetkit_metatag_scheme($variables) {
  * Theme callback for an WetKit meta tag (language).
  */
 function theme_wetkit_metatag_language($variables) {
-  $val_lang = wetkit_current_lang();
   $element = &$variables['element'];
   element_set_attributes($element, array('#name' => 'name', '#value' => 'content'));
-  $element['#attributes']['content'] = $val_lang;
   $element['#attributes']['scheme'] = 'ISO639-2/T';
   unset($element['#value']);
   return theme('html_tag', $variables);
@@ -77,7 +77,6 @@ function theme_wetkit_metatag_title($variables) {
  * Get Current Language of User Interface
  */
 function wetkit_current_lang() {
-  global $language;
   if ($language->name == 'French') {
     $val_lang = "fra";
   }
