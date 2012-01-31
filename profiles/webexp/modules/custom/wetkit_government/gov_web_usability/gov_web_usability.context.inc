@@ -70,8 +70,8 @@ function gov_web_usability_context_default_contexts() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Boxes');
-  t('Default Multilingual Boxes for Distro');
-  $export['stayconnected_boxes'] = $context;
+  t('Default Multilingual Boxes for WET Distro');
+  $export['wetkit_default_boxes'] = $context;
 
   return $export;
 }

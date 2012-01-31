@@ -9,6 +9,7 @@
  * Implements hook_metatag_config_default_alter().
  */
 function wetkit_metatag_metatag_config_default_alter(array &$configs) {
+  global $language;
   foreach ($configs as &$config) {
     switch ($config->instance) {
       case 'global':
@@ -17,7 +18,7 @@ function wetkit_metatag_metatag_config_default_alter(array &$configs) {
           'dc.title' => array('value' => '[current-page:title]'),
           'dc.site_name' => array('value' => '[site:name]'),
           'dc.url' => array('value' => '[current-page:url]'),
-          'dc.creator' => array('value' => '[site:name]'),
+          'dc.creator' => array('value' => i18n_variable_get('sitename',$language->language)),
           'dc.language' => array('value' => wetkit_current_lang()),
         );
         break;
