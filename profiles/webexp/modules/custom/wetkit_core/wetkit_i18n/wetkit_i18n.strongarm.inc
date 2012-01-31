@@ -13,6 +13,24 @@ function wetkit_i18n_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_variable_conf';
+  $strongarm->value = array(
+    0 => 'site_name',
+  );
+  $export['i18n_variable_conf'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_variable_list';
+  $strongarm->value = array(
+    0 => 'site_name',
+  );
+  $export['i18n_variable_list'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'language_default';
   $strongarm->value = (object) array(
     'language' => 'en',
@@ -136,6 +154,13 @@ function wetkit_i18n_strongarm() {
     'language-default' => '-5',
   );
   $export['locale_language_providers_weight_language_content'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'site_name';
+  $strongarm->value = 'Web Experience Toolkit';
+  $export['site_name'] = $strongarm;
 
   return $export;
 }
