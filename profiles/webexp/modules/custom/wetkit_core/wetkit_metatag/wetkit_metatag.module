@@ -1,6 +1,4 @@
 <?php
-
-global $language;
   
 /**
  * Implements hook_ctools_plugin_api().
@@ -77,6 +75,7 @@ function theme_wetkit_metatag_title($variables) {
  * Get Current Language of User Interface
  */
 function wetkit_current_lang() {
+  global $language;
   if ($language->name == 'French') {
     $val_lang = "fra";
   }
