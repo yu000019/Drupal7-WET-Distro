@@ -49,7 +49,6 @@ function wetkit_metatag_metatag_config_default_alter(array &$configs) {
         $config->config += array(
           'dc.type' => array('value' => 'profile'),
           'dc.title' => array('value' => '[user:name]'),
-          'dc.image' => array('value' => '[user:picture:url]'),
         );
         break;
     }
