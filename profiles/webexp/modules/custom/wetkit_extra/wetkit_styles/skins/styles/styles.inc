@@ -220,8 +220,9 @@ function _style_generated($cssstyles) {
   foreach ($cssstyles as $value) {
     $stacktmp[$value] = array(
       'class' => array($value),
-      'title' => t($value),
+      'title' => t('@value', array('@value' => $value)),
     );  
   }
   return $stacktmp;
 }
+

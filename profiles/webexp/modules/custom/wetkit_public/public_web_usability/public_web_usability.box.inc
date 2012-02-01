@@ -71,10 +71,10 @@ function public_web_usability_default_box() {
 <div class="cn-minister-inner">
 	<div class="cn-minister-image">
 		<div>
-			<img alt="Le nom de l\\\'honorable ministre" height="149" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/minister.JPG" width="99" /></div>
+			<img alt="Le nom de l&#39;honorable ministre" height="149" src="/profiles/webexp/themes/genesis_clf/wetcss/wet-boew-theme-gcwu-fegc-v1.0b5/theme-gcwu-fegc/images/minister.JPG" width="99" /></div>
 	</div>
 	<div class="cn-minister-info">
-		<p>L\\&#39;honorable<br />
+		<p>L&#39;honorable<br />
 			<strong>nom du minist&egrave;re</strong></p>
 		<ul>
 			<li>
@@ -163,7 +163,7 @@ function public_web_usability_default_box() {
 	<div class="mediaplayer">
 		<img alt="" class="posterimg" src="/profiles/webexp/themes/genesis_clf/images/video.jpg" /></div>
 	<p><strong>Exp&eacute;rience Web Toolkit Vid&eacute;o</strong></p>
-	<p>Cette section est pour le contenu vid&eacute;o li&eacute;. Souvent c\\&#39;est le meilleur endroit pour introduire votre minist&egrave;re ou organisme.</p>
+	<p>Cette section est pour le contenu vid&eacute;o li&eacute;. Souvent c&#39;est le meilleur endroit pour introduire votre minist&egrave;re ou organisme.</p>
 </div>
 <ul class="list-bullet-none indent-none">
 	<li>
