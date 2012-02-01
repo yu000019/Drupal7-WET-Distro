@@ -74,7 +74,6 @@
   regions[sidebar_second]     = Sidebar second
   regions[content]            = Main Content
   regions[highlighted]        = Highlighted
-  regions[leaderboard]        = Leaderboard
   regions[header]             = Header
   regions[secondary_content]  = Secondary
   regions[tertiary_content]   = Tertiary

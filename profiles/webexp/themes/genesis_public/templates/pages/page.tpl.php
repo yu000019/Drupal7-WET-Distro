@@ -192,12 +192,6 @@
               </div>
             <?php endif; ?> 
 
-            <?php if ($leaderboard = render($page['leaderboard'])): ?>
-              <div id="leaderboard" class="clearfix">
-                <?php print $leaderboard; ?>
-              </div>
-            <?php endif; ?>
-
             <?php if ($highlighted = render($page['highlighted'])): ?>
               <div id="highlighted"><?php print $highlighted; ?></div>
             <?php endif; ?>
