@@ -2,28 +2,29 @@
 /**
  * @file
  *
- * is an alter plugin for defaultcontent
+ * Is an alter plugin for defaultcontent
  *
- * Handles the exporting and importing of file fields 
+ * Handles the exporting and importing of file fields
  */
+
 $plugin = array();
 
 /**
  * Prepares file field for export to code
  */
 function file_export_alter(&$node) {
-  $fields = get_file_fields(); 
-  foreach($fields as $field_name => $field) {
+  $fields = get_file_fields();
+  foreach ($fields as $field_name => $field) {
     if (isset($node->{$field_name})) {
       foreach ($node->{$field_name} as $lang => $items) {
         foreach ($items as $key => $item) {
           $imgfile = drupal_realpath($item['uri']);
-          if($imgfile && ($handle = fopen($imgfile, "rb")) && (filesize($imgfile) >0)) {
+          if ($imgfile && ($handle = fopen($imgfile, 'rb')) && (filesize($imgfile) > 0)) {
             $imgbinary = fread($handle, filesize($imgfile));
             $node->{$field_name}[$lang][$key]['image'] = $imgbinary;
           }
           $filename = $node->{$field_name}[$lang][$key]['filename'];
-          $node->{$field_name}[$lang][$key]['uri'] = "public://$filename";
+          $node->{$field_name}[$lang][$key]['uri'] = 'public://' . $filename;
           unset($node->{$field_name}[$lang][$key]['fid']);
           unset($node->{$field_name}[$lang][$key]['uid']);
           unset($node->{$field_name}[$lang][$key]['timestamp']);
@@ -36,14 +37,13 @@ function file_export_alter(&$node) {
 /**
  * Prepares file field for import
  *
- * create the file and attached the new 
- * file object in the file field
+ * Create the file and attached the new file object in the file field
  */
 function file_import_alter(&$node) {
-  $fields = get_file_fields(); 
-  foreach($fields as $field_name => $field) {
+  $fields = get_file_fields();
+  foreach ($fields as $field_name => $field) {
     if (isset($node->{$field_name})) {
-#      unset($node->{$field_name});
+      //unset($node->{$field_name});
     }
     if (isset($node->{$field_name})) {
       foreach ($node->{$field_name} as $lang => $items) {
@@ -63,28 +63,26 @@ function file_import_alter(&$node) {
             $file->alt = $item['alt'];
             $file->title = $item['title'];
           }
-          elseif($field['type'] == 'file') {
+          elseif ($field['type'] == 'file') {
             $file->display = $item['display'];
             $file->description = $item['description'];
-            
           }
           file_save($file);
           $node->{$field_name}[$lang][$key] = (array) $file;
-          #unset($node->{$field_name}[$lang][$key]);
-          
+          //unset($node->{$field_name}[$lang][$key]);
         }
       }
     }
   }
 }
 
-/*
- * helper function to get all file fields
+/**
+ * Helper function to get all file fields
  */
 function get_file_fields() {
   $ref_fields = array();
-  foreach(field_info_fields() as $id=>$field) {
-    if (in_array($field['type'],  array('image', 'file')) ){
+  foreach (field_info_fields() as $id => $field) {
+    if (in_array($field['type'], array('image', 'file'))) {
       $ref_fields[$id] = $field;
     }
   }
