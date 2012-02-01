@@ -2,17 +2,17 @@
 <document>
   <langcode>fr</langcode>
   <path>webexp</path>
-  <name>Web Experience Toolkit Drupal Prototype</name>
-  <description><![CDATA[<p>Le Drupal distribution basée sur Web Experience Toolkit est une plateforme de logiciel pré-configuré qui permet aux ministères gouvernementaux en utilisant un système de gestion de contenu qui est déjà correctement configuré pour gouvernementales exigences fonctionnelles et d\'affaires.</p>
-    <h2>Bref aperçu des fonctionnalités implémentées</h2>
+  <name>Profil d'installation personnalisée de l'expérience Web</name>
+  <description><![CDATA[<p>Cette distribution de Drupal fondée sur la Boîte à outils de l'expérience Web (BOEW) est une plateforme logicielle préconfigurée pour aider les ministères du gouvernement à utiliser un système de gestion du contenu configuré correctement à l'avance conformément aux exigences fonctionnelles et opérationnelles du gouvernement.</p>
+    <h2>Aperçu des fonctions mises en œuvre</h2>
     <ul>
-      <li>Profil personnalisé d\'installation Web Experience</li>
-      <li>Une meilleure intégration dans Drupal Theme NSI + héritage approprié aux CLF_Custom</li>
-      <li>Contrôle d\'accès complexes + Workflow (module Workbench)</li>
-      <li>Préconfigurés rôles + utilisateurs + autorisations</li>
+      <li>Profil d'installation personnalisée de l'expérience Web</li>
+      <li>Meilleure intégration du thème de la NSI à Drupal et héritage approprié au moyen de CFL_Custom</li>
+      <li>Contrôle d'accès complexe et flux de travail (module Workbench)</li>
+      <li>Rôles, utilisateurs et permissions préconfigurés</li>
       <li>Multilinguisme</li>
-      <li>Thème WET a été remplacé dans le module Wetkit</li>
-      <li>Intégration WET bibliothèques personnalisées grâce Wetkit module</li>
-      <li>Installation Configuration + des modules de meilleures pratiques</li>
+      <li>Thème de la BOEW remplacé dans le module WETKIT</li>
+      <li>Intégration des bibliothèques de la BOEW au moyen du module WETKIT personnalisé</li>
+      <li>Installation et configuration des modules de pratiques exemplaires</li>
     </ul> ]]></description>
 </document>
