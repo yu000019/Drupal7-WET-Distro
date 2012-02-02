@@ -1,6 +1,3 @@
-# Ignore Pesky Development Files
-.DS_Store
-
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
 
@@ -8,7 +5,5 @@ sites/*/settings*.php
 sites/*/files
 sites/*/private
 
-sites/all/modules/ottu_web_usability/
-sites/all/themes/genesis_ottu/
-sites/all/modules/examples/
-sites/all/modules/potx/
+# Ignore Pesky Development Files
+.DS_Store
