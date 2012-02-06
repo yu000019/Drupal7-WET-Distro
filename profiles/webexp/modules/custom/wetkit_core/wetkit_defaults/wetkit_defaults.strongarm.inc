@@ -15,6 +15,7 @@ function wetkit_defaults_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'features_ignored_orphans';
   $strongarm->value = array(
+    'context_ui' => 'context_ui',
     'pathauto' => 'pathauto',
     'path' => 'path',
     'search' => 'search',

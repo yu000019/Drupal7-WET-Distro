@@ -1,16 +1,16 @@
 /**
  * @file
- * README file for WetKit Distribution.
+ * README file for WetKit Box.
  */
 
-Web Experience Toolkit Drupal Distribution
+Web Experience Toolkit: WetKit Box
 
 INFORMATION REGARDING THE WET DISTRIBUTION
 ------------------------------------------
 Refer to the online documentation at: http://wetkit.atlassian.net/wiki
 
 Initial Contributor(s)
-------------------
+---------------------
 There are a wide range of contributors to this project. However for specific 
 governmental concerns please consider contacting:
 
@@ -25,3 +25,7 @@ For greater assistance from the Open Source Community and the WET Drupal
 Framework Variant team please post issues at: 
 http://tbs-sct.ircan-rican.gc.ca/projects/gcwwwdrupal-git
 https://github.com/Web-Experience-Toolkit/Drupal7-WET-Distro/issues
+
+AUTHOR/MAINTAINER OF PLUGIN
+---------------------------
+sylus @ drupal.org <William Hearn>
