@@ -1,8 +1,7 @@
 <?php
 
-/*
- * You must implement hook_migrate_api(), setting the API level to 2, for
- * your migration classes to be recognized by the Migrate module.
+/**
+ * Implements hook_migrate_api().
  */
 function wetkit_migrate_migrate_api() {
   $api = array(
@@ -11,61 +10,54 @@ function wetkit_migrate_migrate_api() {
   return $api;
 }
 
+/**
+ * Implements hook_init().
+ */
 function wetkit_migrate_init() {
-  //For Migrated Documentation
-  if (variable_get('features_set', 1) == 1) {
-    global $theme;
-    db_query('UPDATE {block} SET region = :region, status = :status WHERE module = :module AND theme = :theme AND delta = :delta', 
-         array( ':region' => 'sidebar_first', 
-                ':status' => '1', 
-                ':module' => 'menu',
-                ':theme' => $theme,
-                ':delta' => 'menu-documentation'));
-    drupal_flush_all_caches();
-    features_revert();
-  }
-  variable_set('features_set', 0); 
+
 }
 
-/* Misc Helper Function(s) */
-function _fixPath($fileName) {
- //parse "/html/"
- $file = substr($fileName, 6); 
- //parse ".html"
- $file = substr($file, 0, strrpos($file, '.')); 
- return $file;
+/**
+ * Implements Custom Function _wetkit_migrate_fixPath().
+ */
+function _wetkit_migrate_fixPath($fileName) {
+  //parse "/html/"
+  $file = drupal_substr($fileName, 6);
+  //parse ".html"
+  $file = drupal_substr($file, 0, strrpos($file, '.'));
+  return $file;
 }
 
-function _fixLink($fileName) {
- //parse "/html/"
- $file = substr($fileName, 6); 
- //parse to nearest "/"
- $file = substr($file, 0, strrpos($file, '/')); 
- return $file;
+/**
+ * Implements Custom Function _wetkit_migrate_fixLink().
+ */
+function _wetkit_migrate_fixLink($fileName) {
+  //parse "/html/"
+  $file = drupal_substr($fileName, 6);
+  //parse to nearest "/"
+  $file = drupal_substr($file, 0, strrpos($file, '/'));
+  return $file;
 }
 
-function _menulinks_generate($linkpath, $menuname, $linktitle) {
-  //if ($linkpath != '<front>')
-  //{
-  //  db_query('UPDATE {menu_links} SET link_path = :linkpath WHERE menu_name = :menuname AND link_title = :linktitle', 
-  //           array( ':linkpath' => drupal_get_normal_path($linkpath), 
-  //                  ':menuname' => $menuname, 
-  //                  ':linktitle' => $linktitle ));
-  //}
-  //else {
-    db_query('UPDATE {menu_links} SET link_path = :linkpath WHERE menu_name = :menuname AND link_title = :linktitle', 
-         array( ':linkpath' => $linkpath, 
-                ':menuname' => $menuname, 
-                ':linktitle' => $linktitle ));
-  //}
+/**
+ * Implements Custom Function _wetkit_migrate_menulinks_generate().
+ */
+function _wetkit_migrate_menulinks_generate($linkpath, $menuname, $linktitle) {
+    db_query('UPDATE {menu_links} SET link_path = :linkpath WHERE menu_name = :menuname AND link_title = :linktitle',
+      array( ':linkpath' => $linkpath,
+          ':menuname' => $menuname,
+          ':linktitle' => $linktitle ));
 }
 
-function _add_custom_menu_item_depth($link, $title, $desc, $menu, $weight, $language, $expanded, $depth = 0) {
+/**
+ * Implements Custom Function _wetkit_migrate_add_custom_menu_item_depth().
+ */
+function _wetkit_migrate_add_custom_menu_item_depth($link, $title, $desc, $menu, $weight, $language, $expanded, $depth = 0) {
   $options = array();
   $options += array(
     'attributes' => array(
       'title' => $desc,
-    ), 
+    ),
   );
   $item = array(
     'link_path' => drupal_get_normal_path($link, $language),
@@ -81,6 +73,9 @@ function _add_custom_menu_item_depth($link, $title, $desc, $menu, $weight, $lang
   return menu_link_save($item);
 }
 
-function _delete_menu_docs($menu_name) {
-  db_query('DELETE FROM {menu_links} WHERE menu_name = :menu_name', array( ':menu_name' => $menu_name,));
+/**
+ * Implements Custom Function _wetkit_migrate_delete_menu_docs().
+ */
+function _wetkit_migrate_delete_menu_docs($menu_name) {
+  db_query('DELETE FROM {menu_links} WHERE menu_name = :menu_name', array( ':menu_name' => $menu_name, ));
 }

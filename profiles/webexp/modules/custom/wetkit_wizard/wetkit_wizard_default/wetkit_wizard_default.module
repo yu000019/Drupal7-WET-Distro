@@ -3,15 +3,13 @@
  * @file
  */
 
-// Drupal needs this blank file.
-
 /**
-* Implements hook_install().
-*/
+ * Implements hook_install().
+ */
 function wetkit_wizard_default_init() {
   if (variable_get('wizard_default', 1) == 1) {
     //For Migration
-    migrate_flush_caches();  
+    migrate_flush_caches();
     $migration = Migration::getInstance('XML_Default_Content');
     $result = $migration->processImport();
     $migration = Migration::getInstance('XML_Web_Usability');
@@ -19,5 +17,5 @@ function wetkit_wizard_default_init() {
     $migration = Migration::getInstance('HTML_Documentation');
     $result = $migration->processImport();
     variable_set('wizard_default', 0);
-  }  
+  }
 }

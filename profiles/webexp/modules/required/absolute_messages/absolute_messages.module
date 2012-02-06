@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * @file
+ * Module displaying system messages in colored horizontal bars on top 
+ * of the page, similar to Stack Overflow / Stack Exchange network notifications.
+ */
+
+/**
  * Implements hook_permission().
  */
 function absolute_messages_permission() {
@@ -32,6 +38,39 @@ function absolute_messages_menu() {
 }
 
 /**
+ * Implements hook_init().
+ */
+function absolute_messages_init() {
+
+  // Add module JS and CSS.
+  drupal_add_css(drupal_get_path('module', 'absolute_messages') . '/absolute_messages.css');
+  drupal_add_js(drupal_get_path('module', 'absolute_messages') . '/absolute_messages.js');
+  if (variable_get('absolute_messages_fixed', FALSE)) {
+    drupal_add_css(drupal_get_path('module', 'absolute_messages') . '/absolute_messages_fixed.css');
+  }
+
+  // Module configuration for JS.
+  $settings = array(
+    'dismiss'           => array(),
+    'dismiss_time'      => array(),
+    'dismiss_all_count' => variable_get('absolute_messages_dismiss_all_count', 2),
+  );
+  foreach (_absolute_messages_message_types() as $message_type) {
+    $settings['dismiss'][$message_type] = variable_get('absolute_messages_dismiss_' . $message_type, FALSE);
+    $settings['dismiss_time'][$message_type] = variable_get('absolute_messages_dismiss_time_' . $message_type, '');
+  }
+  // Maximum number of lines to display.
+  if ($max_lines = variable_get('absolute_messages_display_lines', '')) {
+    $settings['max_lines'] = $max_lines;
+  }
+  // Pass configuration to JS.
+  drupal_add_js(strtr('jQuery.extend(Drupal.absolute_messages, !settings);', array(
+    '!settings' => drupal_json_encode($settings),
+  )), 'inline');
+
+}
+
+/**
  * Implements hook_theme().
  */
 function absolute_messages_theme() {
@@ -53,6 +92,9 @@ function absolute_messages_theme() {
     'absolute_messages_dismiss_all' => array(
       'template'  => 'absolute-messages-dismiss-all',
       'path'      => "$path/theme",
+      'variables' => array('vars' => NULL),
+    ),
+    'absolute_messages_grouped_message' => array(
       'variables' => array('vars' => NULL),
     ),
   );
@@ -85,30 +127,6 @@ function theme_absolute_messages($variables) {
     return;
   }
 
-  // Add module JS and CSS.
-  drupal_add_css(drupal_get_path('module', 'absolute_messages') . '/absolute_messages.css');
-  drupal_add_js(drupal_get_path('module', 'absolute_messages') . '/absolute_messages.js');
-
-  // Module configuration for JS.
-  $dismiss_all_count = variable_get('absolute_messages_dismiss_all_count', 2);
-  $settings = array(
-    'dismiss'           => array(),
-    'dismiss_time'      => array(),
-    'dismiss_all_count' => $dismiss_all_count,
-  );
-  foreach (_absolute_messages_message_types() as $message_type) {
-    $settings['dismiss'][$message_type] = variable_get('absolute_messages_dismiss_' . $message_type, FALSE);
-    $settings['dismiss_time'][$message_type] = variable_get('absolute_messages_dismiss_time_' . $message_type, '');
-  }
-  // Maximum number of lines to display.
-  if ($max_lines = variable_get('absolute_messages_display_lines', '')) {
-    $settings['max_lines'] = $max_lines;
-  }
-  // Pass configuration to JS.
-  drupal_add_js(strtr('jQuery.extend(Drupal.absolute_messages, !settings);', array(
-    '!settings' => drupal_json_encode($settings),
-  )), 'inline');
-
   // Provide hook_messages_alter($messages) to other modules.
   // Allows modules to update messages before they are displayed.
   drupal_alter('messages', $all_messages);
@@ -117,6 +135,10 @@ function theme_absolute_messages($variables) {
   $output = '';
   $total_messages = 0;
   foreach ($all_messages as $type => $messages) {
+    // Group duplicate messages if enabled.
+    if (variable_get('absolute_messages_group', FALSE)) {
+      $messages = _absolute_messages_group_duplicates($messages);
+    }
     $vars = array(
       'type'      => $type,
       'messages'  => $messages,
@@ -124,13 +146,14 @@ function theme_absolute_messages($variables) {
     $output .= theme('absolute_messages_messages', $vars);
     $total_messages += count($messages);
   }
-  // Add 'Dismiss all messages' if needed.
-  if ($total_messages > $dismiss_all_count) {
-    $vars = array(
-      'dismiss_all' => t('Dismiss all messages'),
-    );
-    $output .= theme('absolute_messages_dismiss_all', array('vars' => $vars));
-  }
+  // Add 'Dismiss all messages'.
+  $vars = array(
+    'dismiss_all' => t('Dismiss all messages'),
+  );
+  $vars = array(
+    'dismiss_all' => t('Dismiss all messages'),
+  );
+  $output .= theme('absolute_messages_dismiss_all', array('vars' => $vars));
   // Return formatted messages.
   $vars = array(
     'messages'        => $output,
@@ -165,6 +188,36 @@ function theme_absolute_messages_messages($variables) {
     }
   }
   return $output;
+}
+
+/**
+ * Theme function used to additionally format a single message
+ * when "Group duplicate messages" option is enabled, by adding
+ * the number of repetitions at the end of grouped messages.
+ */
+function theme_absolute_messages_grouped_message($variables) {
+  $output = $variables['message'];
+  if ($variables['count'] > 1) {
+    $output .= strtr(' <span title="!title">(x!count)</span>', array(
+      '!title' => t('This message has been repeated !count times.', array('!count' => $variables['count'])),
+      '!count' => $variables['count'],
+    ));
+  }
+  return $output;
+}
+
+/**
+ * Finds all duplicate messages and groups them together.
+ */
+function _absolute_messages_group_duplicates($messages) {
+  $processed = array();
+  foreach (array_count_values($messages) as $message => $count) {
+    $processed[] = theme('absolute_messages_grouped_message', array(
+      'message' => $message,
+      'count'   => $count,
+    ));
+  }
+  return $processed;
 }
 
 /**

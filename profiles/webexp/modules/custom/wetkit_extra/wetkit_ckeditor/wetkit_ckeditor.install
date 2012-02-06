@@ -3,11 +3,12 @@
  * @file
  */
 
-// Drupal needs this blank file.
-
+/**
+ * Implements hook_install().
+ */
 function wetkit_ckeditor_install() {
-  if (variable_get('radio_ckeditor_profile',1) == 1){ 
-    $arr['ckeditor_path'] = 'profiles/webexp/libraries/ckeditor'; 
+  if (variable_get('radio_ckeditor_profile', 1) == 1) {
+    $arr['ckeditor_path'] = 'profiles/webexp/libraries/ckeditor';
     $settings = serialize($arr);
 
     $update = db_update('ckeditor_settings')

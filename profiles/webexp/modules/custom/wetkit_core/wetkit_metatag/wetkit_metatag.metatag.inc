@@ -18,7 +18,7 @@ function wetkit_metatag_metatag_config_default_alter(array &$configs) {
           'dc.title' => array('value' => '[current-page:title]'),
           'dc.site_name' => array('value' => '[site:name]'),
           'dc.url' => array('value' => '[current-page:url]'),
-          'dc.creator' => array('value' => i18n_variable_get('sitename',$language->language)),
+          'dc.creator' => array('value' => i18n_variable_get('sitename', $language->language)),
           'dc.language' => array('value' => wetkit_current_lang()),
         );
         break;
@@ -62,7 +62,6 @@ function wetkit_metatag_metatag_info() {
   $info['groups']['wetkit-metadata'] = array(
     'label' => t('WetKit Metadata'),
   );
-  
   $info['tags']['tmp.title'] = array(
     'label' => t('WetKit Metadata title'),
     'description' => t('The main title of your object as it should appear within the display.'),
@@ -72,7 +71,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag_title',
     ),
   );
-  
   $info['tags']['dc.title'] = array(
     'label' => t('WetKit Metadata title'),
     'description' => t('The title of your object as it should appear within the display.'),
@@ -82,7 +80,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-  
   $info['tags']['dc.site_name'] = array(
     'label' => t('WetKit Metadata site name'),
     'description' => t('A human-readable name for your site, e.g., <em>Web Experience Toolkit</em>.'),
@@ -93,7 +90,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-  
   $info['tags']['dc.url'] = array(
     'label' => t('WetKit Metadata URL'),
     'description' => t('The canonical URL of your object that will be used as its permanent ID in the website.'),
@@ -103,7 +99,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-  
   $info['tags']['dc.language'] = array(
     'label' => t('WetKit Metadata Language'),
     'description' => t('The language of your object'),
@@ -113,7 +108,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag_language',
     ),
   );
-  
   $info['tags']['dc.creator'] = array(
     'label' => t('WetKit Metadata Creator'),
     'description' => t('The creator of the overall site content'),
@@ -123,7 +117,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-  
   $info['tags']['dc.description'] = array(
     'label' => t('WetKit Metadata description'),
     'description' => t('A one to two sentence description of your page.'),
@@ -133,7 +126,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-  
   $info['tags']['date'] = array(
     'label' => t('WetKit Metadata date'),
     'description' => t('The date of your object as it was most recently changed.'),
@@ -143,7 +135,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-   
   $info['tags']['dcterms.issued'] = array(
     'label' => t('WetKit Metadata Date Created'),
     'description' => t('The date of your object as it was created.'),
@@ -153,7 +144,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag_scheme',
     ),
   );
-  
   $info['tags']['dcterms.modified'] = array(
     'label' => t('WetKit Metadata Date Modified'),
     'description' => t('The date of your object as it was modified.'),
@@ -163,7 +153,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag_scheme',
     ),
   );
-    
   $info['tags']['author'] = array(
     'label' => t('WetKit Metadata Author'),
     'description' => t('The main Author of the page.'),
@@ -173,7 +162,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-
   $info['tags']['dc.type'] = array(
     'label' => t('WetKit Metadata type'),
     'description' => t('The type of your object, for example:, <em>Graph</em>.'),
@@ -188,7 +176,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-  
   $info['tags']['dc.image'] = array(
     'label' => t('WetKit Metadata image'),
     'description' => t('An image URL which should represent your object within the page. (PNG, JPEG and GIF formats)'),
@@ -198,7 +185,6 @@ function wetkit_metatag_metatag_info() {
       '#theme' => 'wetkit_metatag',
     ),
   );
-  
   return $info;
 }
 

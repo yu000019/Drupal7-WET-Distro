@@ -25,23 +25,23 @@ function webexp_form_alter(&$form, $form_state, $form_id) {
       // Some policy constraints are active.
       password_policy_add_policy_js($policy, 1);
       foreach ($policy['policy'] as $key => $value) {
-        $translate['constraint_'. $key] = _password_policy_constraint_error($key, $value);
+        $translate['constraint_' . $key] = _password_policy_constraint_error($key, $value);
       }
     }
     // Set a custom form validate and submit handlers.
     $form['#validate'][] = 'webexp_password_validate';
-    $form['#submit'][] = 'webexp_password_submit';  
+    $form['#submit'][] = 'webexp_password_submit';
   }
 }
 
 /**
- * implements hook_install_configure_form_alter().
+ * Implements hook_install_configure_form_alter().
  */
 function webexp_form_install_configure_form_alter(&$form, &$form_state) {
   $form['site_information']['site_name']['#default_value'] = 'Web Experience Toolkit';
-  $form['site_information']['site_mail']['#default_value'] = 'admin@'. $_SERVER['HTTP_HOST']; 
+  $form['site_information']['site_mail']['#default_value'] = 'admin@' . $_SERVER['HTTP_HOST'];
   $form['admin_account']['account']['name']['#default_value'] = 'admin';
-  $form['admin_account']['account']['mail']['#default_value'] = 'admin@'. $_SERVER['HTTP_HOST']; 
+  $form['admin_account']['account']['mail']['#default_value'] = 'admin@' . $_SERVER['HTTP_HOST'];
   $form['server_settings']['site_default_country']['#default_value'] = 'CA';
 }
 
@@ -56,7 +56,7 @@ function webexp_password_validate($form, &$form_state) {
   if (!empty($values['account']['pass'])) {
     $error = _password_policy_constraint_validate($values['account']['pass'], $account);
     if ($error) {
-      form_set_error('pass', st('Your password has not met the basic requirement(s):') .'<ul><li>'. implode('</li><li>', $error) .'</li></ul>');
+      form_set_error('pass', st('Your password has not met the basic requirement(s):') . '<ul><li>' . implode('</li><li>', $error) . '</li></ul>');
     }
   }
 }
@@ -68,7 +68,6 @@ function webexp_password_submit($form, &$form_state) {
   global $user;
   $values = $form_state['values'];
   $account = (object)array('uid' => 1);
-  
   // Track the hashed password values which can then be used in the history constraint.
   if ($account->uid && !empty($values['account']['pass'])) {
     _password_policy_store_password($account->uid, $values['account']['pass']);
@@ -76,9 +75,9 @@ function webexp_password_submit($form, &$form_state) {
 }
 
 /**
-* Trick to enforce page refresh when theme is changed from an overlay.
-*/
-function webexp_admin_paths_alter(&$paths) {  
+ * Trick to enforce page refresh when theme is changed from an overlay.
+ */
+function webexp_admin_paths_alter(&$paths) {
   $paths['admin/appearance/default*'] = FALSE;
 }
 
@@ -90,23 +89,17 @@ function webexp_admin_paths_alter(&$paths) {
 function webexp_install_tasks() {
   //Add important .inc files needed for install once
   include_once 'webexp_install_tasks.inc';
-  include_once 'webexp_custom_install.inc';
   include_once 'webexp_default_install.inc';
-  
   $webexp_needs_batch_processing = variable_get('webexp_needs_batch_processing', TRUE);
   $tasks = array(
-    //'webexp_type_install_form' => array(
-    //  'display_name' => st('Web Experience Toolkit: Installation Type'), 
-    //  'type' => 'form',
-    //), 
     'webexp_configuration_form' => array(
-      'display_name' => st('Web Experience Toolkit: Configuration'), 
+      'display_name' => st('Web Experience Toolkit: Configuration'),
       'type' => 'form',
-    ), 
+    ),
     'webexp_batch_processing' => array(
-      'display_name' => st('Import Additional Language(s)'), 
-      'display' => $webexp_needs_batch_processing, 
-      'type' => 'batch', 
+      'display_name' => st('Import Additional Language(s)'),
+      'display' => $webexp_needs_batch_processing,
+      'type' => 'batch',
       'run' => $webexp_needs_batch_processing ? INSTALL_TASK_RUN_IF_NOT_COMPLETED : INSTALL_TASK_SKIP,
     ),
     'webexp_final_setup' => array(
@@ -127,19 +120,19 @@ function webexp_install_tasks_alter(&$tasks, $install_state) {
 }
 
 /**
- * Implements hook_appstore_stores_info
+ * Implements hook_appstore_stores_info().
  */
 function webexp_apps_servers_info() {
- $info =  drupal_parse_info_file(dirname(__file__) . '/webexp.info');
- return array(
-   'webexp' => array(
-     'title' => 'WebExp',
-     'description' => "Apps for the Web Experience Toolkit Drupal distro",
-     'manifest' => 'http://appserver.openpublicapp.com/app/query',
-     'profile' => 'webexp',
-     'profile_version' => isset($info['version']) ? $info['version'] : '7.x-1.0-beta1',
-     'server_name' => $_SERVER['SERVER_NAME'],
-     'server_ip' => $_SERVER['SERVER_ADDR'],
-   ),
- );
+  $info =  drupal_parse_info_file(dirname(__file__) . '/webexp.info');
+  return array(
+    'webexp' => array(
+      'title' => 'WebExp',
+      'description' => "Apps for the Web Experience Toolkit Drupal distro",
+      'manifest' => 'http://drupal.ircan.gc.ca/app/query',
+      'profile' => 'webexp',
+      'profile_version' => isset($info['version']) ? $info['version'] : '7.x-1.0',
+      'server_name' => $_SERVER['SERVER_NAME'],
+      'server_ip' => $_SERVER['SERVER_ADDR'],
+      ),
+    );
 }

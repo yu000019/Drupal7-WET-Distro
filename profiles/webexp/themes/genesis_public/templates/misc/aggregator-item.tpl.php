@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * aggregator-item.tpl.php
+ */
 ?>
 <article class="feed-item" role="article">
   <header>

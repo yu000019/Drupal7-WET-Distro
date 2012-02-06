@@ -1,8 +1,7 @@
 <?php
-// $Id$
 
 /**
- * Implementation of hook_ctools_plugin_api().
+ * Implements hook_ctools_plugin_api().
  */
 function wetkit_box_ctools_plugin_api($module, $api) {
   list($module, $api) = func_get_args();
@@ -16,7 +15,7 @@ function wetkit_box_ctools_plugin_api($module, $api) {
 }
 
 /**
- * Implementation of hook_boxes_plugins().
+ * Implements hook_boxes_plugins().
  */
 function wetkit_box_boxes_plugins() {
   $info = array();

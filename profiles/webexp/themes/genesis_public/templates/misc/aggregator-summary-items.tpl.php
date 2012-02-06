@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * aggregator-summary-items.tpl.php
+ */
 ?>
 <section id="feed-<?php print drupal_html_class($title); ?>" class="feed">
   <h2 class="summary-title"><?php print $title; ?></h2>

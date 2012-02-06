@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the WetKit Migrate Docs feature.
+ */
+
+include_once('wetkit_migrate_docs.features.inc');

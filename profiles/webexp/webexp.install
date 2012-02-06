@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Code for the webexp.install file.
+ */
 
 /**
  * Implements hook_install().
@@ -6,7 +10,6 @@
  * Perform actions to set up the site for this profile.
  */
 function webexp_install() {
-  
   //Filtered Format
   $filtered_html_format = array(
     'format' => 'filtered_html',
@@ -35,10 +38,8 @@ function webexp_install() {
       ),
     ),
   );
-  
   $filtered_html_format = (object) $filtered_html_format;
   filter_format_save($filtered_html_format);
-
   //Full HTML Format
   $full_html_format = array(
     'format' => 'full_html',
@@ -64,7 +65,7 @@ function webexp_install() {
   );
   $full_html_format = (object) $full_html_format;
   filter_format_save($full_html_format);
-  
+
   //Standard Blocks for Admin Theme
   $admin_theme = 'rubik';
   $values = array(
@@ -198,7 +199,7 @@ function webexp_install() {
   //Page Settings
   variable_set('node_options_page', array('status'));
   variable_set('node_submitted_page', FALSE);
-  
+
   //User Settings
   variable_set('user_pictures', '1');
   variable_set('user_picture_dimensions', '1024x1024');
@@ -260,9 +261,7 @@ function webexp_install() {
   field_create_instance($instance);
 
   //Create an image field named "Image", enabled for the 'article' content type.
-  //Many of the following values will be defaulted, they're included here as an illustrative examples.
-  //See http://api.drupal.org/api/function/field_create_field/7
-
+  //Many of the following values will be defaulted
   $field = array(
     'field_name' => 'field_image',
     'type' => 'image',
@@ -281,8 +280,7 @@ function webexp_install() {
   );
   field_create_field($field);
 
-  //Many of the following values will be defaulted, they're included here as an illustrative examples.
-  //See http://api.drupal.org/api/function/field_create_instance/7
+  //Many of the following values will be defaulted
   $instance = array(
     'field_name' => 'field_image',
     'entity_type' => 'node',
@@ -338,7 +336,7 @@ function webexp_install() {
   $admin_role->weight = 2;
   user_role_save($admin_role);
   user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
-  
+
   // Set this as the administrator role.
   variable_set('user_admin_role', $admin_role->rid);
 
@@ -346,7 +344,7 @@ function webexp_install() {
   db_insert('users_roles')
     ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
     ->execute();
-  
+
   //Enable Admin Theme
   db_update('system')
     ->fields(array('status' => 1))

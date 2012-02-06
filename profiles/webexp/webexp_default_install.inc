@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Code for the webexp_default_install.inc file.
+ */
 
 function _default_setup_form() {
   //Start setting up the form
@@ -76,11 +80,9 @@ function _default_submit_form($form, &$form_state) {
 
 function _default_run_form() {
   //If Government Site
-  if (variable_get('radio_organization') == 'government')
-  {
+  if (variable_get('radio_organization') == 'government') {
     //If Government Site and Internet Theme
-    if (variable_get('radio_internet_intranet') == 'internet')
-    {
+    if (variable_get('radio_internet_intranet') == 'internet') {
       theme_disable(array('bartik'));
       theme_enable(array($GLOBALS['$gov_theme_internet']));
       variable_set('theme_default', $GLOBALS['$gov_theme_internet']);
@@ -91,20 +93,16 @@ function _default_run_form() {
       theme_enable(array($GLOBALS['$gov_theme_intranet']));
       variable_set('theme_default', $GLOBALS['$gov_theme_intranet']);
     }
-    
     //Kinda hackish but has to be run after first set
     $module_list = array($GLOBALS['$gov_web_usability']);
     module_enable($module_list, TRUE);
   }
-  
   //If Non-Government Site
-  else if (variable_get('radio_organization') == 'public') 
-  {
+  elseif (variable_get('radio_organization') == 'public') {
     theme_disable(array('bartik'));
-    theme_enable(array($GLOBALS['$public_theme_internet']));    
+    theme_enable(array($GLOBALS['$public_theme_internet']));
     variable_set('theme_default', $GLOBALS['$public_theme_internet']);
-    
-    $module_list = array($GLOBALS['$public_web_usability']);    
+    $module_list = array($GLOBALS['$public_web_usability']);
     module_enable($module_list, TRUE);
   }
 }

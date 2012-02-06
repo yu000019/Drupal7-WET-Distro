@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * template-overrides.php
+ */
 
 function genesis_public_menu_local_tasks(&$variables) {
   $output = '';
@@ -18,25 +22,24 @@ function genesis_public_menu_local_tasks(&$variables) {
 }
 
 function genesis_public_theme_theme($existing, $type, $theme, $path) {
-  
+
 }
 
 function genesis_public_breadcrumb($variables) {
   $breadcrumb = $variables['breadcrumb'];
   $crumbs = '';
   if (!empty($breadcrumb)) {
-      $crumbs = '<ol class="breadcrumbs">';
-
-      foreach($breadcrumb as $value) {
-           $crumbs .= '<li>'.$value.'</li>';
-      }
-      $crumbs .= '</ol>';
+    $crumbs = '<ol class="breadcrumbs">';
+    foreach ($breadcrumb as $value) {
+      $crumbs .= '<li>' . $value . '</li>';
     }
-      return $crumbs;
+    $crumbs .= '</ol>';
   }
-  
-function genesis_public_form_alter(&$form, &$form_state, $form_id){
-  if ($form_id == 'search_form'){
+  return $crumbs;
+}
+
+function genesis_public_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'search_form') {
       $form['basic']['keys']['#id'] = 'cn-search';
       $form['basic']['submit']['#id'] = 'cn-search-submit';
   }

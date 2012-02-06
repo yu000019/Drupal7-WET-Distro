@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Absolute Messages module (un)installation functions.
+ */
+
+/**
  * Implements hook_uninstall().
  */
 function absolute_messages_uninstall() {

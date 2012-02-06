@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Absolute Messages module admin functions.
+ */
+
+/**
  * Implements hook_admin_settings().
  */
 function absolute_messages_admin_settings_form() {
@@ -20,6 +25,18 @@ function absolute_messages_admin_settings_form() {
     '#title'          => t('Maximum number of message lines to display'),
     '#description'    => t('If set, only first n lines of each message will be displayed, expanding to full message after clicking on it. Useful for length messages. Leave empty for no limit.'),
     '#default_value'  => variable_get('absolute_messages_display_lines', ''),
+  );
+  $form['general']['absolute_messages_fixed'] = array(
+    '#type'           => 'checkbox',
+    '#title'          => t("Fix message bar to the top of browser's viewport"),
+    '#description'    => t("Enabling this option will always keep messages at the top of the visible area within the browser's window, over the page content (without pushing it down). They will remain at that position regardless of scrolling."),
+    '#default_value'  => variable_get('absolute_messages_fixed', FALSE),
+  );
+  $form['general']['absolute_messages_group'] = array(
+    '#type'           => 'checkbox',
+    '#title'          => t('Group duplicate messages'),
+    '#description'    => t("Enabling this option will group identical messages, displaying only one instead and adding a number of repetitions at the end."),
+    '#default_value'  => variable_get('absolute_messages_group', FALSE),
   );
 
   $form['autodismiss'] = array(

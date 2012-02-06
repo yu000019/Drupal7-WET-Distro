@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * aggregator-feed-source.tpl.php
+ */
 ?>
 <aside class="feed-source">
   <?php if ($source_description): ?>

@@ -11,7 +11,7 @@ div.error {
   display: none;
 }
 
-/* Fix for Block X not assigned to Block Y */
+/* Fix for Block X not assigned to Block Y Known Error */
 .db-offline .absolute-messages-message {
   display: none !important;
 }

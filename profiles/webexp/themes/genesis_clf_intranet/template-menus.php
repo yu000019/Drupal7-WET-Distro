@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @file
+ * template-menus.php
+ */
 
 function genesis_clf_intranet_links__menu_goc_terms_bar($variables)  {
 $links = $variables['links'];
@@ -10,7 +13,6 @@ $links = $variables['links'];
 
   if (count($links) > 0) {
     $output = '';
-
     // Treat the heading first if it is present to prepend it to the
     // list of links.
     if (!empty($heading)) {
@@ -19,7 +21,6 @@ $links = $variables['links'];
         // is a string.
         $heading = array(
           'text' => $heading,
-          // Set the default level of the heading. 
           'level' => 'h2',
         );
       }
@@ -47,11 +48,9 @@ $links = $variables['links'];
         $class[] = 'last';
         $class[] = 'trans';
       }
-      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page()))
-           && (empty($link['language']) || $link['language']->language == $language_url->language)) {
+      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page())) && (empty($link['language']) || $link['language']->language == $language_url->language)) {
         $class[] = 'active';
       }
-      
       $output .= '<li' . drupal_attributes(array('class' => $class)) . '>';
 
       if (isset($link['href'])) {
@@ -98,7 +97,6 @@ function genesis_clf_intranet_links__menu_goc_sections($variables)  {
         // is a string.
         $heading = array(
           'text' => $heading,
-          // Set the default level of the heading. 
           'level' => 'h2',
         );
       }
@@ -124,12 +122,10 @@ function genesis_clf_intranet_links__menu_goc_sections($variables)  {
       if ($i == $num_links) {
         $class[] = 'last';
       }
-      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page()))
-           && (empty($link['language']) || $link['language']->language == $language_url->language)) {
+      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page())) && (empty($link['language']) || $link['language']->language == $language_url->language)) {
         $class[] = 'active';
       }
-      
-      if ($i == 1){
+      if ($i == 1) {
         $output .= '<h4 class="col-head">';
       }
       else {
@@ -152,14 +148,12 @@ function genesis_clf_intranet_links__menu_goc_sections($variables)  {
         $output .= '<span' . $span_attributes . '>' . $link['title'] . '</span>';
       }
 
-      if ($i == 1){
+      if ($i == 1) {
         $output .= "</h4>\n";
       }
       else {
         $output .= "</li>\n";
       }
-      
-      
       $i++;
     }
 
@@ -187,7 +181,6 @@ function genesis_clf_intranet_links__menu_goc_footer_bar($variables) {
         // is a string.
         $heading = array(
           'text' => $heading,
-          // Set the default level of the heading. 
           'level' => 'h2',
         );
       }
@@ -205,7 +198,6 @@ function genesis_clf_intranet_links__menu_goc_footer_bar($variables) {
 
     foreach ($links as $key => $link) {
       $class = array($key);
-
       // Add first, last and active classes to the list of links to help out themers.
       if ($i == 1) {
         $class[] = 'first';
@@ -213,11 +205,9 @@ function genesis_clf_intranet_links__menu_goc_footer_bar($variables) {
       if ($i == $num_links) {
         $class[] = 'last';
       }
-      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page()))
-           && (empty($link['language']) || $link['language']->language == $language_url->language)) {
+      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page())) && (empty($link['language']) || $link['language']->language == $language_url->language)) {
         $class[] = 'active';
       }
-      
       //Custom Override is here for last link
       if ($i == $num_links) {
         $output .= '<li id="cn-ft-ca"' . drupal_attributes(array('class' => $class)) . '><div>';
@@ -225,15 +215,13 @@ function genesis_clf_intranet_links__menu_goc_footer_bar($variables) {
       else {
         $output .= '<li' . drupal_attributes(array('class' => $class)) . '>';
       }
-      
       if (isset($link['href'])) {
         // Pass in $link as $options, they share the same keys.
-        
         //Custom Override is here
         if ( isset($link['attributes']['title']) )  {
           $link['html'] = TRUE;
           $link['attributes']['rel'] = 'external';
-          $output .= l('<span>'. $link['title'] . '</span>' . '<br>' . $link['attributes']['title'], $link['href'], $link);
+          $output .= l('<span>' . $link['title'] . '</span>' . '<br />' . $link['attributes']['title'], $link['href'], $link);
         }
         else {
           $output .= l($link['title'], $link['href'], $link);
@@ -262,7 +250,6 @@ function genesis_clf_intranet_links__menu_goc_footer_bar($variables) {
 
     $output .= '</ul>';
   }
-  
   return $output;
 }
 
@@ -284,7 +271,6 @@ function genesis_clf_intranet_links__menu_goc_nav_bar($variables) {
         // is a string.
         $heading = array(
           'text' => $heading,
-          // Set the default level of the heading. 
           'level' => 'h2',
         );
       }
@@ -310,8 +296,7 @@ function genesis_clf_intranet_links__menu_goc_nav_bar($variables) {
       if ($i == $num_links) {
         $class[] = 'last';
       }
-      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page()))
-           && (empty($link['language']) || $link['language']->language == $language_url->language)) {
+      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page())) && (empty($link['language']) || $link['language']->language == $language_url->language)) {
         $class[] = 'active';
       }
       $output .= '<li id="cn-gcnb' . $i . '"' . drupal_attributes(array('class' => $class)) . '>';

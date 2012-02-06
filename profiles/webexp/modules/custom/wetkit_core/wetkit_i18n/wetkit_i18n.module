@@ -7,34 +7,33 @@
 include_once('wetkit_i18n.features.inc');
 
 /**
-* Implements hook_install().
-*/
+ * Implements hook_install().
+ */
 function wetkit_i18n_install() {
 
 }
 
 /**
-* Implements hook_uninstall().
-*/
+ * Implements hook_uninstall().
+ */
 function wetkit_i18n_uninstall() {
 
 }
 
 /**
-* Implements hook_language_init().
-*/
-function wetkit_i18n_language_init() {  
+ * Implements hook_language_init().
+ */
+function wetkit_i18n_language_init() {
   //Set Flag
-  if (variable_get('views_i18n', 1) == 1) { 
-      //Take care of language + domain
-     db_update('languages')
+  if (variable_get('views_i18n', 1) == 1) {
+    //Take care of language + domain
+    db_update('languages')
       ->fields(array(
         'prefix' => variable_get('radio_prefix_domain_en'),
         'domain' => variable_get('radio_language_domain_en'),
       ))
     ->condition('language', 'en')
     ->execute();
-        
     db_update('languages')
       ->fields(array(
         'prefix' => variable_get('radio_prefix_domain_fr'),

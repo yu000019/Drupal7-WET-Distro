@@ -1,7 +1,11 @@
 <?php
+/**
+ * @file
+ *   Module-related plugin functionality for Skinr grids.
+ */
 
 /**
- * Implements hook_skinr_skin_plugin_info()
+ * Implements hook_skinr_skin_plugin_info().
  */
 function wetkit_styles_skinr_skin_styles_info() {
 
@@ -78,7 +82,7 @@ function wetkit_styles_skinr_skin_styles_info() {
     'span-10',
     'span-11',
     'span-12',
-  );  
+  );
 
   //Placement CSS
   $placementcss = array(
@@ -129,7 +133,7 @@ function wetkit_styles_skinr_skin_styles_info() {
 
   //Styling CSS
   $stylingcss = array(
-    'background-accent', 
+    'background-accent',
     'background-dark',
     'background-highlight',
     'background-light',
@@ -183,9 +187,9 @@ function wetkit_styles_skinr_skin_styles_info() {
     'width-70',
     'width-80',
     'width-90',
-    'width-100', 
+    'width-100',
   );
-  
+
   $skins['gridmodulecss'] = array(
     'status' => array(variable_get('theme_default') => 1),
     'title' => t('Grid and Module CSS'),
@@ -194,7 +198,7 @@ function wetkit_styles_skinr_skin_styles_info() {
     'type' => 'checkboxes',
     'options' => _style_generated($gridcss),
   );
-  
+
   $skins['placementcss'] = array(
     'status' => array(variable_get('theme_default') => 1),
     'title' => t('Placement CSS'),
@@ -203,7 +207,7 @@ function wetkit_styles_skinr_skin_styles_info() {
     'type' => 'checkboxes',
     'options' => _style_generated($placementcss),
   );
- 
+
   $skins['stylingcss'] = array(
     'status' => array(variable_get('theme_default') => 1),
     'title' => t('Styling CSS'),
@@ -221,7 +225,7 @@ function _style_generated($cssstyles) {
     $stacktmp[$value] = array(
       'class' => array($value),
       'title' => t('@value', array('@value' => $value)),
-    );  
+    );
   }
   return $stacktmp;
 }

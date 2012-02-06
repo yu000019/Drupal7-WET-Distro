@@ -134,8 +134,8 @@ function public_web_usability_init(){
   //Set Flag
   if (variable_get('views_temp', 1) == 1) {  
     drupal_set_message(t('Please proceed to the !features section to run the Wizard or Custom setup.', array('!features' => l(t('FEATURES'), 'admin/structure/features'))), 'status');
-    drupal_set_message(t('Please read the provided !documentation.', array('!documentation' => l(t('DOCUMENTATION'), 'documentation/styleguide/css-e'))), 'warning');
-  
+    drupal_set_message(t('Please read the online !documentation.', array('!documentation' => l(t('DOCUMENTATION'), 'http://wetkit.atlassian.com/wiki'))), 'warning');
+    
     variable_set('views_temp', 0);
   }
 }

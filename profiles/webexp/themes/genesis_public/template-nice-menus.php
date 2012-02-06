@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @file
+ * template-nice-menus.php
+ */
 
 function genesis_public_nice_menus($variables) {
   $output = array(
@@ -62,8 +65,7 @@ function genesis_public_nice_menus_build($variables) {
         $children = theme('nice_menus_build', array('menu' => $menu_item['below'], 'depth' => $depth, 'trail' => $trail));
         // Set the class to parent only of children are displayed.
         $parent_class = ($children && ($menu_item['link']['depth'] <= $depth || $depth == -1)) ? 'menuparent ' : '';
-         
-         $element = array(
+        $element = array(
           '#below' => '',
           '#title' => $menu_item['link']['link_title'],
           '#href' =>  $menu_item['link']['href'],
@@ -71,20 +73,18 @@ function genesis_public_nice_menus_build($variables) {
           '#attributes' => array(),
         );
         $variables['element'] = $element;
-        
-        if($menu_item['link']['depth'] == 1) {
-          $output .= '<li class="menu-' . $mlid . ' ' . $parent_class . $class . $first_class . $oddeven_class . $last_class . '"><section><h3>'. theme('nice_menus_menu_item_link', $variables) . '</h3>';
+        if ($menu_item['link']['depth'] == 1) {
+          $output .= '<li class="menu-' . $mlid . ' ' . $parent_class . $class . $first_class . $oddeven_class . $last_class . '"><section><h3>' . theme('nice_menus_menu_item_link', $variables) . '</h3>';
         }
-        else if($menu_item['link']['depth'] == 2){
+        elseif ($menu_item['link']['depth'] == 2) {
           $output .= '<div class="menu-col">';
         }
-        else if($menu_item['link']['depth'] == 3){
-          $output .= '<section><h4 class="col-head">'. theme('nice_menus_menu_item_link', $variables) . '</h4>';
+        elseif ($menu_item['link']['depth'] == 3) {
+          $output .= '<section><h4 class="col-head">' . theme('nice_menus_menu_item_link', $variables) . '</h4>';
         }
         else {
-          $output .= '<li class="menu-' . $mlid . ' ' . $parent_class . $class . $first_class . $oddeven_class . $last_class . '">'. theme('nice_menus_menu_item_link', $variables);
+          $output .= '<li class="menu-' . $mlid . ' ' . $parent_class . $class . $first_class . $oddeven_class . $last_class . '">' . theme('nice_menus_menu_item_link', $variables);
         }
-        
         // Check our depth parameters.
         if ($menu_item['link']['depth'] <= $depth || $depth == -1) {
           // Build the child UL only if children are displayed for the user.
@@ -93,27 +93,27 @@ function genesis_public_nice_menus_build($variables) {
             $output .= $children;
             $output .= "</div>\n";
           }
-          else if ($children && ($menu_item['link']['depth'] == 2)) {
+          elseif ($children && ($menu_item['link']['depth'] == 2)) {
             $output .= $children;
           }
-          else if ($children && ($menu_item['link']['depth'] == 3)) {
+          elseif ($children && ($menu_item['link']['depth'] == 3)) {
             $output .= '<ul>';
             $output .= $children;
             $output .= "</ul>\n";
           }
         }
-        if($menu_item['link']['depth'] == 1) {
+        if ($menu_item['link']['depth'] == 1) {
           $output .= "</section></li>\n";
         }
-        else if($menu_item['link']['depth'] == 2){
+        elseif ($menu_item['link']['depth'] == 2) {
           $output .= '</div>';
         }
-        else if($menu_item['link']['depth'] == 3){
+        elseif ($menu_item['link']['depth'] == 3) {
           $output .= '</section>';
         }
         else {
           $output .= "</li>\n";
-        } 
+        }
       }
       else {
         $element = array(

@@ -7,28 +7,27 @@
 include_once('wetkit_slider.features.inc');
 
 /**
-* Implements hook_install().
-*/
+ * Implements hook_install().
+ */
 function wetkit_slider_install() {
-   
+
 }
 
 /**
-* Implements hook_uninstall().
-*/
+ * Implements hook_uninstall().
+ */
 function wetkit_slider_uninstall() {
   variable_del('views_slider');
 }
 
 /**
-* Implements hook_load().
-*/
-function wetkit_slider_init(){
+ * Implements hook_load().
+ */
+function wetkit_slider_init() {
   //Set Flag
   if (variable_get('views_slider', 1) == 1) {
     //Flush Drupal Caches
     drupal_flush_all_caches();
-    
     //Create managed File object and associate with file field.
     $file1 = _slider_add_file('default_sliderpic1.png', drupal_get_path('theme', variable_get('theme_default')) . '/images/slider01.png');
     $file2 = _slider_add_file('default_sliderpic2.png', drupal_get_path('theme', variable_get('theme_default')) . '/images/slider02.png');
@@ -48,31 +47,30 @@ function wetkit_slider_init(){
     _slider_add_node('Première page diaporama officiel 1', 'fr', 3, 'Titre première diaporama', $file1, $field_text_1_fr);
     _slider_add_node('Front Page Slider Official 2', 'en', 4, 'Second Slide Title', $file2, $field_text_1_en);
     _slider_add_node('Première page diaporama officiel 1', 'fr', 4, 'Titre dieuxème diaporama', $file2, $field_text_1_fr);
- 
     variable_set('views_slider', 0);
   }
 }
 
 /**
-* Implements _slider_add_file().
-*/
+ * Implements _slider_add_file().
+ */
 function _slider_add_file($filename, $filepath) {
-  $file = new StdClass();
+  $file = new stdClass();
   $file->uid = 6;
   $file->uri = $filepath;
   $file->filename = $filename;
   $file->filemime = file_get_mimetype($file->uri);
-  $file->status = 1;      
-  $dest = file_default_scheme() . '://'.$filename; // Subdirectory name within files directory. ($dest is optional.)
+  $file->status = 1;
+  $dest = file_default_scheme() . '://' . $filename;
   $file = file_copy($file, $dest);
   $file->display = 1;
-  $file->description = ""; 
+  $file->description = "";
   return $file;
 }
 
 /**
-* Implements _slider_add_node().
-*/
+ * Implements _slider_add_node().
+ */
 function _slider_add_node($title, $langval, $tnid, $slider_title, $slider_file, $slider_desc) {
   $node = new stdClass();
   $node->type = 'main_slider';

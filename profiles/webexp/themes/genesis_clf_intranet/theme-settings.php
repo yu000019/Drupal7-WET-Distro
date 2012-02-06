@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * theme-settings.php
+ */
 
 function genesis_clf_intranet_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['Intranet'] = array(
@@ -7,7 +11,6 @@ function genesis_clf_intranet_form_system_theme_settings_alter(&$form, &$form_st
     '#collapsible' => FALSE,
     '#collapsed' => FALSE,
   );
-  
   $form['Intranet']['sub_site_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Intranet web site name'),

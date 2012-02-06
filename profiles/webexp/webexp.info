@@ -1,6 +1,7 @@
 name = WebExp
 description = Install Profile created for the Web Experience Toolkit using Drupal 7
 core = 7.x
+version = 7.x-1.0
 
 ;THE FOLLOWING MODULES ARE REQUIRED FOR BASIC DISTRO OPERATIONS
 ;FEATURES CAN BE ENABLED POST INSTALL THAT DEPEND ON MORE MODULES WITH DISTRO
@@ -50,6 +51,8 @@ dependencies[] = module_filter
 dependencies[] = nice_menus
 dependencies[] = pathauto
 dependencies[] = pathauto_persist
+dependencies[] = relation
+dependencies[] = relation_endpoint
 dependencies[] = stringoverrides
 dependencies[] = strongarm
 dependencies[] = token
@@ -64,6 +67,8 @@ dependencies[] = views_ui
 
 ;BASE CONTRIB ENTITY
 dependencies[] = entity
+dependencies[] = entitycache
+dependencies[] = entity_autocomplete
 dependencies[] = entity_token
 dependencies[] = entity_translation
 dependencies[] = title

@@ -7,10 +7,9 @@
 include_once('wetkit_content_types.features.inc');
 
 /**
-* Implements hook_node_view_alter().
-*/
-function wetkit_content_types_node_view_alter(&$build)
-{
+ * Implements hook_node_view_alter().
+ */
+function wetkit_content_types_node_view_alter(&$build) {
   unset($build['language']);
 }
 

@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * wetkit_box.inc
+ */
 
 /**
  * Multilingual custom text box.
@@ -9,15 +13,15 @@ class wetkit_box extends boxes_box {
    */
   public function options_defaults() {
     $defaults = array();
-	// get a list of enabled languages
+    // get a list of enabled languages
     $languages = language_list('enabled');
     foreach ($languages[1] as $language) {
       $defaults[$language->language . '-title'] = array(
-	    'value' => '',
+        'value' => '',
       );
-	  $defaults[$language->language . '-body'] = array(
-	    'value' => '',
-		'format' => filter_default_format(),
+      $defaults[$language->language . '-body'] = array(
+        'value' => '',
+        'format' => filter_default_format(),
       );
     }
     return $defaults;
@@ -31,10 +35,10 @@ class wetkit_box extends boxes_box {
     $form = array();
     $languages = language_list('enabled');
     // wrap each language's fields in a fieldset
-    foreach ($languages[1] as $language) { 
+    foreach ($languages[1] as $language) {
       $form[$language->language] = array(
         '#type' => 'fieldset',
-        '#title' => $language->name,
+        '#title' => check_plain($language->name),
       );
       $form[$language->language][$language->language . '-title'] = array(
         '#type' => 'textfield',
@@ -60,7 +64,6 @@ class wetkit_box extends boxes_box {
    */
   public function render() {
     global $language;
-    
     // Title. English is fallback.
     if (!empty($this->options[$language->language . '-title'])) {
       $title = check_plain($this->options[$language->language . '-title']);
@@ -71,8 +74,7 @@ class wetkit_box extends boxes_box {
     else {
       $title = NULL;
     }
-    
-    // Body. English is fallback.
+    //Body. English is fallback
     if (!empty($this->options[$language->language . '-body'])) {
       // Filter full HTML.
       $content = check_markup($this->options[$language->language . '-body']['value'], $this->options[$language->language . '-body']['format'], FALSE);
@@ -83,9 +85,8 @@ class wetkit_box extends boxes_box {
     else {
       $content = '';
     }
-    
     return array(
-      'delta' => $this->delta, // Crucial.
+      'delta' => $this->delta,
       'title' => $title,
       'subject' => $title,
       'content' => $content,
