@@ -158,7 +158,7 @@ function wetkit_slider_field_default_fields() {
   $fields['node-main_slider-field_slider_title'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_slider_title',
