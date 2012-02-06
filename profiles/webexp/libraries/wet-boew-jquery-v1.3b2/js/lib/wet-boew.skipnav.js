@@ -14,7 +14,7 @@
 var SkipNavFix = {
 	 init: function(){
         if (!jQuery.support.opacity) {
-            var aTags = $("a");
+            var aTags = jQuery("a");
             for (var i = 1; aTags[i].parentNode.className == "navaid"; i++) {
                 SkipNavFix._patchNavLink(aTags[i]);
             }
