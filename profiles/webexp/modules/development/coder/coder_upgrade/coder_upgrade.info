@@ -1,8 +1,6 @@
 name = "Coder Upgrade"
 
-description = "Module conversion suite -- generates code to assist with the upgrade of
-               contributed 6.x modules to version 7.x modules.
-               WARNING: Use only on contributed modules."
+description = "Modifies source code to assist with the upgrade of a module for changes to a relied upon API."
 
 package = Development
 ;dependencies[] = coder ; Not a dependency
@@ -29,9 +27,9 @@ configure = admin/config/development/coder/upgrade/settings
 
 core = 7.x
 
-; Information added by drupal.org packaging script on 2011-08-17
-version = "7.x-1.0"
+; Information added by drupal.org packaging script on 2011-12-30
+version = "7.x-1.x-dev"
 core = "7.x"
 project = "coder"
-datestamp = "1313611616"
+datestamp = "1325246719"
 

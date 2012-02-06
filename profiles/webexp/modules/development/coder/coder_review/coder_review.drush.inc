@@ -46,6 +46,8 @@ function coder_review_drush_command() {
     'callback' => 'coder_review_drush_review',
     'description' => dt('Run code reviews'),
     'drupal dependencies' => array('coder_review'),
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
+    'aliases' => array('coder', 'review', 'lint'),
   );
   return $items;
 }
@@ -66,6 +68,25 @@ function _coder_review_set_form_modules(&$settings) {
  */
 function coder_review_drush_review() {
   _coder_review_drush_set_option('drush');
+
+  // Check for drush style options.
+  foreach (array('summary', 'no-empty', 'xml', 'checkstyle') as $option) {
+    if (drush_get_option($option)) {
+      _coder_review_drush_set_option($arg);
+    }
+  }
+  $severity = drush_get_option('severity', '');
+  foreach (array('major', 'minor', 'critical') as $option) {
+    if (drush_get_option($option)) {
+      $severity_name = $option;
+    }
+  }
+  foreach (array('active', 'core', 'contrib', 'all', 'default') as $option) {
+    if (drush_get_option($option)) {
+      $settings = _coder_review_get_default_settings($option);
+      $settings['coder_includes'] = TRUE;
+    }
+  }
 
   // Process command line arguments.
   $args = func_get_args();
@@ -121,20 +142,30 @@ function coder_review_drush_review() {
             $settings['coder_includes'] = TRUE;
           }
           else {
-            if (file_exists($arg)) {
-              $settings['coder_files'] = 1;
-              if (empty($settings['coder_file_list'])) {
-                $settings['coder_file_list'] = '';
-              }
-              $settings['coder_file_list'] .= $arg . "\n";
-            }
-            elseif (_coder_review_drush_is_patch_arg($arg)) {
+            $root = drupal_realpath('.');
+            if (_coder_review_drush_is_patch_arg($arg, $root)) {
               $settings['coder_patches'] = 1;
               $settings['coder_patch_link'] = $arg;
             }
             else {
-              $settings['coder_modules-' . $arg] = 1;
-              $settings['coder_includes'] = TRUE;
+              $path = preg_replace(",^$root/,", '', $_SERVER['OLDPWD'] . '/' . $arg);
+              if (file_exists($path)) {
+                $settings['coder_files'] = 1;
+                if (empty($settings['coder_file_list'])) {
+                  $settings['coder_file_list'] = '';
+                }
+                if (is_dir($path)) {
+                  $ext = variable_get('coder_review_php_ext', array('inc', 'php', 'install', 'test'));
+                  $settings['coder_file_list'] .= implode("\n", array_keys(drupal_system_listing('/\.(' . implode('|', $ext). ')$/', $path, 'filepath', 0)));
+                }
+                else {
+                  $settings['coder_file_list'] .= $path . "\n";
+                }
+              }
+              else {
+                $settings['coder_modules-' . $arg] = 1;
+                $settings['coder_includes'] = TRUE;
+              }
             }
             unset($settings['coder_active_modules']);
             unset($settings['coder_core']);
@@ -150,7 +181,7 @@ function coder_review_drush_review() {
     elseif (_coder_review_drush_is_option('xml')) {
       _coder_review_drush_xml_output_header('xml');
     }
-    if (isset($severity_name)) {
+    if (!empty($severity_name)) {
       if (_coder_review_drush_is_option('xml')) {
         _coder_review_drush_xml_output_severity($severity_name);
       }
@@ -189,16 +220,17 @@ function coder_review_drush_review() {
 /**
  * Handle patch reviews.
  */
-function _coder_review_drush_is_patch_arg(&$arg) {
-  if (drupal_substr($arg, 0, 7) == 'http://' || is_file(realpath($arg))) {
+function _coder_review_drush_is_patch_arg(&$arg, $root) {
+  if (drupal_substr($arg, 0, 7) == 'http://') {
     return TRUE;
   }
-  // @NOTE: relies on http://drupal.org/node/297611
-  if (isset($_SERVER['OLDPWD'])) {
-    $path = $_SERVER['OLDPWD'] . '/' . $arg;
-    if (is_file($path)) {
-      $arg = $path;
-      return TRUE;
+  if (preg_match('/\.(patch|diff|tmp)$/', $arg)) {
+    if (isset($_SERVER['OLDPWD'])) {
+      $path = preg_replace(",^$root/,", '', $_SERVER['OLDPWD'] . '/' . $arg);
+      if (is_file($path)) {
+        $arg = $path;
+        return TRUE;
+      }
     }
   }
 }

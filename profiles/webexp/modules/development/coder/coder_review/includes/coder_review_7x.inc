@@ -879,12 +879,6 @@ function coder_review_7x_reviews() {
         '#value' => '[\s\(]node_invoke_nodeapi\s*\(',
         '#warning_callback' => '_coder_review_7x_node_invoke_nodeapi_removed_warning',
       ),
-      // http://drupal.org/node/224333#node_view
-      array(
-        '#type' => 'regex',
-        '#value' => '[\s\(]node_view\s*\(',
-        '#warning_callback' => '_coder_review_7x_node_view_warning',
-      ),
       // http://drupal.org/node/224333#node_build_rss
       array(
         '#type' => 'regex',
@@ -1326,10 +1320,10 @@ function _coder_review_7x_user_delete_warning() {
 
 function _coder_review_7x_hook_user_op_warning() {
   return array(
-    '#warning' => t('!hook_user() has been removed in favour of hook_user_$op functions, for example !hook_user_validate().',
+    '#warning' => t('!hook_user() has been removed in favour of hook_user_$op functions, for example !hook_user_presave().',
       array(
         '!hook_user()' => theme('drupalapi', array('function' => 'hook_user', 'version' => '6')),
-        '!hook_user_validate()' => theme('drupalapi', array('function' => 'hook_user_validate', 'version' => '7')),
+        '!hook_user_presave()' => theme('drupalapi', array('function' => 'hook_user_presave', 'version' => '7')),
       )
     ),
     '#link' => 'http://drupal.org/node/224333#remove_op',
@@ -1373,7 +1367,7 @@ function _coder_review_7x_hook_block_op_warning() {
   return array(
     '#warning' => t('!hook_block() has been split into a number of smaller hooks.',
       array(
-        '!hook_block()' => theme('drupalapi', array('function' => 'hook_block', 'version' => '7')),
+        '!hook_block()' => theme('drupalapi', array('function' => 'hook_block', 'version' => '6')),
       )
     ),
     '#link' => 'http://drupal.org/node/224333#remove_op',
@@ -1577,18 +1571,6 @@ function _coder_review_7x_drupal_execute_renamed_warning() {
       )
     ),
     '#link' => 'http://drupal.org/node/224333#drupal_execute_drupal_form_submit',
-  );
-}
-
-function _coder_review_7x_node_view_warning() {
-  return array(
-    '#warning' => t('!node_view() has been removed and !node_build() should be used instead.',
-      array(
-        '!node_view' => theme('drupalapi', array('function' => 'node_view', 'version' => 6)),
-        '!node_build()' => theme('drupalapi', array('function' => 'node_build', 'version' => 7)),
-      )
-    ),
-    '#link' => 'http://drupal.org/node/224333#node_view',
   );
 }
 
